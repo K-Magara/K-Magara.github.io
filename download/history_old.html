@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li class="ddmenu-title">Service
+	<ul class="ddmenu">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li id="menubar_hdr2" class="close">Service
+	<ul id="menubar-s2">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+
+<h2>NCVC Ver3.80より前の古い更新履歴</h2>
+
+<h3>Ver3.72b (2018/10/24)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>ＣＡＤデータを開くと落ちていたバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.72a (2018/10/18)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>固定サイクルモード中のM98サブプロ呼び出しができなかったバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.72 (2018/10/15)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>(MCFile="hoge.mnc")キーワードを追加<br>→NCプログラムから機械情報設定ファイルを指定できます<br>　.mncの拡張子は省略可能です</li>
+  <li>OpenGL旋盤モードで端面を閉じた<br>→もういいかげん閉じないとね（笑）</li>
+  <li>OpenGLソリッド表示にFrameBufferObject(FBO)を使用<br>　使用されているときはステータスバーの拡大率の隣に"FBO"と出ます<br>　FBOが使える環境では自動的に使用されます<br>　→よほど古いビデオカードでない限りサポートされていると思います<br>　　参考までに4kフルスクリーンでトレース速度が約3%高速化</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>一部ビデオカードでOpenGLワイヤ放電加工機モードが落ちていたバグを修正<br>→落ちてなくても色々おかしかった所を修正しています</li>
+  <li>(WorkFile="hoge.[igs|stl]")で"..\"などの相対パスが効かなかったバグを修正</li>
+  <li>機械情報の設定でCNCタブの [ビューモードの指定が無いとき] の設定がコメント指定のLatheView/WireViewで上書きできていなかったバグを修正<br>→たとえばデフォルトがワイヤ加工機モードの状態でLatheViewを設定した旋盤データを読み込むと描画がおかしくなってました</li>
+  </ul>
+</ul>
+
+<h3>Ver3.71a (2018/09/28)</h3>
+<ul class="disc">
+<li>ＮＣ生成</li>
+  <ul class="disc">
+  <li>旋盤データの生成は形状を表す図形集合（連続線）を１つだけに制限する仕様変更<br>→線がつながっていないと生成できなくしました</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>OpenGLでのトレースで２回目以降の実行に切削パスのイメージが残るバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.71 (2018/08/09)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>OpenGLソリッド表示で新たにSTLデータを指定できるようにした<br>→(WorkFile="hoge.stl"[, OffsetX, OffsetY, OffsetZ])　[]は省略可<br>　IGESとは拡張子で判別します</li>
+  <li>OpenGLでのトレース実行速度を少しだけアップ<br>→高速モードで約10%アップ（作者開発環境での実測）</li>
+  <li>WorkFileキーワードのときはトレース実行ができないようにした<br>→あと一歩がうまくいかない後ろ向きの解決...</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>IGESデータを読み込んだとき深さによっては描画が乱れるバグを修正</li>
+  <li>IGESデータを読み込んだときのメモリリーク問題を解決</li>
+  <li>OpenGLでのトレース実行で不特定箇所で異常停止していたバグを修正<br>→ちょこっとなおしただけなのでビデオカードによってはまだ症状が出るかもしれません</li>
+  </ul>
+</ul>
+
+<h3>Ver3.70 (2018/06/28) 74,894行</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>OpenGLソリッド表示で新たにIGESデータを指定できるようにした<br>→(WorkFile="hoge.igs"[, OffsetX, OffsetY, OffsetZ])　[]は省略可<br>　NURBS曲線/曲面のみの対応です</li>
+  <li>オプショナルブロックスキップをサポート<br>→数値省略はゼロとみなします(/と/0は等しい)<br>　スイッチのON/OFFは工作機械設定のCNCタブにありますがめんどくさいので頻繁に使われる場合は別途考えます</li>
+  <li>"("に続き"/"を書くとコメント行によるNCVCへの指示を無視するようにした<br>→(/WorkRect=....)と書くとNCVCはそのコメント行を無視します<br>　書式は残しておきたいけど一時的に無効にしたい場合などにどうぞ</li>
+  </ul>
+</ul>
+
+<h3>Ver3.66a (2018/06/04)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>コメント行の解釈を少しだけ強化</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>アドインのツールバーが正しく表示されていなかったバグを修正<br>→おかしなデータで保持されていると思うので[表示]→[ツールバー]からアドインの再設定を行ってください</li>
+  </ul>
+</ul>
+
+<h3>Ver3.66 (2018/03/08)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>固定サイクルのドウェル時間(P)の解釈を、XYZ等の座標値と同じに変更<br>→これまでは工作機械設定のF判定と同じにしていました。変更後は小数点ナシ：msec判定、アリ：sec判定（FUNACでPの小数点はエラーです）</li>
+  <li>固定サイクルのドウェル時間の加算を、G8xに関係なくPが指定されていれば加算するように変更<br>→これまではG82,G88,G89のときだけドウェル時間を加算</li>
+  </ul>
+<li>ＮＣ生成</li>
+  <ul class="disc">
+  <li>穴加工のドウェル時間表記に小数点が選択されているとダイアログ設定画面に警告を出すようにした</li>
+  </ul>
+<li>他</li>
+  <ul class="disc">
+  <li>前回検索文字列の保存は、検索したときだけ保存するように変更<br>→3.65ではキャンセル（単に閉じる）しても保存していた</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>サポートされないMコードがあると、同一ブロックの有効なGコードや座標値が無視されていたバグを修正</li>
+  <li>M98サブプロ呼び出しで、コメント内のO番号まで検索していたバグを修正<br>→これに伴いサブプロ検索条件を少し厳しく変更</li>
+  <li>径補正の座標計算で、機械設定のG54～G59ワーク座標オフセットが２重に加算されていたバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.65 (2017/12/19)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>前回の検索文字列を残すようにした</li>
+  </ul>
+<li>他</li>
+  <ul class="disc">
+  <li>細かな調整</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>OpenGLタブでG01直線補間のボールエンドミル描画軌跡が間違っていたバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.64 (2017/11/28)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>OpenGLタブで非アクティブでもトレース実行を継続するかどうかのフラグを追加<br>→表示属性の設定です。初期値はOFF（ほぼデバッグ用です...）</li>
+  </ul>
+<li>ＮＣ生成</li>
+  <ul class="disc">
+  <li>G83深穴サイクルを生成できるようにした。</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>CADデータからDXF出力を実行すると、原点情報が出力されていなかったバグを修正</li>
+  <li>径補正において、微細線分が連続するときに計算ミスが発生していたバグを修正<br>→計算コア部分のチェック条件を少しだけ緩和</li>
+  </ul>
+</ul>
+
+<h3>Ver3.63a (2017/08/22)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>CADデータの読み込み設定で、切削レイヤの正規表現に間違ったコードを入力すると、落ちていたバグを修正<br>→正規表現を正しく構築するための例外処理を追加した</li>
+  <li>ワイヤ放電加工機用生成で、上下異形状切削の開始ポイントがおかしかったバグを修正</li>
+  <li>ワイヤ用の切削条件設定で、[新規保存]ボタンが効かなかったバグを修正</li>
+  <li>形状認識処理後に保存したCAMファイルが読めなかったバグを修正<br>→32ビット版と64ビット版の間で互換性もなかったバグも同時に修正</li>
+　<li>形状認識処理で加工指示を消すDelキーが効かなくなる場合があったバグを修正</li>
+  <li>CADデータがアクティブのとき、アドインと外部アプリのツールチップヒントが出ずに「引数が正しくありません」と表示されていたバグを修正</li>
+  <li>サムネイルでNCデータを開くとき、フォルダのデータがちょうど9個なら、スクロールバーの動作がおかしかったバグを修正</li>
+  <li>NCプログラムのリストビューがアクティブなとき、ブレイク(F9)などのショートカットキーが効かなかったバグを修正</li>
+  </ul>
+</ul>
+
+<h3>Ver3.63 (2017/06/12)</h3>
+<ul class="disc">
+<li>ＮＣ表示</li>
+  <ul class="disc">
+  <li>(Endmill=C_)の書式を追加 先端角90度の面取りミルを再現します<br>→Cに続く数値はRと同じ半径です</li>
+  <li>工作機械設定の工具情報に工具タイプを追加<br>→Ｔ番号から3種類のエンドミル先端形状を再現できます</li>
+  <li>OpenGLタブでのトレース速度ＵＰ（ほんの少し）</li>
+  <li>OpenGLタブでトレース中にウィンドウが非アクティブになるとトレースを一時停止するように変更<br>→一応の安全対策ですが、応答なしで止まるときゃ止まる...</li>
+  </ul>
+</ul>
+
+</div>
+<!--/#contents-->
+
+<footer>
+
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li class="ddmenu-title">Service
+	<ul class="ddmenu">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li id="menubar_hdr2" class="close">Service
+	<ul id="menubar-s2">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+
+<h2>NCVC 更新履歴</h2>
+
+<h3>3.87a (2020/10/29)</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>小数第4位を認識すると，情報エリア（左上ペイン）も4位表示になります<br>NC情報のコピー（クリップボードへのコピー）も同様です<br>→速度維持のため，小数第4位のチェックは50ブロックまで</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>M98サブプロ呼び出しでＬ（リピート）があるとき2回目のM99復帰が無視されていたバグを修正</li>
+	</ul>
+</ul>
+
+<h3>3.87 (2020/10/09)</h3>
+<ul class="disc">
+	<li>NC生成</li>
+	<ul class="disc">
+		<li>小数第4位表記をサポートした<br>→1/1000表記で運用されていた方は再設定してください</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>径補正とG68座標回転を組み合わせるとシミュレーション結果がおかしくなるバグを修正</li>
+		<li>DXFのBLOCKセクションにLWPOLYLINEがあると落ちていたバグを修正</li>
+	</ul>
+	
+</ul>
+
+<h3>3.86 (2020/08/17)</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>固定サイクルにG73,G74,G76を追加</li>
+		<li>メインプログラムにM99があると，シミュレーションを停止していたのを無視するようにした</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>(WorkFile="hoge.igs")でOpenGLソリッド表示されないバグを修正<br>→メモリリークもあってKodatunoソースコードをさわりました...</li>
+	</ul>
+	<li>他</li>
+	<ul class="disc">
+		<li>一部わかりにくかったエラーメッセージを変更</li>
+		<li>MFCランタイムを自動認識しなかったインストーラ設定ミスの解消(8/18追記)</li>
+	</ul>
+</ul>
+
+<h3>3.85a (2020/04/02)</h3>
+<ul class="disc">
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>固定サイクル中にG90(Abs)/G91(Inc)を切り替えると描画がおかしくなったバグを修正</li>
+		<li>カスタムヘッダー・フッターの置換処理中に落ちる可能性があったバグを修正</li>
+		<li>形状認識による生成で輪郭データを持つ集合に対して方向指示が効かなかったバグを修正</li>
+	</ul>
+	<li>他</li>
+	<ul class="disc">
+		<li>KodatunoライブラリをR3.2改からR3.4に切り替え<br>→もうソースコードはいじりません！</li>
+	</ul>
+</ul>
+
+<h3>3.85 (2020/01/06)</h3>
+<ul class="disc">
+	<li>他</li>
+	<ul class="disc">
+		<li>アドインI/Fの拡張</li>
+	</ul>
+</ul>
+
+<h3>3.84a (2019/12/02)</h3>
+<ul class="disc">
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>固定サイクル中にM98サブプロ呼び出しをすると切削パスが意図しない表示になる場合があったバグを修正</li>
+	</ul>
+</ul>
+
+<h3>3.84 (2019/11/01)</h3>
+<ul class="disc">
+	<li>NC生成</li>
+	<ul class="disc">
+		<li>旋盤モードで突っ切りバイトによる溝加工データの生成をサポートした<br>→詳細は更新された旋盤マニュアルを参照してください</li>
+	</ul>
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>旋盤モードの工具に突っ切りバイトを追加<br>→(GroovingTool=[L|R|C]n)と書けば 幅n の溝が表現できます<br>　(EndGrooving)でキャンセルです　L:工具基準点左(Lは省略可), R:同右, C:同中央<br>　詳細は更新された旋盤マニュアルを参照してください</li>
+		<li>ボールエンドミル表記(Endmill=n,1)の書式を廃止しました<br>→今後は(Endmill=Rn) nは半径 に統一します<br>　廃止書式は著書にも載せていませんがご使用の方はR表記に変更してください</li>
+	</ul>
+</ul>
+
+<h3>3.83b (2019/07/11)</h3>
+<ul class="disc">
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>大きめのＮＣプログラムを読み込むと、OpenGLソリッド描画で切削データが欠落していたバグを修正</li>
+	</ul>
+	<li>他</li>
+	<ul class="disc">
+		<li>64bit版インストーラでＭＦＣランタイムを自動認識できるようになった<br>→32bit版と同様にランタイムが無いときだけインストールを促すメッセージが出ます</li>
+	</ul>
+</ul>
+
+<h3>3.83a (2019/07/08)</h3>
+<ul class="disc">
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>単純にＮＣ生成したら落ちるバグを修正<br>→///orz///</li>
+	</ul>
+</ul>
+
+<h3>3.83 (2019/07/05)</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>WorkRectキーワードの書式を追加<br>→(WorkRect=200x100t10)と書けば幅200奥行100の中心100,50で厚さ10mmの六面体になります<br>　従来の(WorkRect=200,100,10,-100,-50,-10)と同じですが<br>　加工原点が矩形中心なら追加書式のほうがわかりやすいと思います</li>
+		<li>WorkCylinderキーワードの書式を追加<br>→(WorkCylinder=60h20)と書けば直径60mmの中心で高さ20mmの円柱になります<br>　従来の(WorkCylinder=60,20,0,0,-20)と同じですが<br>　加工原点が円の中心なら追加書式のほうがわかりやすいと思います</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>複数の切削レイヤを持つＣＡＤデータで標準生成（シングル扱い）すると生成漏れが発生していたバグを修正</li>
+		<li>フォルダ名やファイル名に特定の漢字が使われていると正しく分離できていなかったバグを修正</li>
+	</ul>
+</ul>
+
+<h3>3.82 (2019/06/07)</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>OpenGLの最低バージョンを2.0から1.5に引き下げ<br>→落ちる原因が他にあったため元に戻しました</li>
+		<li>「有効なNCデータがありませんでした」というエラーメッセージを廃止<br>→NC_Code_Checker.plからの要望で空っぽのビューが表示されます</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>ＯＳや構成によってNCVCが異常終了することへの対応</li>
+	</ul>
+</ul>
+
+<h3>3.81a (2019/05/23)</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>OpenGLの表示設定に[FrameBufferObjectを使用]オプションの追加<br>→古いビデオカード搭載のＰＣでOpenGLソリッド表示が正常に出ない場合は<br>　この設定をオフにしてみてください。通常はオンのままで結構です</li>
+		<li>OpenGLの最低バージョンを1.5から2.0に引き上げ<br>→あまりにも古いビデオカードのサポートを切りました<br>　ソリッド表示ができないだけで他の機能は使えます</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>ＰＣ環境や構成によってNCVCが起動できなかったことへの対応</li>
+	</ul>
+</ul>
+
+<h3>3.81 (2019/05/13)</h3>
+<ul class="disc">
+	<li>他</li>
+	<ul class="disc">
+		<li>オプショナルブロックスキップの設定をモードレスダイアログでもできるようにした<br>→Ver3.70で予告しておいた変更です</li>
+	</ul>
+</ul>
+
+<h3>3.80a (2019/04/24)</h3>
+<ul class="disc">
+	<li>NC生成</li>
+	<ul class="disc">
+		<li>固定サイクルでのドウェル時間に小数点の入力を許可しました<br>→設定ダイアログには常に小数点が表示されます（座標値等と同じ扱い）が、<br>　［時間表記］が整数の場合は小数点以下が無視されます。<br>　旋盤生成の下穴ドウェルは整数固定です。</li>
+	</ul>
+</ul>
+
+<h3>3.80 (2019/02/20) 78,041行</h3>
+<ul class="disc">
+	<li>NC表示</li>
+	<ul class="disc">
+		<li>(Drill=xx)はOpenGL表示で先端角118°にした</li>
+		<li>(LatheHole=xx)キーワードを追加<br>→加工前の中空穴サイズが直径で指定できます<br>　ただしLatheViewよりもあとに記述しないと有効になりません</li>
+		<li>OpenGL旋盤モードでHOMEキーを押したとき切削パスが正面に見えるようにした</li>
+		<li>OpenGL旋盤モードで断面表示をサポート<br>→Ctrl+左ダブルクリックで切替可能です</li>
+	</ul>
+	<li>NC生成</li>
+	<ul class="disc">
+		<li>旋盤生成の機能強化（手抜きマニュアル更新）<br>→従来の外径切削に加え、端面・下穴・内径の加工データを生成</li>
+		<li>[レイヤごとにコメントを埋め込む]の生成オプションを<br>[レイヤ情報をコメントで挿入]に変更し、単一レイヤでも有効にした</li>
+	</ul>
+	<li>バグレポート</li>
+	<ul class="disc">
+		<li>穴加工生成でG83以外にもQ値が付いていたバグを修正</li>
+		<li>NCVCで吐いたDXFがAutoCADで読めなかったバグを修正</li>
+	</ul>
+	<li>他</li>
+	<ul class="disc">
+		<li>細かな調整（未報告バグ修正含む）</li>
+	</ul>
+</ul>
+
+<h2>さらに古い履歴</h2>
+<p><a href="history_old.html">こちら</a>から</p>
+</div>
+<!--/#contents-->
+
+<footer>
+
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
