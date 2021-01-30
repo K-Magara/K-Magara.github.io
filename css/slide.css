@@ -34,18 +34,18 @@
 /*１枚目*/
 .slide1 {
 /*	background: url(../images/1.png) repeat-x center center / auto 240px;	*/ /*１枚目画像の読み込み。240pxは高さ指定。*/
-	background: url(../images/1.jpg) no-repeat center center / cover;
+	background: url(../images/1.jpg) no-repeat center center / auto 600px;
 	animation-name: slide1;		/*keyframes.cssで使う@keyframesの指定*/
 }
 /*２枚目*/
 .slide2 {
 /*	background: url(../images/2.png) repeat-x center center / auto 600px;	*/ /*２枚目画像の読み込み。600pxは高さ指定。*/
-	background: url(../images/2.jpg) no-repeat center center / cover;
+	background: url(../images/2.jpg) no-repeat center center / auto 400px;
 	animation-name: slide2;		/*keyframes.cssで使う@keyframesの指定*/
 }
 /*３枚目*/
 .slide3 {
-	background: url(../images/3.jpg) no-repeat center center / cover;	/*３枚目画像の読み込み。coverは画像がきれないように全体を表示させる指定。*/
+	background: url(../images/3.jpg) no-repeat center center / auto 600px;	/*３枚目画像の読み込み。coverは画像がきれないように全体を表示させる指定。*/
 	animation-name: slide3;		/*keyframes.cssで使う@keyframesの指定*/
 }
 
