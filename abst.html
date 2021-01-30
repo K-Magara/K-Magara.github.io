@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/openclose.js"></script>
+<script src="js/fixmenu_pagetop.js"></script>
+<script src="js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li class="ddmenu-title">Service
+	<ul class="ddmenu">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li><a href="company.html">Company</a></li>
+<li id="menubar_hdr2" class="close">Service
+	<ul id="menubar-s2">
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	<li><a href="service.html">サービスメニュー</a></li>
+	</ul>
+</li>
+<li><a href="recruit.html">Recruit</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+
+<h2>NCVCとは？</h2>
+<p>一言で言うとフリー（無料）のCAMソフトです．CADで製図した図形情報から工作機械を動かすためのNCコードを生成します．</p>
+<ul class="disc">
+	<li>2次元汎用CADが使用可能<br>DXF出力可能，かつ，レイヤ名が出力できるものであれば，普段使い慣れたCADでOK！</li>
+	<li>NCコードの切削シミュレーション</li>
+	<li>NCコードから各平面（XY， XZ， YZ）単位の2次元DXFデータ（R12形式）が出力可能</li>
+	<li>アドインI/Fにより、ユーザサイドの拡張が可能<br>JW_CADデータ（JWW/JWC）が直接読み込めます</li>
+</ul>
+<p>一応基本的な機能は備えていますが，まだまだ発展途上です．いずれ「フリーでここまでできるのか」というくらいまでは(^o^)</p>
+
+<h2>簡単な使用方法</h2>
+
+<h3>切削シミュレーション</h3>
+<p>NCコードの切削シミュレーションは，NCデータ（*.ncd）を開けばその切削パスが表示されます．
+デフォルトの拡張子は .ncd ですが，他の拡張子を設定することも可能です．</p>
+
+<h3>NCコードの生成</h3>
+<ol>
+	<li>CADでの作図
+		<ul class="disc">
+			<li>切削したい線や円（弧）の軌跡，穴加工（実点または円）データを切削レイヤに</li>
+			<li>工作機械の原点を示す円（中心が工作機械の原点を表す）を原点レイヤに</li>
+			<li>上記２つのレイヤは必須です．その他必要に応じて
+				<ul class="disc">
+					<li>加工開始時の移動パスを表す線または円は加工開始指示レイヤに</li>
+					<li>切削途中の強制移動指示は移動レイヤに</li>
+				</ul>
+			</li>
+		</ul>を作図し，それぞれのレイヤに名前を設定してください．以下はNCVCが読み込むデフォルトレイヤ名です．<br>
+		<strong class="color1">切削レイヤ：CAM</strong><br>
+		<strong class="color1">原点レイヤ：ORIGIN</strong><br>
+		<strong class="color1">加工開始指示レイヤ：なし</strong><br>
+		<strong class="color1">強制移動指示レイヤ：なし</strong><br>
+		<strong class="color1">コメント用文字レイヤ：なし</strong>
+	</li>
+	<p></p>
+	<li>DXF形式で保存してください<br>
+		DXFではそれぞれのCAD特有の情報が消える可能性があるので，念のためご使用のCAD独自の形式でも保存しておいてください．
+		JW_CADの場合は，JW_CADのデータをそのまま読み込むアドインがあるのでDXFでの保存は必要ありません．
+	</li>
+	<p></p>
+	<li>NCVCでDXFを開きます<br>
+		正しく読むことが出来ればメニューから「NC変換」が選択できます．とりあえずそのままOKボタン
+	</li>
+	<p></p>
+	<li>生成されたNCデータがシミュレーションされます。
+	</li>
+</ol>
+<hr size="10"><p></p>
+<p>
+３番にてデフォルトの切削条件(init.nci)を指定しましたが，もちろんそれぞれの加工条件に合わせて設定してあげてください．
+切削条件ファイルはテキストファイルで保存されますので，それぞれの加工条件にあった複数の条件ファイルを作っておくと効果的です．
+</p>
+
+<p>その他、注意点として</p>
+<ul class="disc">
+	<li>現在のNCVCは軌跡切削なので，使用する工具径を考慮しながら作図する必要があります．
+		つまり，輪郭加工やポケット加工を行う場合は，作図段階で複線による工具分のオフセット，または，ポケット加工を行うような軌跡を製図する必要があります<sup>*1</sup>．</li>
+	<li>加工開始位置指示と強制移動指示のデータは必須ではありません．
+		機械原点からの最短移動では工具が干渉してしまう，加工効率を上げるため早送りポイントを指示したいなど，必要に応じて指定してください．</li>
+	<li>現在のNCコード生成エンジンは，基本的に２次元DXFデータを切削条件ファイルに従って３次元加工するだけのことですので，まだＺ軸の動的な切削コントロールはできません<sup>*2</sup>．
+		したがってネームプレート的な加工やワイヤー加工機などの２Ｄ切削に最適でしょう．</li>
+	<li>NCデータ生成の探索ルールは『一筆書き理論（オイラーグラフ）』を採用しています．
+		出来るだけ同一Ｚ軸で一筆書き切削できるようなパスを生成<sup>*3</sup>しますが，まだそれほど賢くありません．あたたかく見守って下さい．</li>
+</ul>
+<p>	
+	<sup>*1</sup>Ver1.00以降の形状認識処理を使えば，オフセット演算が可能になりました．<br>
+	<sup>*2</sup>拡張NC生成機能（複数レイヤによる一括生成）を使えば，疑似２．５Ｄ切削（等高線切削）も可能です．<br>
+	<sup>*3</sup>端点での一筆書きのみで，交点での線分割は行いません．
+</p>
+<hr size="10"><p></p>
+<table class="ta2">
+<tr>
+<th><a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="images/9784274221644.jpg"></a></th>
+<td>いまからはじめるNC工作第2版　好評発売中！<br>
+<a href="https://www.amazon.co.jp/exec/obidos/ASIN/4274221644/" target="_blank">Amazon</a>
+<a href="https://www.google.co.jp/search?hl=ja&q=%22%E3%81%84%E3%81%BE%E3%81%8B%E3%82%89%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%EF%BC%AE%EF%BC%A3%E5%B7%A5%E4%BD%9C%22&btnG=Google+%E6%A4%9C%E7%B4%A2&lr=lang_ja&gws_rd=ssl" target="_blank">ほか</a><br>
+これで勉強してください．
+</td>
+</tr>
+</table>
+
+</section>
+
+</div>
+<!--/#contents-->
+
+<footer>
+
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
