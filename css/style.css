@@ -345,7 +345,7 @@ footer .pr {display: block;}
 }
 /*左側ボックス*/
 .ta1 th {
-	width: 150px;	/*幅*/
+	width: 200px;	/*幅*/
 	text-align: center;	/*センタリング*/
 	font-weight: normal;
 }
@@ -369,7 +369,7 @@ footer .pr {display: block;}
 	word-break: break-all;
 }
 .ta2 th {
-	width: 150px;	/*幅*/
+	width: 200px;	/*幅*/
 	text-align: center;	/*センタリング*/
 	font-weight: normal;
 }

@@ -70,39 +70,44 @@
 
 <section>
 
-<h2>アドイン</h2>
+<h2>スクリプト</h2>
 
 <table class="ta1">
 <!-- <caption>見出しが必要であればここを使います</caption> -->
 <tr>
-<th>アドイン用SDK</th>
-<td>NCVCアドイン開発者向け</td>
+<th>すべてダウンロード</th>
+<td>以下のスクリプトをZIPで固めたものです．たまに抜けています．</td>
 </tr>
 <tr>
-<th>GRBLc Ver0.94</th>
-<td>Grbl 1.1 と通信できる NCVCアドイン（βテスト版）<br>	※Grbl 0.9以前には対応しておりません</td>
+<th>transpose_macro<br>(FANUC)<br>ver2.5.2.pl<br>2020/08/17</th>
+<td>マクロ呼び出し命令、サブプログラム呼び出し命令を含むNCデータを、それらが実行された状態に置換して、一つのプログラムにします。
+また、マクロ文を平易なNC文に変換（実機の内部変換をシミュレート）します。<br>
+<br>
+ちなみに、FANUC用です。<br><br>
+<ul class="disc">
+    <li>defined関数の仕様変更によるバグを修正（2016/09/06)</li>
+    <li>WHILEマクロのバグ修正など（2018/03/08)</li>
+    <li>システム変数5001,5002,5003に対応，G66関連のバグを修正(2018/03/29)</li>
+    <li>加減算のバグを修正(2018/05/30)</li>
+    <li>G66のバグを修正(2018/11/08)</li>
+    <li>WHILEマクロのバグ修正など(2019/05/15)</li>
+    <li>エラーチェック追加(2019/05/23)</li>
+    <li>文法チェックのバグ修正(2019/09/09)</li>
+    <li>文法チェックのバグ修正(2020/04/16)</li>
+</ul></td>
 </tr>
 <tr>
-<th>ReadJW Ver3.00b<br>32ビット版</th>
-<td>JW_CAD, JW_WIN(Ver7.04a)のデータを読むことができます．<br>
-	読み込みレイヤはDXFと同じです．［オプション］メニューの［CADデータの読み込み設定］で読み込むレイヤを設定してください．<br>
-	JWファイルをD&Dで開くことも可能です．</td>
+<th>NC.Code.Checker<br>Ver1.3<br>2019/09/25</th>
+<td>マシニングセンタ(FANUC,MELDAS,MAPPS系)用のNCプログラムの誤りをチェックするPerlスクリプトです。<br>
+    主に手書きで作成したNCプログラムのチェックを想定しています。<br>
+    使い方、検出できる誤り等については付属の NC_Code_Checkerについて.pdf を参照してください。<br></td>
 </tr>
 <tr>
-<th>ReadCSV Ver1.10<br>32ビット版</th>
-<td>CSV形式の座標データを読み込みます．詳細は付属のReadme.txtを参照</td>
-</tr>
-<tr>
-<th>SolveTSP Ver1.10<br>32ビット版</th>
-<td>巡回セールスマン問題の解法を用いた穴加工の移動最適化</td>
-</tr>
-<tr>
-<th>SendNCD Ver1.30<br>32ビット版</th>
-<td>NCデータのシリアル送信を行います．ハードウェアでのフロー制御のみに対応．ほぼPNC-300G専用</td>
+<th>YtoC.pl<br>Ver1.00<br>2017/08/22</th>
+<td>Y軸の移動距離をC軸の回転角度に変換するスクリプト<br>
+    詳細は著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』を参照</td>
 </tr>
 </table>
-
-<p><strong class="color1">※GRBLc以外の64ビット版アドインは，本体64ビット版のインストーラに含まれています．</strong></p>
 
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
