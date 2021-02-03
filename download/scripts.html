@@ -71,15 +71,18 @@
 <section>
 
 <h2>スクリプト</h2>
-
 <table class="ta1">
-<!-- <caption>見出しが必要であればここを使います</caption> -->
+<caption>スクリプトのリポジトリ　<a href="https://github.com/NCVC-CAM/Scripts" target="_blank">https://github.com/NCVC-CAM/Scripts</a></caption>
 <tr>
-<th>すべてダウンロード</th>
-<td>以下のスクリプトをZIPで固めたものです．たまに抜けています．</td>
+<th><a href="https://github.com/NCVC-CAM/Scripts/archive/main.zip">すべてダウンロード</a></th>
+<td>GitHubの機能を用いて以下のスクリプトをzip圧縮してダウンロードします．<br>
+mainというサフィックス（接尾辞）が付きますが，GitHubの仕様です．ブランチ名が付きます．<br>
+<strong class="color1">このダウンロードのみUTF-8対応の解凍ツールで解凍しないとファイル名が文字化けするのでご注意ください．
+下の各々のZIPファイルはWindowsで圧縮しているので大丈夫です．
+</strong></td>
 </tr>
 <tr>
-<th>transpose_macro(FANUC).pl<br>ver2.5.2<br>2020/08/17</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/transpose_macro_set.zip">transpose_macro(FANUC).zip</a><br>ver2.5.2<br>2020/08/17</th>
 <td>マクロ呼び出し命令、サブプログラム呼び出し命令を含むNCデータを、それらが実行された状態に置換して、一つのプログラムにします。
 また、マクロ文を平易なNC文に変換（実機の内部変換をシミュレート）します。<br>
 <br>
@@ -97,18 +100,18 @@
 </ul></td>
 </tr>
 <tr>
-<th>NC.Code.Checker<br>Ver1.3<br>2019/09/25</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/NC.Code.Checker1.4.zip">NC.Code.Checker.zip</a><br>Ver1.3<br>2019/09/25</th>
 <td>マシニングセンタ(FANUC,MELDAS,MAPPS系)用のNCプログラムの誤りをチェックするPerlスクリプトです。<br>
     主に手書きで作成したNCプログラムのチェックを想定しています。<br>
     使い方、検出できる誤り等については付属の NC_Code_Checkerについて.pdf を参照してください。</td>
 </tr>
 <tr>
-<th>YtoC.pl<br>Ver1.00<br>2017/08/22</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/YtoC.pl">YtoC.pl</a><br>Ver1.00<br>2017/08/22</th>
 <td>Y軸の移動距離をC軸の回転角度に変換するスクリプト<br>
     詳細は著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』を参照</td>
 </tr>
 <tr>
-<th>change_for_laser.pl<br>Ver2.00<br>2017/06/06</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/change_for_laser.pl">change_for_laser.pl</a><br>Ver2.00<br>2017/06/06</th>
 <td>NCVCで出力したNCコードをレーザー加工機用に変換するスクリプト<br>
 　G01でZ軸マイナス方向に切り込むコードを$ON_Code、<br>
 　G00またはG01でZ軸プラス方向に待避するコードを$OFF_Code<br>
@@ -129,119 +132,121 @@
 この切削条件で生成したNCコードを、このスクリプトで変換するとZ値の上下に合わせてレーザ出力のON/OFFが制御できます</td>
 </tr>
 <tr>
-<th>convert_to_milimerter.pl<br>Ver1.00<br>2012/09/10</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/convert_to_milimerter.pl">convert_to_milimerter.pl</a><br>Ver1.00<br>2012/09/10</th>
 <td>NCデータ中の数値に小数点がついていない場合、1/1000倍した値に変換して小数点を付加するスクリプト
     対象のアドレス(設定可能)の後の数値が対象となる<br>
 　ex.) X500Y80Z30. -> X0.5Y0.08Z30.</td>
 </tr>
 <tr>
-<th>remove_space.pl<br>Ver1.21<br>2011/06/22</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/remove_space.pl">remove_space.pl</a><br>Ver1.21<br>2011/06/22</th>
 <td>ブロック間のスペースを削除</td>
 </tr>
 <tr>
-<th>XYonly.pl<br>Ver1.00<br>2007/11/20</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/XYonly.pl">XYonly.pl</a><br>Ver1.00<br>2007/11/20</th>
 <td>ＸＹ座標値以外を除去<br>
     <s>詳細は旧掲示板のこちらを参照</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>divide_circular.pl<br>Ver1.00<br>2007/11/20</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/divide_circular.pl">divide_circular.pl</a><br>Ver1.00<br>2007/11/20</th>
 <td>円弧補間を象限ごとに分割する<br>
     <s>詳細は旧掲示板のこちらを参照</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>transpose_laser_Gcode.pl<br>Ver1.00<br>2007/11/20</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/transpose_laser_Gcode.pl">transpose_laser_Gcode.pl</a><br>Ver1.00<br>2007/11/20</th>
 <td>レーザー加工機用のGコードを変換<br>
     <s>詳細は旧掲示板のこちらを参照</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>by_round2.pl<br>Ver1.00<br>2007/10/22</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/by_round2.pl">by_round2.pl</a><br>Ver1.00<br>2007/10/22</th>
 <td>NCデータ中の座標値を 1/1000(小数第３位) 四捨五入し、1/100(小数第２位) に変換するスクリプト．
     X,Y,Z,I,J,K,R,C,U,V,Wの後の数字が対象となる．
     小数点表記にのみ対応．整数表記には未対応(使えません)</td>
 </tr>
 <tr>
-<th>change_G90G91.pl<br>Ver1.30<br>2007/06/22</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/change_G90G91.pl">change_G90G91.pl</a><br>Ver1.30<br>2007/06/22</th>
 <td>G90/G91の相互変換．1/1000表記に対応</td>
 </tr>
 <tr>
-<th>change_axes.pl<br>Ver1.20<br>2005/08/11</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/change_axes.pl">change_axes.pl</a><br>Ver1.20<br>2005/08/11</th>
 <td>特定コメントを解釈し座標軸を変換するスクリプト<br>
     <s>詳細は旧掲示板のこちらを参照</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>change_for_lathe.pl<br>Ver1.10<br>2005/05/25</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/change_for_lathe.pl">change_for_lathe.pl</a><br>Ver1.10<br>2005/05/25</th>
 <td>NCVCで作成したGコードをNC旋盤用に変換するスクリプト<br>
     (change_XZ_YX.pl+X_to_2X.pl)<br>
     <s>詳細はこちら</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>LatheViewCompleteSet<br>2004/12/06</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/LatheViewCompleteSet.zip">LatheViewCompleteSet.zip</a><br>2004/12/06</th>
 <td>旋盤加工用のＮＣデータをＮＣＶＣで表示（チェック）させたい人のためのスクリプト集</td>
 </tr>
 <tr>
-<th>control_cutter_direction.pl<br>Ver1.10<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/control_cutter_direction.pl">control_cutter_direction.pl</a><br>Ver1.10<br>2004/04/02</th>
 <td>ＸＹ平面の角度補間(+add_G41.1G40.1.pl 機能付き)<br>
     <s>詳細は旧掲示板のこちらを参照</s><br>　古い情報なのでアクセスできません．Perlソースの中身から判断してください．</td>
 </tr>
 <tr>
-<th>change_XZ_YX.pl<br>Ver1.10<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/change_XZ_YX.pl">change_XZ_YX.pl</a><br>Ver1.10<br>2004/04/02</th>
 <td>NCVCで作成したGコードをNC旋盤用に軸変換するスクリプト（軸変換のみ）</td>
 </tr>
 <tr>
-<th>by_scale.pl<br>Ver1.30<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/by_scale.pl">by_scale.pl</a><br>Ver1.30<br>2004/04/02</th>
 <td>座標値の任意倍率変更</td>
 </tr>
 <tr>
-<th>add_G41.1G40.1.pl<br>Ver1.20<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/add_G41.1G40.1.pl">add_G41.1G40.1.pl</a><br>Ver1.20<br>2004/04/02</th>
 <td>G02の行の直前にG41.1、直後にG40.1を付加</td>
 </tr>
 <tr>
-<th>remove_point.pl<br>Ver1.20<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/remove_point.pl">remove_point.pl</a><br>Ver1.20<br>2004/04/02</th>
 <td>数字の小数点を削除</td>
 </tr>
 <tr>
-<th>remove_comment.pl<br>Ver1.20<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/remove_comment.pl">remove_comment.pl</a><br>Ver1.20<br>2004/04/02</th>
 <td>カッコの行を削除</td>
 </tr>
 <tr>
-<th>add_sequence_number.pl<br>Ver1.20<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/add_sequence_number.pl">add_sequence_number.pl</a><br>Ver1.20<br>2004/04/02</th>
 <td>行番号を付加(旧add_line_number.pl)</td>
 </tr>
 <tr>
-<th>add_point.pl<br>Ver1.20<br>2004/04/02</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/add_point.pl">add_point.pl</a><br>Ver1.20<br>2004/04/02</th>
 <td>数字に小数点を付加</td>
 </tr>
 <tr>
-<th>X_to_2X.pl<br>Ver1.10<br>2004/04/01</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/X_to_2X.pl">X_to_2X.pl</a><br>Ver1.10<br>2004/04/01</th>
 <td>X座標を2倍に変換するスクリプト</td>
 </tr>
 <tr>
-<th>decycle_G82.pl<br>Ver1.30<br>2004/04/01</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/decycle_G82.pl">decycle_G82.pl</a><br>Ver1.30<br>2004/04/01</th>
 <td>固定サイクル命令を直線補間命令に変換</td>
 </tr>
 <tr>
-<th>insert_space.pl<br>Ver1.10<br>2004/04/01</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/insert_space.pl">insert_space.pl</a><br>Ver1.10<br>2004/04/01</th>
 <td>ブロック間にスペースを付加</td>
 </tr>
 <tr>
-<th>remove_sequence_number.pl<br>Ver1.10<br>2004/04/01</th>
+<th><a href="https://github.com/NCVC-CAM/Scripts/raw/main/remove_sequence_number.pl">remove_sequence_number.pl</a><br>Ver1.10<br>2004/04/01</th>
 <td>NCデータの行番号を削除(旧remove_line_number.pl)</td>
 </tr>
 </table>
+</section>
 
+<section>
 <h2>ツール</h2>
-
 <table class="ta1">
 <tr>
-<th>Scriptorium<br>Ver3.00<br>2004/09/07</th>
-<td>スクリプト実行補助ツール</td>
+<th><a href="https://drive.google.com/file/d/1CVRP6W-I_YU7z33agI_ZYOhOI-5tyhae/view?usp=sharing" target="_blank">Scriptorium.lzh</a><br>Ver3.00<br>2004/09/07</th>
+<td>スクリプト実行補助ツール<br>GoogleDriveからダウンロード</td>
 </tr>
 <tr>
-<th>帳票作成マクロ.xls<br>Ver1.00<br>2006/11/24</th>
+<th><a href="https://drive.google.com/file/d/1dZWIRkVn5_xU9QVZf-wfU89B-ZdtcT2z/view?usp=sharing" target="_blank">帳票作成マクロ.xls</a><br>Ver1.00<br>2006/11/24</th>
 <td>NCプログラムをアドレスごとに分割し、プロセスシート（表）を作成します。<br>
-    NCプログラムを見やすく印刷することができます。</td>
+    NCプログラムを見やすく印刷することができます。<br>GoogleDriveからダウンロード</td>
 </tr>
 </table>
+</section>
 
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
