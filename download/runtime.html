@@ -84,27 +84,8 @@
 </tr>
 </table>
 
-<p><strong class="color1">※MFCランタイムが入っているはずなのに「インストールしますか？」と聞かれる場合</strong></p>
-
-<p>
-＜＜＜原因＞＞＞ インストーラで指定しているキーが見つからないか違う．<br>
-32ビットの場合<br>
-　<span class="look">HKEY_CLASSES_ROOT\Installer\Dependencies\Microsoft.VS.VC_RuntimeMinimumVSU_x86,v14</span>が<br>
-　<span class="look">{2E72FA1F-BADB-4337-B8AE-F7C17EC57D1D}</span>でない．<br>
-64ビットの場合<br>
-　<span class="look">HKEY_CLASSES_ROOT\Installer\Dependencies\Microsoft.VS.VC_RuntimeMinimumVSU_amd64,v14</span>が<br>
-　<span class="look">{7DC387B8-E6A2-480C-8EF9-A6E51AE81C19}</span>でない．<br>
-Windows Update されていないか，違うものが入っているのが原因だが，多少バージョンが違っても動く場合があります．
-</p>
-
-<p>
-＜＜＜対処方法＞＞＞<br>
-・「インストールしますか？」の問いに，いったん［はい］を選択．<br>
-・MFCランタイムのセットアップ画面が表示されるので，［インストール］ボタンがあればインストールする．<br>
-・［修復］［アンインストール］になっていれば［閉じる］を選択．この場合はすでにインストールされているものが使えます．
-</p>
-
-<p>インストーラ側でももう少しチェック方法がないか模索中です．</p>
+<p><strong class="color1">※MFCランタイムが入っているはずなのに「インストールしますか？」と聞かれる場合</strong><br>
+<a href="../faq/general.html">FAQ</a>を参照</p>
 </section>
 
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
