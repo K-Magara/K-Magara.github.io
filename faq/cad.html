@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ --FAQ/CAD設定--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+<h2>FAQ／CAD設定</h2>
+<table class="ta1">
+<tr>
+<th><strong class="color1">AutoCADの既定値画層（レイヤ）名"0"をNCVCに読み込ませたい</strong></th>
+<td>
+NCVCの切削対象データは，既定値 "CAM" となっていますが簡単に変更可能です．<br>
+メニューの［オプション］→［CADデータの読み込み設定］で切削レイヤを以下のように設定してください．<br>
+<span class="look">CAM|^[0-9]$</span>　CAM または 数字(0～9)で始まり数字で終わる という意味です．<br>
+切削レイヤの設定には正規表現が使えますので，文字のマッチングパターンを柔軟に表現可能です．
+</td>
+</tr>
+<tr>
+<th><strong class="color1">EASY DRAWでNCVC用にDXF出力時のレイヤ名を設定する方法</strong></th>
+<td>
+EASY DRAWでレイヤ（画層）に名前を付けることはできません．<br>
+EASY DRAWのデータ形式をDXFのデータ形式に変換するときに，レイヤに名前を付けることができます．<br>
+DXFコンバータを起動し，設定(S)→パラメータ設定(P)→レイヤ―設定(A)→DXF画層名称を追加(A) します．
+<table>
+    <tr>
+        <th><strong>NCVC</strong></th><th><strong>EASY DRAW<br>レイヤ番号</strong></th><th><strong>DXF画層名称</strong></th>
+    </tr>
+    <tr>
+        <th>切削レイヤ</th><th>2</th><th>CAM0</th>
+    </tr>
+    <tr>
+        <th>原点レイヤ</th><th>3</th><th>ORIGIN</th>
+    </tr>
+    <tr>
+        <th>加工開始位置指示レイヤ</th><th>4</th><th>START</th>
+    </tr>
+    <tr>
+        <th>強制移動指示レイヤ</th><th>5</th><th>MOVE</th>
+    </tr>
+    <tr>
+        <th>切削レイヤ</th><th>6</th><th>CAM1</th>
+    </tr>
+    <tr>
+        <th>切削レイヤ</th><th>7</th><th>CAM2</th>
+    </tr>
+</table>
+設定後，変換(C)<br>
+EASY DRAW→DXF(2)を実行すればOKのはずです．<br>
+注）作図した各軌跡を各レイヤに移動しておくことを忘れずに．<br>
+詳しくは，リファレンスマニュアルを参照してください．DXFコンバータの初期設定等は記述しませんでした．
+<br>
+<p class="r">by こいん様</p>
+＜＜NCVC側で対処する場合＞＞<br>
+EASY DRAWが吐いたDXFを解析すると，"CSLAYERn" という名前が強制的に付けられるので，NCVC側で
+<table>
+    <tr>
+        <th>原点レイヤ</th><th>CSLAYER0</th>
+    </tr>
+    <tr>
+        <th>切削レイヤ</th><th>CSLAYER[1-9]</th>
+    </tr>
+</table>
+のような設定でも対応できます．
+</td>
+</tr>
+<tr>
+<th><strong class="color1">AdvanceCADでNCVC用にDXF出力時のレイヤ名を設定する方法</strong></th>
+<td><a href="https://www.ctc-g.co.jp/solutions/acad/pdf/v19/DXF_DWG.pdf" target="_blank">https://www.ctc-g.co.jp/solutions/acad/pdf/v19/DXF_DWG.pdf</a>
+の "3.4 クラス／ピクチャ 変換テーブルファイル" に記載があります．
+ACADDXF_LAYER というファイルにメモ帳などのエディタで    
+<p></p>
+<p class="look mb30">CLASS 100=ORIGIN<br>CLASS 101=CAM1<br>CLASS 102=CAM2<br>...</p>
+と書き，AdvanceCADのクラス番号にDXF出力時の名前を割り当てればOKです．<br>
+※この情報はVer19時点(2012/06/28)のもので現在は他にやり方があるかもしれません．
+</td>
+</tr>
+</table>
+
+</section>
+
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>

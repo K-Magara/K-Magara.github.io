@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ --FAQ/NC生成--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+<h2>FAQ／NC生成</h2>
+<table class="ta1">
+<tr>
+<th><strong class="color1">「切削条件ファイルの読み書きに失敗しました」と怒られる</strong></th>
+<td>
+WindowsVista以降は悪名高きUAC（ユーザアカウント制御）のおかげで，Program Files配下に簡単に書き込みできなくなっています．<br>
+インストール時に用意される Init.nci をベースに，切削パラメータのダイアログで［新規保存］ボタンを押して，自分のアカウントで自由に書き込みできる場所（マイドキュメント etc.）に条件ファイルを保存し，そこで管理してください．<br>
+<p></p>
+管理スタイルは各々ですが，
+<ul class="disc">
+    <li>工具や被削材ごとに管理<br>→加工条件専用のフォルダを用意</li>
+    <li>加工物に合わせる<br>→CADと同じフォルダに保存</li>
+</ul>
+など一定のルールを決めておくことをオススメします．
+</td>
+</tr>
+<tr>
+<th><strong class="color1">生成のたびにソリッド表示用のコメントを埋め込むのは面倒</strong></th>
+<td>NCコード内に (WorkRect=...) ※詳細は<a href="./simulation.html">こちら</a><br>
+が無くてもソリッド表示できますが，最大切削矩形から計算されたワーク矩形でしか表示できないので，実質WorkRectのコメントは必要です．<br>
+毎回手で修正を加えるのではなく，生成時のカスタムヘッダーに
+<p></p><p class="look mb30">%<br>(WorkRect=200x100t10)<br>(Endmill=R1)<br>{G90orG91}G54{G92_Initial}<br>M8<br>{Spindle}M3</p>
+な感じで埋め込んでおくと，この切削条件で生成するNCプログラムには常にコメントが埋め込まれます．<br>
+切削条件ファイルやカスタム［ヘッダー｜フッダー］は，名前を変えていろんなパターンを保存しておきましょう．積極的に変更してください．
+</td>
+</tr>
+<tr>
+<th><strong class="color1">NCVCで生成したNCコードをGRBLに渡すと％や（Layer="CAM02"）で止まる</strong></th>
+<td>%で引っかかる場合はカスタムヘッダー・フッターを編集してください．ついでに不要なコメント類もごっそり削除してかまいません．<br>
+（Layer="CAM02"）で引っかかる場合は［レイヤごとにコメントを埋め込む］のチェックを外せばコメントが挿入されませんので，
+その設定でNCコードを生成してみてください．<br>
+<figure><img src="./imgdd0836bac08349b1ff4fc.png" alt=""></figure><br>
+本来これはCNC側がコメントとして読み飛ばすはずですけど，どうやらM02で停止するみたいです（笑）
+</td>
+</tr>
+<tr>
+<th><strong class="color1">GRBLがG02/G03円弧補間でエラーになる</strong></th>
+<td>現在のGRBLcontrollerは円弧補間のIJ指定を受け付けないようです．こっちのほうが簡単なのにね．
+R指定で生成すると動きました．<br>
+<figure><img src="./img5cbfd98e8ecd6.png" alt=""></figure>
+</td>
+</tr>
+</table>
+
+</section>
+
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>

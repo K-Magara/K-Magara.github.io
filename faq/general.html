@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>NCVCの作者のページ --FAQ/全般--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+<h2>FAQ／NCVC全般</h2>
+<table class="ta1">
+<tr>
+<th><strong class="color1">ツールバーが縦に並んで表示領域が狭くなる．マウスドラッグでツールバーを移動させてもNCVCを再起動すれば元に戻ってしまう．</strong></th>
+<td>たまにツールバーが縦に並ぶ環境があるようです．見た目がダサいだけではなく，描画領域が狭くなるので機能的ではありません．<br>
+ドラッグで再配置してもNCVCを再起動すれば元に戻ってしまうという方は，以下の方法を試して下さい．
+<p></p>
+<ol>
+    <li>NCVCの最大化表示を解除</li>
+    <li>ディスプレイ横いっぱいにNCVCの表示を拡大</li>
+    <li>ツールバーを再配置（なるべく横に並ぶように）</li>
+    <li>最大化表示に戻す</li>
+</ol>    
+</td>
+</tr>
+<tr>
+<th><strong class="color1">［～のテキスト編集］が動かない．外部アプリケーションに登録すべきアプリケーションは？</strong></th>
+<td>インストール直後の外部アプリケーションには NotePad（メモ帳）が登録されていると思いますが，外部アプリケーションの登録１番目には必ずテキストエディタを登録してください．
+１番目が自動的に［～のテキスト編集］や，切削条件のヘッダー・フッター編集ツールに使われます．<br>
+２番目以降は，たとえば工作機械との通信ソフトであったり，スクリプト実行補助ツールの 
+<a href="../download/scripts.html#Scriptorium">Scriptorium</a>（インストーラに付属）
+など各自の環境に合わせてアプリケーションを登録してください．
+</td>
+</tr>
+<tr>
+<th><strong class="color1">社内マニュアルを作りたい．NCVCの画面を白黒印刷向けにハードコピーしたい．シミュレーション結果をWord等に貼り付けたい．</strong></th>
+<td>NCVC標準の画面は，見た目には美しいブルーのグラデーションバックですが，社内マニュアルなどの印刷向けに画面のハードコピーを取ると，白黒印刷で不利な場合が多い．<br>
+ダウンロードページにある "<a href="../download/docs.html#BookSample">いまからはじめるNC工作 CADデータ</a>" に含まれる "出版用画面属性.ini" ファイルをインポートすると，画面が白黒印刷向けに変わります．<br>
+## アクティブウィンドウの画面ハードコピーは Alt+PrtScr キーでできるのは知っていますよね<br>
+画面属性はNCVCオプションメニューの［表示属性］にある［インポート］／［エクスポート］を使えば，簡単に設定の出し入れが可能です．<br>
+ちなみに標準の画面属性は，NCVCインストールフォルダに "NCVCcolor.ini" がありますので，それをインポートすれば簡単に元に戻ります．<br>
+画面ハードコピーではなく，シミュレーション結果をメタグラフィックイメージでコピーしたい場合は，NCVC編集メニューのコピーを使ってください．
+あまり知られていないかも知れませんが，線画情報でコピーされるので，貼り付け先でのある程度の拡大縮小にも綺麗に対応できるはずです．
+ただしOpenGLでのソリッドイメージはコピーできません．<br>
+それぞれのシーンに合わせて有効な機能をお使い下さい．
+</td>
+</tr>
+</table>
+
+</section>
+
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
