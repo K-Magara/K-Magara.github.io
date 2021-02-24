@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 --USBデバイスを認識しなくなった2--</title>
+<title>Zumo32U4 --Zumo32U4 でサーボの制御--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB">
+<meta name="keywords" content="Zumo, Zumo32U4, Servo, サーボ">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -69,33 +69,44 @@
 <div id="contents">
 
 <section>
-<h2>USBデバイスを認識しなくなった2</h2>
+<h2>Zumo32U4 でサーボの制御</h2>
 <p>
-　リセットボタン2回でも復旧しないことが稀に発生します．
-あくまでも予想ですが，Zumo 側のブートローダが壊れた可能性があります．
-この場合，強制的にブートローダを書き込む必要がありますが，そのためには ISP 書き込みツールが必要です．
-本校では別の授業で Pololu USB AVR Programmer を使用しているので，これと AtmelStudio を使ってブートローダーを書き込みます．
-<ul class="disc">
-    <li><a href="https://github.com/pololu/a-star/tree/master/bootloaders/caterina" target="_blank">https://github.com/pololu/a-star/tree/master/bootloaders/caterina</a>
-        から Caterina-A-Star.hex をダウンロードする．
-    </li>
-    <li>Zumo の右下6Pin が ISP 端子になっているので，そこに書き込み器を接続する．
-        Pololu USB AVR Programmer の Vcc output が Enabled の場合は，Disabled に変更しておくこと．
-        書き込みは Zumo 側の電源（電池）を使用する．
-    </li>
-    <li>Atmel Studio の［Tools］→［Device Programming］から Caterina-A-Star.hex を書き込む．
-        Device は ATmega32U4 を指定．
-    </li>
-</ul>
-<div align="center">
-<figure>
-    <img src="images/zumo_isp.jpg" width="30%">
-    <img src="images/ZumoDeviceProgramming.png" width="50%">
-</figure>
-</div>
+　<a href="https://www.pololu.com/docs/0J57/8.b" target="_blank">Pololu のマニュアル</a>にも記載がありますが，
+Arduino 標準の Servo ライブラリで使用されているタイマは，
+Zumo では他の用途で使用されており，標準のままでは Zumo でサーボは使えません．<br>
+<span class="look">C:YProgram Files (x86)\Arduino\libraries\Servo\src\avr\ServoTimers.h</span><br>
+をエディタで開き，Timer3 を使うように変更しなければなりません．
+<p class="look mb30">
+#elif defined(__AVR_ATmega32U4__)<br>
+#define <strong class="color1">_useTimer3</strong>		// _useTime1 -> _useTimer3<br>
+typedef enum { <strong class="color1">_timer3</strong>, _Nbr_16timers } timer16_Sequence_t;	// _timer1 -> _timer3
+</p>
+ただ，ほかの 32U4 を使う Leonardo に影響したり，Arduino IDE のバージョンアップのたびに変更が必要だったりするので，<br>
+<span class="look"><i>HOME</i>\Arduino\libraries</span><br>
+へ ZumoServo 等に改名してコピーし，そこで編集したほうがよいでしょう．
+Zumo32U4 でのスケッチではそれを include するようにします．
 </p>
 <p>
-　これでダメならハード的に壊れたと判断しますが，いまのところこれで復旧しなかった Zumo はありません．
+僕のところでは，
+<p class="look mb30">
+<i>HOME</i>\Arduino\libraries<strong class="color1">\ZumoServo</strong><br>
+｜ ZumoServo.h <strong class="color1">→ Servo.h を改名してコピー</strong><br>
+｜ ZumoServoTimers.h <strong class="color1">→ avr/ServoTimers.h を改名してコピー</strong><br>
+｜ ZumoServo.cpp <strong class="color1">→ avr/Servo.cpp を改名してコピー</strong>
+</p>
+<ul class="disc">
+    <li>ZumoServo.h
+        <p class="look mb30">#if defined(ARDUINO_ARCH_AVR)<br>#include &quot;<strong class="color1">ZumoServoTimers.h</strong>&quot;</p>
+    </li>
+    <li>ZumoServoTimers.h<p>上記の変更を施したもの</p></li>
+    <li>ZumoServo.cpp
+        <p class="look mb30">#include &quot;<strong class="color1">ZumoServo.h</strong>&quot;</p>
+    </li>
+</ul>
+</p>
+<p>
+実際に使用するときは，Servo.h ではなく ZumoServo.h を include します．<br>
+Servo というクラス名はそのままです．
 </p>
 </section>
 

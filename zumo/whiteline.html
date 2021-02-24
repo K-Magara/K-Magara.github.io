@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 --USBデバイスを認識しなくなった2--</title>
+<title>Zumo32U4 --黒地に白ラインでのライントレース--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB">
+<meta name="keywords" content="Zumo, Zumo32U4, LineFollower, LineTrace, ライントレース, トレースカー">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -69,33 +69,20 @@
 <div id="contents">
 
 <section>
-<h2>USBデバイスを認識しなくなった2</h2>
+<h2>黒地に白ラインでのライントレース</h2>
 <p>
-　リセットボタン2回でも復旧しないことが稀に発生します．
-あくまでも予想ですが，Zumo 側のブートローダが壊れた可能性があります．
-この場合，強制的にブートローダを書き込む必要がありますが，そのためには ISP 書き込みツールが必要です．
-本校では別の授業で Pololu USB AVR Programmer を使用しているので，これと AtmelStudio を使ってブートローダーを書き込みます．
-<ul class="disc">
-    <li><a href="https://github.com/pololu/a-star/tree/master/bootloaders/caterina" target="_blank">https://github.com/pololu/a-star/tree/master/bootloaders/caterina</a>
-        から Caterina-A-Star.hex をダウンロードする．
-    </li>
-    <li>Zumo の右下6Pin が ISP 端子になっているので，そこに書き込み器を接続する．
-        Pololu USB AVR Programmer の Vcc output が Enabled の場合は，Disabled に変更しておくこと．
-        書き込みは Zumo 側の電源（電池）を使用する．
-    </li>
-    <li>Atmel Studio の［Tools］→［Device Programming］から Caterina-A-Star.hex を書き込む．
-        Device は ATmega32U4 を指定．
-    </li>
-</ul>
-<div align="center">
-<figure>
-    <img src="images/zumo_isp.jpg" width="30%">
-    <img src="images/ZumoDeviceProgramming.png" width="50%">
-</figure>
-</div>
+　Zumo32U4 のスケッチ例に LineFollower というスケッチがあります．みんな大好きライントレースカーのデモスケッチです．
+ただしこのスケッチは白地に黒のラインを認識します．
+本校ではレゴで作るトレースカー（1年前期）や自作のトレースカー（2年後期）用に黒地に白のコースを用意しており，畳2畳分の広さがあります．
+Zumo 用にだけ白黒逆のコースを作るのは面倒だし保管にも困るので，スケッチ側を変更します．
 </p>
 <p>
-　これでダメならハード的に壊れたと判断しますが，いまのところこれで復旧しなかった Zumo はありません．
+LineFollower スケッチの 133行目にある<br>
+<span class="look">int16_t position = lineSensors.readLine(lineSensorValues);</span><br>
+を<br>
+<span class="look">int16_t position = lineSensors.readLine(lineSensorValues<strong class="color1">, QTR_EMITTERS_ON, true</strong>);</span><br>
+としてください．<br>
+これで黒地に白のコースを走るようになります．
 </p>
 </section>
 
