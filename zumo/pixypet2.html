@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Zumo32U4 --PixyPet2について--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ">
+<meta name="keywords" content="Zumo, Zumo32U4, PixyPet2">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -69,43 +69,21 @@
 <div id="contents">
 
 <section>
-<h2>はじめに</h2>
+<h2>PixyPet2について</h2>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．連絡手段は...NCVC作者で調べてみてください．(:p)
+　従来の PixyMon（Windowsのカメラアプリ）では認識しません．新たに PixyMon v2 をインストールしてください．
+設定は旧型と同様に I2C 設定で Zumo からコントロール可能ですが，
+[Pixy1.0 compatibility mode] にチェックを入れておかないと PixyPet スケッチが動きません．
 </p>
+<p><div align="center">
+<figure>
+    <img src="images/pixypet2.png" width="30%">
+</figure>
+</div></p>
 <p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4 と，マイコンは積んでいない ZumoShield の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
+PixyMon v2 でも旧型カメラのファームウェアを更新すると認識できそうですがが，
+旧 PixyMon で認識できなくなると困るので未確認です．
 </p>
-
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
-
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a></li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a></li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編
-	<ul>
-		<li>VC-C1</li>
-		<li>BLESerial3</li>
-		<li>XBee</li>
-		<li>赤外線</li>
-	</ul></li>
-</ul>
 </section>
 
 <p></p>
