@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Zumo32U4 --赤外線--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ">
+<meta name="keywords" content="Zumo, Zumo32U4, IR, 赤外線">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -69,50 +69,59 @@
 <div id="contents">
 
 <section>
-<h2>はじめに</h2>
+<h2>Zumo32U4 を赤外線でコントロール</h2>
+<h3>はじめに</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．連絡手段は...NCVC作者で調べてみてください．(:p)
-</p>
-<p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4 と，マイコンは積んでいない ZumoShield の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
+　市販の赤外線リモコンで学生に RC 操作を体験させていましたが，赤白の 2 種類しか用意できないので混線が激しい．
+それはそれでおもしろいのだが，混線しないようなコントローラを格安で考えてみた．
 </p>
 <p><div align="center">
 <figure>
-    <img src="images/zumo.jpg" width="30%" alt="Zumoの外観">
+    <img src="images/ir_remote.jpg" width="30%" alt="市販のリモコン">
+</figure>
+</div></p>
+<p>
+</p>
+
+<h3>試作回路</h3>
+<p>
+　4年生の創造設計プロジェクト（校内ミニロボコン）で大昔に赤外線通信をしていたことがあります．
+その時の赤外線発光ダイオード OSIR5113A が少しあまっていたのでそれを流用しました．
+ちょうど波長が 940nm と Zumo の IR センサと合致してたのでよかったです．
+Zumo の IR センサの仕様は <a href="https://www.pololu.com/docs/0J63/3.6" target="_blank">こちら</a>から．
+電流制限抵抗は，(5V−1.8V)/0.02A = 160[Ω] ですが，大量に余っていた 120[Ω] を採用しました．
+コントローラには，中華UNO（500 円）を使用しています．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/ir.jpg" width="30%">
 </figure>
 </div></p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
-
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a></li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a></li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編
-	<ul>
-		<li><a href="ir.html">赤外線</a></li>
-		<li>XBee</li>
-		<li>VC-C1</li>
-		<li>BLESerial3</li>
-	</ul></li>
-</ul>
+<h3>送信プログラム</h3>
+<p>
+　赤外線通信にはさまざまなフォーマットがあることを知りました．
+それを簡単に利用するため，赤外線通信用の Arduino ライブラリ IRremote をインストールしました．
+赤色リモコンは NEC フォーマットで送信されていたので，それを参考に送信側のプログラムを書きました．
+カスタマーコード（メーカ識別コード：サンプルのSENDID）を変更すれば，混線を防ぐことができます．
+</p>
+<p><div align="center"><a href="lists/SendIR_UNO.ino">SendIR_UNO.ino</a></div></p>
 </section>
 
+<h3>受信プログラム</h3>
+<p>
+　こちらは Zumo32U4 のスケッチ例にある
+<a href="https://github.com/pololu/zumo-32u4-arduino-library/tree/master/examples/RemoteControl" target="_blank">RemoteControl</a>
+を，上記の赤色リモコンに合わせて改変したものです．
+</p>
+<p><div align="center"><a href="lists/RecvIR_RED.ino">RecvIR_RED.ino</a></div></p>
+
+<h3>試してみた感想</h3>
+<p>
+　指向性が強く Zumo を左右に動かすと通信が途切れることが頻繁にありました．
+Zumo の受光部側は変えられないので赤外線LEDを増やすなど送信側で対応するしかありません．
+少し残念な結果でした．
+</p>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
