@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 --Zumo32U4 で PixyPet を動かす--</title>
+<title>Zumo32U4 --XBee--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, PixyPet">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, ZigBee, XBee">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -69,22 +69,49 @@
 <div id="contents">
 
 <section>
-<h2>Zumo32U4 で PixyPet を動かす</h2>
+<h2>Zumo32U4 を XBee でリモートコントロール</h2>
 <h3>はじめに</h3>
 <p>
-　ネットで公開されている PixyPet は，ZumoShield タイプで動くものです．
-そのままの情報では Zumo32U4 では動きません．
-理由は簡単．
-PixyPet の標準I/Fは SPI 通信ですが，Zumo32U4 では SPI の信号部分が他の用途で使用されています．
-なんとか遮断できればよいのですが，内蔵回路なのでどうしようもありません．
+　赤外線通信が予想通りイマイチだったので，Arduino XBee シールドを購入し試作してみました．
+ボタン類は赤外線リモコンの試作品を流用しています．
 </p>
+<p><div align="center">
+<figure>
+    <img src="images/xbee.jpg" width="30%">
+</figure>
+</div></p>
 <p>
-　あとは発想の転換です．幸いにして PixyPet は他のI/Fも使えるようになっているので，
-I<sup>2</sup>C を使うとうまく動きました．
 </p>
-<h3>回路設計と試作</h3>
+
+<h3>試作回路</h3>
 <p>
-　あああ
+　基板には TAKACHI TNF53-79 を使用しています．Zumo32U4 の筐体サイズにピッタリです．
+試作回路というほどではないですが 3.3V と GND，
+XBee の DIN を Zumo の TX1（D1:PD3） へ，XBee の DOUT を Zumo の RX1（D0:PD2） へつなぐだけです．<br>
+　写真を撮ったあとに気が付いたのですが，Arduino（Zumo）の信号レベルが 5V なので，そのまま XBee に接続すると，
+XBee が壊れる可能性があります．
+今回は Zumo から見て受信しか使用しないので，TX ライン（写真の黄色線）を外しました．
+Xee の DOUT（3.3V）から Arduino の RX への信号伝達では問題ないだろうと判断しています．
+Arduino 側からの送信（TX）も利用する場合は，XBee の DIN に入れる際に，2/3 に分圧するか
+簡易的に 10kΩ ほどの抵抗を直列に入れるかの対処が必要と思われます．
+
+<h3>送信プログラム</h3>
+<p>
+　赤外線通信のボタンを再利用しているので，IOピンもそのままです．
+ついでに送信データもそのまま使いました．
+</p>
+<p><div align="center"><a href="lists/SendXBee_UNO.ino">SendXBee_UNO.ino</a></div></p>
+
+<h3>受信プログラム</h3>
+<p>
+　Serial1 で通信を行います．Serial でないことにご注意ください．
+</p>
+<p><div align="center"><a href="lists/RecvXBee_Zumo.ino">RecvXBee_Zumo.ino</a></div></p>
+
+<h3>試してみた感想</h3>
+<p>
+　赤外線通信ではイマイチでしたが，XBee では予想通り良好な通信環境が得られました．
+X-CTU の通信設定と合わせれば簡単に送受信可能です．
 </p>
 
 </section>
