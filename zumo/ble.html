@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Zumo32U4 --BLEserial3--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../index.html#other">その他コンテンツ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+
+<div id="contents">
+
+<section>
+<h2>Zumo32U4 を BLEserial3 でリモートコントロール</h2>
+<h3>はじめに</h3>
+<p>
+　浅草ギ研さんの BLEserial3 を用いて，Bluetooth 通信を行いたいと思います．
+技適マーク付きの数少ない製品ですが，執筆時点（2020/12）でスイッチサイエンスさんからは販売中止でした．
+浅草ギ研さんから直接買えるのかな？
+</p>
+
+<h3>試作回路とサンプルスケッチ</h3>
+<p>
+　Bluetooth(BLE) 規格を使いますが，ペリフェラル（スレーブ）側は通常のシリアル通信として認識します．
+したがって <a href="./xbee.html">XBee</a> と同様に，
+BLEserial3 の RX を Zumo の TX1(D1:PD3) に，BLEserial3 の TX を Zumo の RX1(D0:PD2) につなぎ，
+Serial1 で通信を行います．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/BLEserial3.jpg" width="30%">
+</figure>
+</div></p>
+<p></p>
+<p>サンプルスケッチは，シンプルにコードを受信したらモータを回すようにしています．</p>
+<p><div align="center"><a href="lists/BLEtestZumo.ino">BLEtestZumo.ino</a></div></p>
+<p></p>
+
+<h3>iPhone を使ってみる</h3>
+<p>
+　<a href="./ir.html">赤外線</a>や<a href="./xbee.html">XBee</a>を試作しましたが，多くの学生に体験してもらうにはコストも手間もかかります．
+そこでセントラル（マスタ）側として学生自身が持つスマートフォン（iPhone）を利用しようと考えました．
+しかし，それっぽいアプリをいろいろ試しますが，いずれも BLEserial3 と通信できませんでした．
+GATT プロファイルに対応していないと思われます．
+唯一通信できたのが LightBlue というアプリでした（これは浅草ギ研さんでも紹介されています）．
+一覧に出てくる BLEserial3 に接続すると，BLEserial3 の LED が点滅から点灯にかわります．
+とりあえず TX の Write new value から 1 バイトの送信が可能なので送信すると，Zumo のモータが動くことを確認できました．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/iphone1.png" width="20%">
+    <img src="images/iphone2.png" width="20%">
+</figure>
+</div></p>
+<p></p>
+<p>
+　本当はゲームパッド風のアプリで動かしたかった．残念．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/iphone3.png" width="30%" alt="GamePad App">
+</figure>
+</div></p>
+<p></p>
+
+<h3>PC（Windows10）を使ってみる</h3>
+<p>
+　一旦 iPhone の利用はあきらめ，PC の Bluetooth を使えないか検証してみました．
+まずデバイスマネージャで，その PC の Bluetooth が BLE に対応しているかを確認します．
+Microsoft Bluetooth LE Enumerator があれば OK です．
+次にスタートメニューから［設定］→［デバイス］で BLEserial3 のペアリングを行います．
+おそらくペアリングしなくても通信できると思いますが念のため．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/WinBLE_Init1.png" width="50%">
+    <img src="images/WinBLE_Init2.png" width="30%">
+</figure>
+</div></p>
+<p></p>
+<p>
+　iPhone で試したように，Windows でも LightBlue 的なアプリで通信のテストをしてみます．
+Microsoft Store から Bluetooth LE Lab を入手し，BLEserial3 と接続します．
+BLEserial3 の LED が点滅から点灯にかわり，接続できたことがわかります．
+Unknown service の Unknown characteristic から Writing に値を入れ Write ボタンを押すと，Zumo のモータが動くことを確認できました．
+やったー！
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/WinBLE1.png" width="40%">
+    <img src="images/WinBLE2.png" width="40%">
+</figure>
+</div></p>
+<p></p>
+
+<h3>Python</h3>
+<p>
+　PC からの BLE 通信に光が差したので，Python を使ってプログラミングができないかと調査を開始．
+<a href="https://bleak.readthedocs.io/en/latest/" target="_blank">Bleak</a>
+というライブラリを候補にインストールを開始するも，<a href="https://bleak.readthedocs.io/en/latest/" target="_blank">Bleak</a> がバックエンドで使用する
+<a href="https://pythonnet.github.io/" target="_blank">pythonnet</a>
+でインストールエラーが発生．どうやら原稿執筆時点で Python 3.9 には対応しておらず，3.8 にダウングレードしてインストールできました．
+</p>
+<p class="look mb30">
+&gt; python --version<br>
+Python 3.8.6<br>
+<br>
+&gt; pip list<br>
+Package Version<br>
+---------- -------<br>
+bleak 0.10.0<br>
+pip 20.3.3<br>
+pycparser 2.20<br>
+pythonnet 2.5.1<br>
+setuptools 51.1.0
+</p>
+<p></p>
+<p>
+　Bleak のサンプルコード <a href="lists/discover.py">discover.py</a> を実行すると，アドバタイズ情報が取れました．
+</p>
+<p class="look mb30">
+&gt; python discover.py<br>
+C4:42:29:32:79:2D: BLESerial_0
+</p>
+<p></p>
+<p>
+　これらの情報から，以下の Python サンプルコードで Zumo のモータが動くことを確認できました．
+<div align="center"><a href="lists/BLEserial3.py">BLEserial3.py</a></div>
+</p>
+<p></p>
+<p>
+　PyGame ライブラリをインストールし，キー入力に対応させます．以下のコードにより，矢印キーで Zumo を前後左右に動かせました．
+Zumo 側のスケッチは普通です．
+<div align="center">
+    Python コード <a href="lists/BLEkey.py">BLEkey.py</a><br>
+    Zumo スケッチ <a href="lists/BLEkey.ino">BLEkey.ino</a>
+</div>
+</p>
+<p></p>
+<p>
+　PyGame ライブラリはゲームパッド（ゲームコントローラ）にも対応しています．USB 接続の PC 用ゲームパッドにて
+<strong class="color1"><a href="./vsc1.html">VS-C1</a> と同等の操作性で Zumo を動かすことに成功しました．</strong>
+アナログ値を取得し，上位 4 ビットに左スティック情報を，下位 4 ビットに右スティック情報を送信しています．
+当然 Zumo 側のプログラムもそれ用に書き換えました．
+<div align="center">
+    Python コード <a href="lists/BLEjoy.py">BLEjoy.py</a><br>
+    Zumo スケッチ <a href="lists/BLEjoy.ino">BLEjoy.ino</a>
+</div>
+</p>
+
+<h3>Raspberry Pi を使ってみる</h3>
+<p>
+　最近手に入れたオモチャ Raspberry Pi 3 Model B+ で PC と同様の BLE 通信を試してみます．
+以下のコマンドで BLESerial が見えればOK．自動で止まらないので Ctrl + C で停止させます．
+当初 Windows10 と同様にペアリングを試みましたが，bluez から Authentication Failed で怒られました．
+結果論ですがペアリングしなくても通信できるようです．
+Windows でも（OS 操作の）ペアリングは不要かもしれない．
+</p>
+<p class="look mb30">
+$ sudo hcitool lescan<br>
+LE Scan ...<br>
+C4:42:29:32:79:2D: BLESerial_0
+</p>
+<p></p>
+<p>
+　Python コードを試すため，不足分のライブラリ（bleak）をインストールしておきます．pygame もお忘れなく．
+</p>
+<p class="look mb30">
+$ python3 --version<br>
+Python 3.7.3<br>
+<br>
+$ sudo pip3 install bleak<br>
+... 省略...<br>
+$ pip3 list | grep pygame<br>
+pygame 1.9.4.post1
+</p>
+<p></p>
+<p>
+　Windows のときと同様に，<a href="lists/discover.py">discover.py</a> を試してみます．
+Warning は出ますが Windows と同様に BLESerial が見えました．
+</p>
+<p class="look mb30">
+$ python3 discover.py<br>
+:0: UserWarning: You do not have a working installation of the service_identity module:<br>
+... 省略...<br>
+C4:42:29:32:79:2D: BLESerial_0
+</p>
+<p></p>
+<p>
+　Windows で使ったのと同じゲームパッドを Raspberry Pi の USB ポートに接続し，
+これまた Windows と同じ Python コード <a href="lists/BLEjoy.py">BLEjoy.py</a> を実行すると，
+<strong class="color1">何の問題もなくBLESerial と通信することができ，Zumo を動かすことに成功しました．</strong>
+</p>
+<p class="look mb30">
+$ python3 BLEjoy.py<br>
+Joystick Name: HOLTEK JC-U1012F<br>
+button num: 12<br>
+BLE Connected: True
+</p>
+<p></p>
+
+<h3>試してみた感想</h3>
+<p>
+　iPhone のゲームパッドアプリで動かす作戦は失敗しましたが，PC（Raspberry Pi） のゲームパッドで動かすことに成功しました．
+一応これで XBee，VS-C1，BLEserial3 の計 3 台の <strong class="color1">Zumo ラジコン</strong>を動かしています．
+</p>
+
+
+</section>
+<p></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
