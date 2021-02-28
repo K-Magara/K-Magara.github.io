@@ -73,7 +73,7 @@
 <p>
 　<a href="https://www.pololu.com/docs/0J57/8.b" target="_blank">Pololu のマニュアル</a>にも記載がありますが，
 Arduino 標準の Servo ライブラリで使用されているタイマは，
-Zumo では他の用途で使用されており，標準のままでは Zumo でサーボは使えません．<br>
+Zumo32U4 では他の用途で使用されており，標準のままでは Zumo でサーボは使えません．<br>
 <span class="look">C:\Program Files (x86)\Arduino\libraries\Servo\src\avr\ServoTimers.h</span><br>
 をエディタで開き，Timer3 を使うように変更しなければなりません．
 <p class="look mb30">
@@ -98,7 +98,7 @@ Zumo32U4 でのスケッチではそれを include するようにします．
     <li>ZumoServo.h
         <p class="look mb30">#if defined(ARDUINO_ARCH_AVR)<br>#include &quot;<strong class="color1">ZumoServoTimers.h</strong>&quot;</p>
     </li>
-    <li>ZumoServoTimers.h<p>上記の変更を施したもの</p></li>
+    <li>ZumoServoTimers.h<p>上記 Timer3 へ変更を施したもの</p></li>
     <li>ZumoServo.cpp
         <p class="look mb30">#include &quot;<strong class="color1">ZumoServo.h</strong>&quot;</p>
     </li>
