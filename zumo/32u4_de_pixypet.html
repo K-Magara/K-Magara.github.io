@@ -77,16 +77,66 @@
 　ネットで公開されている PixyPet は，ZumoShield タイプで動くものです．
 そのままの情報では Zumo32U4 では動きません．
 理由は簡単．
-PixyPet の標準I/Fは SPI 通信ですが，Zumo32U4 では SPI の信号部分が他の用途で使用されています．
+PixyPet の標準I/F は SPI 通信ですが，Zumo32U4 では SPI の信号部分が他の用途で使用されています．
 なんとか遮断できればよいのですが，内蔵回路なのでどうしようもありません．
-</p>
-<p>
-　あとは発想の転換です．幸いにして PixyPet は他のI/Fも使えるようになっているので，
+あとは発想の転換です．幸いにして PixyPet は他の I/F も使えるようになっているので，
 I<sup>2</sup>C を使うとうまく動きました．
 </p>
+<p></p>
+
 <h3>回路設計と試作</h3>
 <p>
-　写真を撮る環境になく一旦保留．comming soon.
+　I<sup>2</sup>C で使う SCL と SDA を <a href="https://www.pololu.com/docs/0J63/3.9" target="_blank">Zumo32U4の回路図</a>で確認しておきます．SCL は D3:PD0，SDA は D2:PD1 です．
+PixyPet 側も同様に確認します．SCL は 5番ピン，SDA は 9番ピンです．
+<a href="https://docs.pixycam.com/wiki/doku.php?id=wiki:v2:porting_guide" target="_blank">PixyPet の文書へのリンク</a>を貼っておきます（が URLがコロコロ変わる？リンク切れなら検索してください）．<br>
+　試作は，Zumo32U4 の筐体サイズにピッタリな両面基板 TAKACHI TNF53-79 に作ってみました．
+信号線は PixyPet の10pinコネクタに SCL/SDA 信号線2本と電源2本を接続するだけです．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/PixyPetTrial.jpg" width="50%" alt="PixyPet試作">
+</figure>
+</div></p>
+<p></p>
+<p>
+　スケッチは Pixy.h の派生クラスとして PixyI2C.h が用意されているのでそれに変更します．あと Zumo 関連も Zumo32U4 に変えておきます．
+</p>
+<p class="look mb30">
+<strong class="color1">// #include &lt;SPI.h&gt;<br>
+// #include &lt;Pixy.h&gt;<br></strong>
+#include &lt;PixyI2C.h&gt;　<strong class="color1">// 派生クラスをinclude</strong><br>...<br>
+<strong class="color1">// Pixy	pixy;</strong><br>
+PixyI2C	pixy;	<strong class="color1">// PixyI2C クラスを使用</strong>
+</p>
+<p></p>
+
+<h3>量産</h3>
+<p>
+　このカメラは，本体とセットで演習最終日に学生一人ずつ貸し出すので量産が必要です．
+試作回路から EDA ツールにて回路を起こし基板発注しました．接続ケーブルは汎用の10pinケーブルを購入しました．
+パターンデータの配布はやめておきます．
+</p>
+<p><div align="center">
+<figure>
+    <img src="images/kiban.jpg" width="50%" alt="基板発注">
+</figure>
+</div></p>
+<p></p>
+<p>できあがりがこちら．新型の PixyPet2 に置き換えてもうまく動いています．</p>
+<p><div align="center">
+<figure>
+    <img src="images/PixyPet.jpg" width="50%" alt="PixyPet完成品">
+</figure>
+</div></p>
+<p></p>
+<p>
+　旧型 PixyPet の欠点は，USB が mini-B で Zumo32U4 の micro-B とはケーブルを別に用意しなければならないこと．
+PixyPet2 では micro-B に改善されています．
+旧型が故障<sup>*1</sup>すれば順次置き換えます．
+</p>
+
+<p>
+<sup>*1</sup> ある日の授業で学生が接続を誤り，カメラICから煙が出ました．よくよく注意喚起せねばｗｗ
 </p>
 
 </section>
