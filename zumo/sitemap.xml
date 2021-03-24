@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--  created with free sitemap generation system www.sitemapxml.jp  --> 
+<url>
+  <loc>https://k-magara.github.io/zumo/</loc>
+  <priority>1.0</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/index.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/usb.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/usb2.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/pixy_usb.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/whiteline.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/servo.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/32u4_de_pixypet.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/pixypet2.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/ir.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/xbee.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/vsc1.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/ble.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/trouble.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/SendIR_UNO.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/RecvIR_RED.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/SendXBee_UNO.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/RecvXBee_Zumo.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/PS2RC.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEtestZumo.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/discover.py</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEserial3.py</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEkey.py</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEkey.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEjoy.py</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+<url>
+  <loc>https://k-magara.github.io/zumo/lists/BLEjoy.ino</loc>
+  <priority>0.7</priority>
+  <lastmod>2021-03-23T11:02:55+09:00</lastmod>
+</url>
+
+</urlset>
