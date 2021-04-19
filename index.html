@@ -98,52 +98,47 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
-<!--
-<dt>2021/04/02</dt>
-<dd><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/topic/5" target="_blank">MFCランタイム Product-IDの調査</a>について（サポート掲示板へ飛びます）<span class="newicon">NEW</span></dd>
--->
+<dt>2021/04/19</dt>
+<dd>NCVC Ver3.88 リリース　補足を<a href="https://ameblo.jp/ken-ncvc/entry-12669438364.html" target="_blank">ブログ</a>に書きました</dd>
 <dt>2021/04/01</dt>
 <dd><a href="news/20210401.html">s-gikan2.maizuru-ct.ac.jp を停止させました</a></dd>
 <dt>2021/03/22</dt>
 <dd><a href="news/20210322.html">301リダイレクトを追加しました</a></dd>
 <dt>2021/03/01</dt>
 <dd>その他コンテンツに <a href="zumo/index.html">Zumo32U4 コンテンツ</a> を追加しました（3/22 写真追加して工事完了，3/23 動画の追加）</dd>
-<dt>2021/02/10</dt>
-<dd><a href="history/support_old.html">過去のサポート掲示板データについて</a></dd>
-<dt>2021/02/08</dt>
-<dd>ダウンロードサイトをGoogleDriveからfirestorageに切り替えました<br>無料プランでもダウンロード件数がわかるため</dd>
-<dt>2021/01/28</dt>
-<dd>無料テンプレートを用いてサンプルページの編集開始</dd>
-<dt>2020/12/15</dt>
-<dd>NCVC Ver3.87b リリース</dd>
-<dt>2020/10/29</dt>
-<dd>NCVC Ver3.87a リリース</dd>
-<dt>2020/10/09</dt>
-<dd>NCVC Ver3.87 リリース</dd>
-<!-- <dt>2020/08/17</dt>
-<dd>NCVC Ver3.86 リリース</dd> -->
+<p class="r"><a href="old.update/index.html">過去ログ</a></p>
 </dl>
-<!-- <p class="r">過去ログ</p> -->
 </section>
 
 <section>
 <h2 id="download">ダウンロード</h2>
 <h3>NCVC本体ダウンロードサイト</h3>
 <ul class="disc">
-	<li>firestorage
-		<ul>
-			<li><a href="https://firestorage.jp/download/a02ed085af67a8ee4f0b188309eafe376cec86e0" target="_blank">Ver3.87b 64ビット版インストーラ</a></li>
-			<li><a href="https://firestorage.jp/download/eab4210d6f2b8acd05f7ccdf14b2cda5fad474f5" target="_blank">Ver3.87b 32ビット版インストーラ</a></li>
-			<li><a href="https://firestorage.jp/download/6ef8b275f07b3f551c1808d6ad52f8dc770802b1" target="_blank">Ver3.87b 32ビット版zip</a></li>
-		</ul>
-	</li>
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>　更新にはタイムラグがあります．</li>
+	<li>firestorage<span class="newicon">NEW</span></li>
+	<ul>
+		<li><a href="https://firestorage.jp/download/ca3e73855b6e0a9748f22f09854a0bfa984ddd07" target="_blank">Ver3.88 64ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/f4b290e31b029e644e7bcacee707d84827096d60" target="_blank">Ver3.88 32ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/16fce6ef651cc41b370fbffa32d70357c6984a68" target="_blank">Ver3.88 32ビット版zip</a></li>
+	</ul>
+	<li>firestorage（１世代古いバージョン）</li>
+	<ul>
+		<li><a href="https://firestorage.jp/download/a02ed085af67a8ee4f0b188309eafe376cec86e0" target="_blank">Ver3.87b 64ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/eab4210d6f2b8acd05f7ccdf14b2cda5fad474f5" target="_blank">Ver3.87b 32ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/6ef8b275f07b3f551c1808d6ad52f8dc770802b1" target="_blank">Ver3.87b 32ビット版zip</a></li>
+	</ul>
 </ul>
-<h3>更新履歴　3.87b (2020/12/15)</h3>
+<h3>更新履歴　Ver3.88 (2021/04/19)</h3>
 <ul class="disc">
-	<li>バグレポート</li>
+	<li>ＮＣ生成</li>
 	<ul class="disc">
-		<li>形状認識処理から形状加工生成を行うと<br>「致命的なエラーが発生しました．処理を中断します．」<br>のメッセージが出てプログラムが終了していたバグを修正</li>
+		<li>Z軸進入アプローチのサポート</li>
+		<li>生成後に実行するPerlスクリプトをPerlに限定せずPythonも選べるようにした</li>
+		<li>生成時の拡張子を登録拡張子から選べるようにした<br>→ncd固定でしたが任意に設定できるようになりました．あと何故か内部で大文字変換して登録していたので小文字にしたいときは登録しなおしてください．</li>
+	</ul>
+	<li>他</li>
+	<ul class="disc">
+		<li>インストーラでのMFCランタイムチェックを大幅に緩和した<br>→これまでは厳密に値のチェックをしていましたが，Ver3.88以降はキーがあるかないかだけで判定します．</li>
 	</ul>
 </ul>
 <p>古い更新履歴は<a href="history/history.html">こちら</a></p>
