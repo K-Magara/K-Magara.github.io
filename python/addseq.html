@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Python初心者向け実践講座 --シーケンス番号--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="description" content="Python初心者のための実践講座">
+<meta name="keywords" content="Python, NCVC, Script">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -68,45 +68,33 @@
 </header>
 </div>
 
+<h1>Python でシーケンス番号を振る</h1>
+
 <div id="contents">
 <section>
-<h2>旧更新情報・お知らせ</h2>
-<table class="ta2">
-<tr>
-    <th>2021/03/22</th>
-    <td><a href="../news/20210322.html">301リダイレクトを追加しました</a></td>
-</tr>
-<tr>
-    <th>2021/03/01</th>
-    <td>その他コンテンツに <a href="../zumo/index.html">Zumo32U4 コンテンツ</a> を追加しました（3/22 写真追加して工事完了，3/23 動画の追加）</td>
-</tr>
-<tr>
-    <th>2021/02/10</th>
-    <td><a href="../history/support_old.html">過去のサポート掲示板データについて</a></td>
-</tr>
-<tr>
-    <th>2021/02/08</th>
-    <td>ダウンロードサイトをGoogleDriveからfirestorageに切り替えました<br>無料プランでもダウンロード件数がわかるため</td>
-</tr>
-<tr>
-    <th>2021/01/28</th>
-    <td>無料テンプレートを用いてサンプルページの編集開始</td>
-</tr>
-<tr>
-    <th>2020/12/15</th>
-    <td>NCVC Ver3.87b リリース</td>
-</tr>
-<tr>
-    <th>2020/10/29</th>
-    <td>NCVC Ver3.87a リリース</td>
-</tr>
-<tr>
-    <th>2020/08/17</th>
-    <td>NCVC Ver3.86 リリース</td>
-</tr>
-</table>
-</section>
 
+<h2>Python でシーケンス番号を振る</h2>
+<p>
+　リスト6.2（p.191）と同じ処理です．
+</p>
+<p class="look mb30">
+import sys<br>
+import re<br>
+<br>
+num=1000<br>
+add=5<br>
+reg_ignore = re.compile(r'[O%\(\n]')<br>
+<br>
+for line in sys.stdin:<br>
+　　if re.match(reg_ignore, line):<br>
+　　　　print(line, end='')<br>
+　　　　continue<br>
+　　print(f'N{num:>04d}'+line, end='')<br>
+　　num += add<br>
+</p>
+<p><div align="center"><a href="lists/addseq.py">addseq.py</a></div></p>
+
+</section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
