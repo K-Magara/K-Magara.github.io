@@ -657,4 +657,5 @@ body.s-n #sub,body.s-n #footermenu {display: none;}
 
 pre {
 	line-height: 1;
+	tab-size: 4;
 }
