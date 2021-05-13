@@ -654,3 +654,7 @@ body.s-n #sub,body.s-n #footermenu {display: none;}
 .fr {float: none;}
 
 }
+
+pre {
+	line-height: 1;
+}

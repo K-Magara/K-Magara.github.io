@@ -77,26 +77,26 @@
 
 <h2>Python でワード分割してみる</h2>
 <p>
-　リスト6.3（p.193）を改良したものです．
+　リスト6.3（p.193）の改良後です．
+ワード分割はほぼすべての基本となります．
 </p>
-<p class="look mb30">
-import sys<br>
-import re<br>
-<br>
-reg_ignore = re.compile(r'\W')<br>
-reg_word   = re.compile(r'[A-Z]-*\d+\.*\d*')<br>
-<br>
-for line in sys.stdin:<br>
-　　if re.match(reg_ignore, line):<br>
-　　　　print(line, end='')<br>
-　　　　continue<br>
-　　wordlist = re.findall(reg_word, line)<br>
-　　for w in wordlist:<br>
-　　　　print(w, end=' ')<br>
-　　print('')<br>
-</p>
-<p><div align="center"><a href="lists/splitword.py">splitword.py</a></div></p>
+<pre><code>
+import sys
+import re
 
+reg_ignore = re.compile(r'\W')
+reg_word   = re.compile(r'[A-Z]-*\d+\.*\d*')
+
+for line in sys.stdin:
+	if re.match(reg_ignore, line):
+		print(line, end='')
+		continue
+	wordlist = re.findall(reg_word, line)
+	for w in wordlist:
+		print(w, end=' ')
+	print('')
+</pre></code>
+<p class="c"><a href="lists/splitword.py">splitword.py</a></p>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>

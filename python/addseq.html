@@ -79,23 +79,29 @@
 <p>
 　リスト6.2（p.191）と同じ処理です．
 </p>
-<p class="look mb30">
-import sys<br>
-import re<br>
-<br>
-num=1000<br>
-add=5<br>
-reg_ignore = re.compile(r'[O%\(\n]')<br>
-<br>
-for line in sys.stdin:<br>
-　　if re.match(reg_ignore, line):<br>
-　　　　print(line, end='')<br>
-　　　　continue<br>
-　　print(f'N{num:>04d}'+line, end='')<br>
-　　num += add<br>
-</p>
-<p><div align="center"><a href="lists/addseq.py">addseq.py</a></div></p>
+<pre><code>
+import sys
+import re
 
+num=1000
+add=5
+reg_ignore = re.compile(r'[O%\(\n]')
+
+for line in sys.stdin:
+	if re.match(reg_ignore, line):
+		print(line, end='')
+		continue
+	print(f'N{num:>04d}'+line, end='')
+	num += add
+</code></pre>
+
+<p class="c"><a href="lists/addseq.py">addseq.py</a></p>
+
+<p>
+p.192 の実行例6.3 と同様に<br>
+	<span class="look">py addseq.py &lt; hoge.ncd</span><br>
+とすればOKです．
+</p>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
