@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --エピトロコイド曲線--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,36 +70,65 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>Python でエピトロコイド曲線の座標を出力する</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>Python でエピトロコイド曲線の座標を出力する</h2>
 <p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
+　リスト6.7（p.206）と同じ処理です．
+numpy ライブラリを使うのでインストールしておきましょう．
+</p>
+<pre class="look"><code>
+import numpy as np
+
+# ローターの大きさを半径で指定
+R=50.0
+# ステーショナリギアとインナーギアの中心差分を指定
+e=10.0
+# 分割数
+s=120.0
+
+t=2.0*np.pi/s
+for q in np.arange(0.0, 2.0*np.pi*3.0, t):
+    q3 = q / 3.0
+    px = e * np.cos(q) + R * np.cos(q3)
+    py = e * np.sin(q) + R * np.sin(q3)
+    print(str(px)+','+str(py))
+
+</code></pre>
+<p class="c"><a href="lists/rotary.py">rotary.py</a></p>
+
+<p>
+ついでに結果をグラフ化してみます．
+matplotlib ライブラリが必要です．
+</p>
+<pre class="look"><code>
+import numpy as np
+import fileinput
+import matplotlib.pyplot as plt
+
+dx, dy = np.loadtxt(fileinput.input(), delimiter=',', unpack=True)
+
+plt.plot(dx, dy, c='k')
+plt.axhline(0, linewidth=2)
+plt.axvline(0, linewidth=2)
+
+plt.show()
+
+</code></pre>
+<p class="c"><a href="lists/graph.py">graph.py</a></p>
+<p>
+p.206 の実行例6.8 では Excel に読ませるためファイル（CSV）に出力しましたが，<br>
+	<span class="look">py rotary.py | py graph.py</span><br>
+とすると，以下のようなグラフを出力します．
+matplotlib はグラフ作成には必須のライブラリなので，ぜひご活用ください．
+</p>
 <div align="center"><figure>
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
+<img src="lists/rotary.png">
 </figure></div>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
-
-<h2>もくじ</h2>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-</ul>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
