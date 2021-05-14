@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --YtoC--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,35 +70,54 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>Python でY軸の値をC軸の回転角度に変換</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
-<p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
-<div align="center"><figure>
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
-</figure></div>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>もくじ</h2>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-</ul>
+<h2>Python でY軸の値をC軸の回転角度に変換</h2>
+<p>
+　リスト6.6（p.201）と同じ処理です．
+Perl の特殊変数 $`（マッチした文字列の前にある文字列） や $'（マッチした文字列の後にある文字列） が使えないので，
+ほしいパターンの前後もカッコでくくってグループ化し，それを連結します．
+Y_ で始まるブロックや Y_ で終わるブロックに対応するため，m.group(1) や m.group(3) が有効な場合のみ連結するようにします．
+</p>
+<pre class="look"><code>
+import sys
+import re
+import math
+
+# 直径を指定してください
+D=100.0
+piD=math.pi*D
+
+reg_ignore = re.compile(r'\W')
+str_num    = r'-*\d+\.*\d*'
+str_word   = r'([A-XZ]'+str_num+r')*'
+str_Yword  = r'Y('+str_num+r')'
+reg_match  = re.compile(str_word+str_Yword+str_word)
+
+for line in sys.stdin:
+    if re.match(reg_ignore, line):
+        print(line, end='')
+        continue
+    m = re.match(reg_match, line)
+    if m:
+        Ynum = float(m.group(2))
+        deg  = int(360.0*Ynum/piD*1000.0+0.5) / 1000.0
+        result = ''
+        if m.group(1):
+            result = m.group(1)
+        result += 'C'+str(deg)
+        if m.group(3):
+            result += m.group(3)
+        print(result)
+    else:
+        print(line, end='')
+	
+</pre></code>
+<p class="c"><a href="lists/YtoC.py">YtoC.py</a></p>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
