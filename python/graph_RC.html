@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --容量回路--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,51 +70,63 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>RC直列回路（容量回路）のグラフ</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
-<p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
-<div align="center"><figure>
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
-</figure></div>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>もくじ</h2>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-</ul>
-
-<h2>グラフ</h2>
+<h2>RC直列回路（容量回路）のグラフ</h2>
 <p>
-　本のサンプルだけではネタ切れなので，交流波形観測実験の指導書を書き直したときのサンプルプログラムを掲載します．
-以下のプログラムは <a href="https://github.com/K-Magara/pythongraph" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
+　位相差の測定を行います．
 </p>
-<ul class="disc">
-	<li><a href="./graph_base.html">ベース</a></li>
-	<li><a href="./graph_volt.html">電圧の測定</a></li>
-	<li><a href="./graph_freq.html">周波数の測定</a></li>
-	<li><a href="./graph_freq5T.html">時間基準周波数測定法の説明グラフ</a></li>
-	<li><a href="./graph_RL.html">RL直列回路（誘導回路）</a></li>
-	<li><a href="./graph_RC.html">RC直列回路（容量回路）</a></li>
-</ul>
+<pre class="look"><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] ='Yu Mincho'
+
+x = np.linspace(-5, 5, 200)
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+
+plt.xticks(np.arange(-5, 6, 1), c='None')
+plt.yticks(c='None')
+plt.xlim(-5, 5)
+plt.ylim(-2.0, 2.0)
+plt.grid(ls='--')
+plt.axhline(0, c='lightgray')
+plt.axvline(0, c='lightgray')
+plt.tick_params(length=0)
+plt.plot(x, np.sin(x*np.pi/4)*1.5, c='k', ls='-')
+plt.plot(x, np.sin(x*np.pi/4-0.63)*1.5, c='k', ls='-')
+
+ax.text(-1.5, 2.1, 'すすむ <<     >> おくれる')
+
+ax.arrow(-4, 0, 0, -1.8, color='gray')
+ax.arrow( 4, 0, 0, -1.8, color='gray')
+ax.arrow( 1, -1.75,  3, 0, head_width=0.08, length_includes_head=True, color='gray')
+ax.arrow(-1, -1.75, -3, 0, head_width=0.08, length_includes_head=True, color='gray')
+ax.text(-0.7, -1.8, '360度 = 8div', fontsize=10, backgroundcolor='w')
+
+ax.arrow(0.8, 0, 0, 1, color='gray')
+ax.text(-0.2, 0.7, '位相差', backgroundcolor='w')
+ax.text(-0.2, 0.5, '0.8div', backgroundcolor='w')
+
+ax.arrow(-3, 0.5, -1, -0.5, head_width=0.08, length_includes_head=True, color='gray')
+ax.text( -3, 0.5, 'CH1=$\it{V_R}$', backgroundcolor='w')
+ax.arrow(-2.5, 0.25, -0.65, -0.25, head_width=0.08, length_includes_head=True, color='gray')
+ax.text( -2.5, 0.25, 'CH2=$\it{V}$',   backgroundcolor='w')
+
+plt.show()
+
+</code></pre>
+<p class="c"><a href="https://raw.githubusercontent.com/K-Magara/pythongraph/main/RC.py">RC.py</a></p>
+
+<p>
+<div align="center"><img src="graph/RC.png"></div>
+</p>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 

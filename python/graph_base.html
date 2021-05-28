@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --ベースグラフ--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,51 +70,42 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>交流波形観測のベースグラフ</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
-<p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
-<div align="center"><figure>
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
-</figure></div>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>もくじ</h2>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-</ul>
-
-<h2>グラフ</h2>
+<h2>交流波形観測のベースグラフ</h2>
 <p>
-　本のサンプルだけではネタ切れなので，交流波形観測実験の指導書を書き直したときのサンプルプログラムを掲載します．
-以下のプログラムは <a href="https://github.com/K-Magara/pythongraph" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
+　手始めに，ベースとなるプログラムを紹介します．
 </p>
-<ul class="disc">
-	<li><a href="./graph_base.html">ベース</a></li>
-	<li><a href="./graph_volt.html">電圧の測定</a></li>
-	<li><a href="./graph_freq.html">周波数の測定</a></li>
-	<li><a href="./graph_freq5T.html">時間基準周波数測定法の説明グラフ</a></li>
-	<li><a href="./graph_RL.html">RL直列回路（誘導回路）</a></li>
-	<li><a href="./graph_RC.html">RC直列回路（容量回路）</a></li>
-</ul>
+<pre class="look"><code>
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-np.pi*1.8, np.pi*1.8)
+
+plt.xticks(np.arange(-5, 6, 1))
+plt.grid(ls='dotted')
+plt.axhline(0, c='lightgray')
+plt.axvline(0, c='lightgray')
+plt.xticks(color='None')
+plt.yticks(color='None')
+plt.tick_params(length=0)
+plt.plot(x, np.sin(x), c='k', ls='-', label='sin')
+plt.xlim(-5, 5)
+plt.ylim(-2.0, 2.0)
+
+plt.show()
+
+</code></pre>
+<p class="c"><a href="https://raw.githubusercontent.com/K-Magara/pythongraph/main/base.py">base.py</a></p>
+
+<p>
+実行すると，以下のようなグラフが作図できます．
+<div align="center"><img src="graph/base.png"></div>
+</p>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
