@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --普通のグラフ--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,64 +70,41 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>普通のグラフ</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
-<p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
-<div align="center"><figure>
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
-</figure></div>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>もくじ</h2>
+<h2>普通のグラフ</h2>
 <p>
-　以下のプログラムは <a href="https://github.com/NCVC-CAM/PythonScripts" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-各スクリプトの [RAW] ボタンを押せば生スクリプトが取り出せますよ．
+　理論値と測定値がある一般的な実験のグラフサンプル．
 </p>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-</ul>
+<pre class="look"><code>
+import numpy as np
+import matplotlib.pyplot as plt
 
-<h2>グラフ</h2>
+x = [i/10 for i in range(0, 101)]
+y = [3*(i-4)**2+2 for i in x]
+
+dx, dy = np.loadtxt("data.txt", unpack=True)
+
+plt.plot(x, y, c='k', label='理論値')
+plt.plot(dx, dy, 'o', c='k', mfc='w', label='測定値') # markerfacecolor
+
+plt.xlabel('$\it{x}$ [mm]')
+plt.ylabel('$\it{y}$ [mm]')
+plt.legend(prop={"family":"Yu Mincho"})
+
+plt.show()
+
+</code></pre>
+<p class="c"><a href="https://github.com/K-Magara/pythongraph/blob/main/normal.py">normal.py</a></p>
+
 <p>
-　本のサンプルだけではネタ切れなので，交流波形観測実験の指導書を書き直したときのサンプルプログラムを掲載します．
-以下のプログラムは <a href="https://github.com/K-Magara/pythongraph" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-</p>
-<ul class="disc">
-	<li><a href="./graph_base.html">ベース</a></li>
-	<li><a href="./graph_volt.html">電圧の測定</a></li>
-	<li><a href="./graph_freq.html">周波数の測定</a></li>
-	<li><a href="./graph_freq5T.html">時間基準周波数測定法の説明グラフ</a></li>
-	<li><a href="./graph_RL.html">RL直列回路（誘導回路）</a></li>
-	<li><a href="./graph_RC.html">RC直列回路（容量回路）</a></li>
-</ul>
-<hr>
-<p>
-　普通のグラフサンプルも
-</p>
-<ul class="disc">
-	<li><a href="./graph_normal.html">理論値と測定値がある一般的な実験のグラフサンプル</a></li>
-</ul>
+実行すると，以下のようなグラフが作図できます．markerfacecolor(mfc)で白抜きプロットしています．
+<div align="center"><img src="graph/normal.png"></div>
 </p>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
