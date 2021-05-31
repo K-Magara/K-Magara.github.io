@@ -110,8 +110,10 @@ ax.arrow(-1, -1.75, -3, 0, head_width=0.08, length_includes_head=True, color='gr
 ax.text(-0.7, -1.8, '360度 = 8div', fontsize=10, backgroundcolor='w')
 
 ax.arrow(-0.8, 0, 0, 1, color='gray')
-ax.text(-0.68, 0.7, '位相差', backgroundcolor='w')
-ax.text(-0.68, 0.5, '0.8div', backgroundcolor='w')
+ax.arrow(-0.8, 0.25, 0.8, 0, head_width=0.08, length_includes_head=True, color='gray')
+ax.arrow(0, 0.25, -0.8, 0, head_width=0.08, length_includes_head=True, color='gray')
+ax.text(-0.65, 0.7, '位相差', backgroundcolor='w')
+ax.text(-0.65, 0.5, '0.8div', backgroundcolor='w')
 
 ax.arrow(-3, 0.5, -1, -0.5, head_width=0.08, length_includes_head=True, color='gray')
 ax.text( -3, 0.5, 'CH1=$\it{V_R}$', backgroundcolor='w')
