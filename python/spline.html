@@ -190,7 +190,7 @@ import fileinput
 import matplotlib.pyplot as plt
 
 dx, dy = np.loadtxt(fileinput.input(), delimiter=',', unpack=True)
-qx, qy, w = np.loadtxt("q.txt", unpack=True)
+qx, qy = np.loadtxt("q.txt", unpack=True)
 
 plt.plot(dx, dy, c='k')
 plt.plot(qx, qy, 'o')
@@ -320,7 +320,7 @@ for x, y in zip(px, py):
 1.0
 
 </code></pre>
-これでグラフ化すると，以下のようになりました．なにかちょっと違うようです．原因はわかりません...
+これでグラフ化すると，以下のようになりました．なにかちょっと違うようです．おそらく式の定義がまちがってますね．
 <figure class="c">
 <img src="scripts/spline3.png">
 </figure><br>
