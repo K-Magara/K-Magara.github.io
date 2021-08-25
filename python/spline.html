@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Python初心者向け実践講座 --スプライン曲線--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Python初心者のための実践講座">
+<meta name="keywords" content="Python, NCVC, Script">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+</div>
+
+<h1>Python でスプライン曲線</h1>
+
+<div id="contents">
+<section>
+
+<h2>Python でスプライン曲線</h2>
+<p>
+　ここでは DXF の SPLINE で定義される情報から，なめらかな曲線座標を再現する方法を紹介します．
+</p>
+<ol>
+<li>理論</li>
+　<a href="https://www.ohmsha.co.jp/book/9784274069451/" target="_blank">落合重紀著：DXFハンドブック第2版，オーム社(H25)</a>より，数式を定義します．
+<figure>
+<img src="scripts/f1.png" alt="\[P(t)=\sum^{n-1}_{i=0} Q_i N_{i,m}(t)\]">
+</figure><br>
+<table border="0">
+<tr>
+	<td><i>Q<sub>i</sub></i></td><td>　制御点</td><td></td>
+</tr>
+<tr>
+	<td><i>N<sub>i,m</sub>(t)</i></td><td>　基底関数</td><td></td>
+</tr>
+<tr>
+	<td><i>n</i></td><td>　制御点の数</td><td>　文献では n+1 となっていますが n のほうがわかりやすい</td>
+</tr>
+<tr>
+	<td><i>m</i></td><td>　階数</td><td>　次数+1　通常DXFのBスプラインは3次らしいので階数は4になります</td>
+</tr>
+</table>
+<br>
+基底関数は
+<figure>
+<img src="scripts/f2.png" alt="\[N_{i,1}(t)=\left\{ \begin{matrix}1&t_i\leq t < t_{i+1} \,^{*1} \\ 0&\mathrm{other} \end{matrix} \right.\]"><br>
+<img src="scripts/f3.png" alt="\[N_{i,m}(t)=\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_{i+1}}N_{i+1,m-1}(t)\]">
+</figure><br>
+　　　<sup>(*1)</sup>文献では <img src="scripts/f4.png"> ですが，<i>t</i>=<i>t<sub>i+1</sub></i>のときに計算結果がおかしくなったので上記のようにしています．
+<br><br>
+<i>t<sub>i</sub></i>はノット（重ね合わせ，多重度）で，ノットベクトルは
+<figure>
+<img src="scripts/f5.png" alt="\[T=\{t_0=t_1=\cdots = t_{m-1} < t_m \leq t_{m+1} \leq \cdots \leq t_n < t_{n+1} = \cdots = t_{n+m}\}\]">
+</figure><br>
+
+<li>最初のプログラム</li>
+　以上のことを考慮して作成したPythonプログラム spline.py が以下の通り．参考URLは<a href="http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm" target="_blank">http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm</a>
+<pre class="look"><code>
+import numpy as np
+
+def baseN(i, m, t, nv):
+    if m == 1:
+        if nv[i] <= t < nv[i+1]:
+            return 1.0
+        else:
+            return 0.0
+    b = nv[i+m-1] - nv[i]
+    if b != 0:
+        w1 = (t-nv[i]) / b * baseN(i, m-1, t, nv)
+    else:
+        w1 = 0
+    b = nv[i+m] - nv[i+1]
+    if  b != 0:
+        w2 = (nv[i+m]-t) / b * baseN(i+1, m-1, t, nv)
+    else:
+        w2 = 0
+    return w1+w2
+
+
+lqx, lqy = np.loadtxt("q.txt", unpack=True)
+nv = np.loadtxt("nv.txt")
+tmax = max(nv)
+
+px = []
+py = []
+for t in np.arange(0, tmax+0.1, 0.1):
+    i = 0
+    x = 0
+    y = 0
+    if t==tmax:		# これがないと
+        t -= 0.001	# 　終点までいかない
+    for qx, qy in zip(lqx, lqy):
+        r = baseN(i, 4, t, nv)
+        x += qx * r
+        y += qy * r
+        i += 1
+    if x!=0 or y!=0:
+        px.append(x)
+        py.append(y)
+
+for x, y in zip(px, py):
+    print(str(x)+','+str(y))
+
+</code></pre>
+制御点情報 q.txt は
+<pre class="look"><code>
+200.0 100.0
+280.0 180.0
+360.0 120.0
+450.0 150.0
+500.0 140.0
+
+</code></pre>
+ノットベクトル nv.txt は
+<pre class="look"><code>
+0.0
+0.0
+0.0
+0.0
+1.0
+2.0
+2.0
+2.0
+2.0
+
+</code></pre>
+グラフ作成用のプログラム graph.py
+<pre class="look"><code>
+import numpy as np
+import fileinput
+import matplotlib.pyplot as plt
+
+dx, dy = np.loadtxt(fileinput.input(), delimiter=',', unpack=True)
+qx, qy, w = np.loadtxt("q.txt", unpack=True)
+
+plt.plot(dx, dy, c='k')
+plt.plot(qx, qy, 'o')
+
+plt.show()
+
+</code></pre>
+　コマンドプロンプトで <span class="look">py spline.py | py graph.py</span> とすると以下のグラフが作成できます．
+青丸が制御点です．
+<figure class="c">
+<img src="scripts/spline1.png">
+</figure><br>
+
+<li>フィット点のあるスプライン</li>
+　「次数+1だけ重ねるとその点を通る」らしいのですが，計算方法がわかりません．
+<br>
+制御点情報 q2.txt は
+<pre class="look"><code>
+200.0 100.0
+225.7368791538797 139.7497698097172
+274.2221605281183 214.6337073482535
+332.6069368389686 150.2211743305082
+360.0 120.0
+
+</code></pre>
+ノットベクトル nv2.txt
+<pre class="look"><code>
+0.0
+0.0
+0.0
+0.0
+113.1370849898476
+213.1370849898476
+213.1370849898476
+213.1370849898476
+213.1370849898476
+
+</code></pre>
+フィット点 fit2.txt
+<pre class="look"><code>
+200.0 100.0
+280.0 180.0
+360.0 120.0
+
+</code></pre>
+これでグラフ化（graph.pyの変更点は省略）すると以下のグラフになります．
+橙色がフィット点ですが，とくに計算で細工しなくてもノットベクトルの情報だけでその点にフィットしているようです．
+<figure class="c">
+<img src="scripts/spline2.png">
+</figure><br>
+
+<li>有理スプライン</li>
+　文献には式が書かれていませんでした．調査したところ制御点に重みを付けるらしいので，最初の式が
+<figure>
+<img src="scripts/f6.png" alt="\[P(t)=\sum^{n-1}_{i=0} Q_i w_i N_{i,m}(t)\]">
+</figure>
+<table border="0">
+<tr>
+	<td><i>w<sub>i</sub></i></td><td>　重み</td><td></td>
+</tr>
+</table>
+になります．重みを読み込むように spline.py を変更します．
+<pre class="look"><code>
+import numpy as np
+
+def baseN(i, m, t, nv):
+    if m == 1:
+        if nv[i] <= t < nv[i+1]:
+            return 1.0
+        else:
+            return 0.0
+    b = nv[i+m-1] - nv[i]
+    if b != 0:
+        w1 = (t-nv[i]) / b * baseN(i, m-1, t, nv)
+    else:
+        w1 = 0
+    b = nv[i+m] - nv[i+1]
+    if  b != 0:
+        w2 = (nv[i+m]-t) / b * baseN(i+1, m-1, t, nv)
+    else:
+        w2 = 0
+    return w1+w2
+
+
+lqx, lqy<strong class="color1">, lw</strong> = np.loadtxt("q3.txt", unpack=True)
+nv = np.loadtxt("nv3.txt")
+tmax = max(nv)
+
+px = []
+py = []
+for t in np.arange(0, tmax+0.1, 0.1):
+    i = 0
+    x = 0
+    y = 0
+    if t==tmax:
+        t -= 0.001
+    for qx, qy<strong class="color1">, w</strong> in zip(lqx, lqy<strong class="color1">, lw</strong>):
+        r = baseN(i, 4, t, nv)
+        x += qx * r<strong class="color1"> * w</strong>
+		y += qy * r<strong class="color1"> * w</strong>
+        i += 1
+    if x!=0 or y!=0:
+        px.append(x)
+        py.append(y)
+
+for x, y in zip(px, py):
+    print(str(x)+','+str(y))
+
+</code></pre>
+制御点情報 q3.txt は，3列目に重み情報を追加します．
+<pre class="look"><code>
+200.0 100.0 1.0
+250.0 180.0 1.0
+300.0 210.0 2.0
+360.0 150.0 1.0
+
+</code></pre>
+ノットベクトル nv3.txt
+<pre class="look"><code>
+0.0
+0.0
+0.0
+0.0
+1.0
+1.0
+1.0
+1.0
+
+</code></pre>
+これでグラフ化すると，以下のようになりました．なにかちょっと違うようです．原因はわかりません...
+<figure class="c">
+<img src="scripts/spline3.png">
+</figure><br>
+
+<li>連続スプライン</li>
+準備中
+
+<li>開始接線，終了接線のあるスプライン</li>
+準備中
+
+</ol>
+</section>
+
+<p></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
