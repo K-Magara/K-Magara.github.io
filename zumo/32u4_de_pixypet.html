@@ -96,11 +96,9 @@ PixyPet 側も同様に確認します．SCL は 5番ピン，SDA は 9番ピン
 　試作は，Zumo32U4 の筐体サイズにピッタリな両面基板 TAKACHI TNF53-79 に作ってみました．
 信号線は PixyPet の10pinコネクタに SCL/SDA 信号線2本と電源2本を接続するだけです．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/PixyPetTrial.jpg" width="50%" alt="PixyPet試作">
 </figure>
-</div></p>
 <p></p>
 <p>
 　スケッチは Pixy.h の派生クラスとして PixyI2C.h が用意されているのでそれに変更します．あと Zumo 関連も Zumo32U4 に変えておきます．
@@ -119,18 +117,14 @@ PixyI2C	pixy;	<strong class="color1">// PixyI2C クラスを使用</strong>
 　このカメラは，本体とセットで演習最終日に学生一人ずつ貸し出すので量産が必要です．
 僕が作った試作回路から回路の得意な相方さんに EDA ツール（EAGLE）にて回路を起こしてもらい基板発注しました．接続ケーブルは汎用の10pinケーブルを購入しました．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/kiban.jpg" width="50%" alt="基板発注">
 </figure>
-</div></p>
 <p></p>
 <p>できあがりがこちら．新型の PixyPet2 に置き換えてもうまく動いています．</p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/PixyPet.jpg" width="50%" alt="PixyPet完成品">
 </figure>
-</div></p>
 <p></p>
 <p>
 　旧型 PixyPet の欠点は，USB が mini-B で Zumo32U4 の micro-B とはケーブルを別に用意しなければならないこと．
@@ -142,9 +136,9 @@ PixyPet2 では micro-B に改善されています．
 <sup>*1</sup> ある日の授業で学生が接続を誤り，カメラICから煙が出ました．よくよく注意喚起せねばｗｗ
 </p>
 
-<div align="center">
+<p class="c">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/BgsnzDE9FTU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+</p>
 
 </section>
 <p></p>

@@ -90,14 +90,12 @@
 BLEserial3 の RX を Zumo の TX1(D1:PD3) に，BLEserial3 の TX を Zumo の RX1(D0:PD2) につなぎ，
 Serial1 で通信を行います．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/BLEserial3.jpg" width="50%">
 </figure>
-</div></p>
 <p></p>
 <p>サンプルスケッチは，シンプルにコードを受信したらモータを回すようにしています．</p>
-<p><div align="center"><a href="lists/BLEtestZumo.ino">BLEtestZumo.ino</a></div></p>
+<p class="c"><a href="lists/BLEtestZumo.ino">BLEtestZumo.ino</a></p>
 <p></p>
 
 <h3>iPhone を使ってみる</h3>
@@ -110,23 +108,19 @@ GATT プロファイルに対応していないと思われます．
 一覧に出てくる BLEserial3 に接続すると，BLEserial3 の LED が点滅から点灯にかわります．
 とりあえず TX の Write new value から 1 バイトの送信が可能なので送信すると，Zumo のモータが動くことを確認できました．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/iphone1.png" width="20%">
     <img src="images/iphone2.png" width="20%">
 </figure>
-</div></p>
 <p></p>
 <p>
 　本当はゲームパッド風のアプリで動かしたかった．
 たとえば<a href="https://apps.apple.com/jp/app/ble-joystick/id1098200556" target="_blank">こういうの</a>とか．
 残念．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/BLEjoystick.jpg" width="30%" alt="GamePad App">
 </figure>
-</div></p>
 <p></p>
 
 <h3>PC（Windows10）を使ってみる</h3>
@@ -137,12 +131,10 @@ Microsoft Bluetooth LE Enumerator があれば OK です．
 次にスタートメニューから［設定］→［デバイス］で BLEserial3 のペアリングを行います．
 おそらくペアリングしなくても通信できると思いますが念のため．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/WinBLE_Init1.png" width="50%">
     <img src="images/WinBLE_Init2.png" width="30%">
 </figure>
-</div></p>
 <p></p>
 <p>
 　iPhone で試したように，Windows でも LightBlue 的なアプリで通信のテストをしてみます．
@@ -151,12 +143,10 @@ BLEserial3 の LED が点滅から点灯にかわり，接続できたことが�
 Unknown service の Unknown characteristic から Writing に値を入れ Write ボタンを押すと，Zumo のモータが動くことを確認できました．
 やったー！
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/WinBLE1.png" width="40%">
     <img src="images/WinBLE2.png" width="40%">
 </figure>
-</div></p>
 <p></p>
 
 <h3>Python</h3>
@@ -191,16 +181,16 @@ C4:42:29:32:79:2D: BLESerial_0
 <p></p>
 <p>
 　これらの情報から，以下の Python サンプルコードで Zumo のモータが動くことを確認できました．
-<div align="center"><a href="lists/BLEserial3.py">BLEserial3.py</a></div>
+<p class="c"><a href="lists/BLEserial3.py">BLEserial3.py</a></p>
 </p>
 <p></p>
 <p>
 　PyGame ライブラリをインストールし，キー入力に対応させます．以下のコードにより，矢印キーで Zumo を前後左右に動かせました．
 Zumo 側のスケッチは普通です．
-<div align="center">
+<p class="c">
     Python コード <a href="lists/BLEkey.py">BLEkey.py</a><br>
     Zumo スケッチ <a href="lists/BLEkey.ino">BLEkey.ino</a>
-</div>
+</p>
 </p>
 <p></p>
 <p>
@@ -208,10 +198,10 @@ Zumo 側のスケッチは普通です．
 <strong class="color1"><a href="./vsc1.html">VS-C1</a> と同等の操作性で Zumo を動かすことに成功しました．</strong>
 アナログ値を取得し，上位 4 ビットに左スティック情報を，下位 4 ビットに右スティック情報を送信しています．
 当然 Zumo 側のプログラムもそれ用に書き換えました．
-<div align="center">
+<p class="c">
     Python コード <a href="lists/BLEjoy.py">BLEjoy.py</a><br>
     Zumo スケッチ <a href="lists/BLEjoy.ino">BLEjoy.ino</a>
-</div>
+</p>
 </p>
 
 <h3>Raspberry Pi を使ってみる</h3>
@@ -270,9 +260,9 @@ BLE Connected: True
 　iPhone のゲームパッドアプリで動かす作戦は失敗しましたが，PC（Raspberry Pi） のゲームパッドで動かすことに成功しました．
 これで XBee（赤外線はXBeeと共用），VS-C1，BLEserial3 の計 3 台の <strong class="color1">Zumo ラジコン</strong>を動かしています．
 </p>
-<div align="center">
+<p class="c">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vWnp24Og5MI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+</p>
 
 </section>
 <p></p>

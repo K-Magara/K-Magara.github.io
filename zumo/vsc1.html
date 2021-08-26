@@ -90,12 +90,10 @@ Robovie-X には，そのコントローラとして PS2 型のコントロー�
 本家は<a href="http://micono.cocolog-nifty.com/blog/2012/03/ps224ghzvs-c1-d.html" target="_blank">こちら</a>です．
 消えるとまずいので，ダウンロードして貼り付けています．あざますあざます．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/image1.png" width="30%">
     <img src="images/image2.png" width="30%">
 </figure>
-</div></p>
 <p>
 </p>
 <p>
@@ -103,22 +101,20 @@ Robovie-X には，そのコントローラとして PS2 型のコントロー�
 ホントは右図の基板付きを買えばよかった．失敗です．仕方なく空中配線．
 ライブラリでどこに何がつながっているか指定できるので Zumo の信号と被らなければ基本的にどこでも良いと思います．
 </p>
-<div align="center"><table border="1" width="20%">
+<table border="1" width="20%" align="center">
 <tr><th>data</th><th>D2(PD1)</th></tr>
 <tr><th>command</th><th>D4(PD4)</th></tr>
 <tr><th>attention</th><th>D5(PC6)</th></tr>
 <tr><th>clock</th><th>D3(PD0)</th></tr>
-</table></div><p></p>
+</table><p></p>
 <p>
 　ついでに旋回時に首を振るようにサーボを載せてみました．Zumo32U4 でサーボを動かす方法は<a href="./servo.html">こちら</a>です．
 赤いボールは <a href="./32u4_de_pixypet.html">PixyPet</a> の先導車両用ですね．
 前方車両を追尾する自動運転技術のデモ機です．無線コントロールしたかったのはこのためでした(^o^)．
 </p>
-<p><div align="center">
-<figure>
+<figure class="c">
     <img src="images/vs-c1.jpg" width="50%">
 </figure>
-</div></p>
 <p>
 </p>
 
@@ -134,15 +130,15 @@ PS2X_lib のスケッチ例があるので参考にします．
 上記のピン接続は，config_gamepad() 関数で指示します．
 アナログ量が取得できるので，スティックの傾き具合から Zumo モータの速度を変化させています．
 </p>
-<p><div align="center"><a href="lists/PS2RC.ino">PS2RC.ino</a></div></p>
+<p class="c"><a href="lists/PS2RC.ino">PS2RC.ino</a></p>
 
 <h3>試してみた感想</h3>
 <p>
 　ライブラリを追加することで，驚くほど簡単にできました．先人たちの知恵に感謝．
 </p>
-<div align="center">
+<p class="c">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fMu1TFc-NBw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>	
-</div>
+</p>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
