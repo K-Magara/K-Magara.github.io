@@ -10,6 +10,21 @@
 
   gtag('config', 'G-QZV05PBY1K');
 </script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+  });
+</script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Python初心者向け実践講座 --スプライン曲線--</title>
@@ -79,41 +94,36 @@
 <p>
 　ここでは DXF の SPLINE で定義される情報から，なめらかな曲線座標を再現する方法を紹介します．
 </p>
-<ol>
-<li>理論</li>
-　<a href="https://www.ohmsha.co.jp/book/9784274069451/" target="_blank">落合重紀著：DXFハンドブック第2版，オーム社(H25)</a>より，数式を定義します．
-<figure>
-<img src="scripts/f1.png" alt="\[P(t)=\sum^{n-1}_{i=0} Q_i N_{i,m}(t)\]">
-</figure><br>
+<h3>理論</h3>
+<p><a href="https://www.ohmsha.co.jp/book/9784274069451/" target="_blank">落合重紀著：DXFハンドブック第2版，オーム社(H25)</a>より，数式を定義します．</p>
+<p>\[P(t)=\sum^{n-1}_{i=0} Q_i N_{i,m}(t)\]</p>
 <table border="0">
 <tr>
-	<td><i>Q<sub>i</sub></i></td><td>　制御点</td><td></td>
+	<td>　　　</td><td>$Q_i$</td><td>　制御点</td><td></td>
 </tr>
 <tr>
-	<td><i>N<sub>i,m</sub>(t)</i></td><td>　基底関数</td><td></td>
+	<td>　　　</td><td>$N_{i,m}(t)$</td><td>　基底関数</td><td></td>
 </tr>
 <tr>
-	<td><i>n</i></td><td>　制御点の数</td><td>　文献では n+1 となっていますが n のほうがわかりやすい</td>
+	<td>　　　</td><td>$n$</td><td>　制御点の数</td><td>　文献では $n+1$ となっていますが $n$ のほうがわかりやすい</td>
 </tr>
 <tr>
-	<td><i>m</i></td><td>　階数</td><td>　次数+1　通常DXFのBスプラインは3次らしいので階数は4になります</td>
+	<td>　　　</td><td>$m$</td><td>　階数</td><td>　次数+1　通常DXFのBスプラインは3次らしいので階数は4になります</td>
 </tr>
 </table>
 <br>
+<p>
 基底関数は
-<figure>
-<img src="scripts/f2.png" alt="\[N_{i,1}(t)=\left\{ \begin{matrix}1&t_i\leq t < t_{i+1} \,^{*1} \\ 0&\mathrm{other} \end{matrix} \right.\]"><br>
-<img src="scripts/f3.png" alt="\[N_{i,m}(t)=\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_{i+1}}N_{i+1,m-1}(t)\]">
-</figure><br>
-　　　<sup>(*1)</sup>文献では <img src="scripts/f4.png"> ですが，<i>t</i>=<i>t<sub>i+1</sub></i>のときに計算結果がおかしくなったので上記のようにしています．
-<br><br>
-<i>t<sub>i</sub></i>はノット（重ね合わせ，多重度）で，ノットベクトルは
-<figure>
-<img src="scripts/f5.png" alt="\[T=\{t_0=t_1=\cdots = t_{m-1} < t_m \leq t_{m+1} \leq \cdots \leq t_n < t_{n+1} = \cdots = t_{n+m}\}\]">
-</figure><br>
+\[N_{i,1}(t)=\left\{ \begin{matrix}1&t_i\leq t < t_{i+1} \,^{*1} \\ 0&\mathrm{other} \end{matrix} \right.\]
+\[N_{i,m}(t)=\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_{i+1}}N_{i+1,m-1}(t)\]
+</p>
+<p><sup>(*1)</sup>文献では $t_i\leq t \leq t_{i+1}$ ですが，$t=t_{i+1}$ のときに計算結果がおかしくなったので上記のようにしています．</p>
+<p>$t_i$ はノット（重ね合わせ，多重度）で，ノットベクトルは</p>
+<p>\[T=\{t_0=t_1=\cdots = t_{m-1} < t_m \leq t_{m+1} \leq \cdots \leq t_n < t_{n+1} = \cdots = t_{n+m}\}\]</p>
+<br>
 
-<li>最初のプログラム</li>
-　以上のことを考慮して作成したPythonプログラム spline.py が以下の通り．参考URLは<a href="http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm" target="_blank">http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm</a>
+<h3>最初のプログラム</h3>
+<p>以上のことを考慮して作成したPythonプログラム spline.py が以下の通り．参考URLは<a href="http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm" target="_blank">http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm</a></p>
 <pre class="look"><code>
 import numpy as np
 
@@ -161,7 +171,7 @@ for x, y in zip(px, py):
     print(str(x)+','+str(y))
 
 </code></pre>
-制御点情報 q.txt は
+<p>制御点情報 q.txt は</p>
 <pre class="look"><code>
 200.0 100.0
 280.0 180.0
@@ -170,7 +180,7 @@ for x, y in zip(px, py):
 500.0 140.0
 
 </code></pre>
-ノットベクトル nv.txt は
+<p>ノットベクトル nv.txt は</p>
 <pre class="look"><code>
 0.0
 0.0
@@ -183,7 +193,7 @@ for x, y in zip(px, py):
 2.0
 
 </code></pre>
-グラフ作成用のプログラム graph.py
+<p>グラフ作成用のプログラム graph.py</p>
 <pre class="look"><code>
 import numpy as np
 import fileinput
@@ -198,16 +208,15 @@ plt.plot(qx, qy, 'o')
 plt.show()
 
 </code></pre>
-　コマンドプロンプトで <span class="look">py spline.py | py graph.py</span> とすると以下のグラフが作成できます．
-青丸が制御点です．
+<p>コマンドプロンプトで <span class="look">py spline.py | py graph.py</span> とすると以下のグラフが作成できます．青丸が制御点です．</p>
 <figure class="c">
 <img src="scripts/spline1.png">
-</figure><br>
+</figure>
+<br><br>
 
-<li>フィット点のあるスプライン</li>
-　「次数+1だけ重ねるとその点を通る」らしいのですが，計算方法がわかりません．
-<br>
-制御点情報 q2.txt は
+<h3>フィット点のあるスプライン</h3>
+<p>「次数+1だけ重ねるとその点を通る」らしいのですが，計算方法がわかりません．</p>
+<p>制御点情報 q2.txt は</p>
 <pre class="look"><code>
 200.0 100.0
 225.7368791538797 139.7497698097172
@@ -216,7 +225,7 @@ plt.show()
 360.0 120.0
 
 </code></pre>
-ノットベクトル nv2.txt
+<p>ノットベクトル nv2.txt</p>
 <pre class="look"><code>
 0.0
 0.0
@@ -229,30 +238,29 @@ plt.show()
 213.1370849898476
 
 </code></pre>
-フィット点 fit2.txt
+<p>フィット点 fit2.txt</p>
 <pre class="look"><code>
 200.0 100.0
 280.0 180.0
 360.0 120.0
 
 </code></pre>
-これでグラフ化（graph.pyの変更点は省略）すると以下のグラフになります．
-橙色がフィット点ですが，とくに計算で細工しなくてもノットベクトルの情報だけでその点にフィットしているようです．
+<p>これでグラフ化（graph.pyの変更点は省略）すると以下のグラフになります．
+橙色がフィット点ですが，とくに計算で細工しなくてもノットベクトルの情報だけでその点にフィットしているようです．</p>
 <figure class="c">
 <img src="scripts/spline2.png">
-</figure><br>
-
-<li>有理スプライン</li>
-　文献には式が書かれていませんでした．調査したところ制御点に重みを付けるらしいので，最初の式が
-<figure>
-<img src="scripts/f6.png" alt="\[P(t)=\sum^{n-1}_{i=0} Q_i w_i N_{i,m}(t)\]">
 </figure>
+<br><br>
+
+<h3>有理スプライン</h3>
+<p>文献には式が書かれていませんでした．調査したところ制御点に重みを付けるらしいので，最初の式が</p>
+<p>\[P(t)=\sum^{n-1}_{i=0} Q_i w_i N_{i,m}(t)\]</p>
 <table border="0">
 <tr>
-	<td><i>w<sub>i</sub></i></td><td>　重み</td><td></td>
+	<td>　　　</td><td>$w_i$</td><td>　重み</td><td></td>
 </tr>
 </table>
-になります．重みを読み込むように spline.py を変更します．
+<p>になります．重みを読み込むように spline.py を変更します．</p>
 <pre class="look"><code>
 import numpy as np
 
@@ -300,7 +308,7 @@ for x, y in zip(px, py):
     print(str(x)+','+str(y))
 
 </code></pre>
-制御点情報 q3.txt は，3列目に重み情報を追加します．
+<p>制御点情報 q3.txt は，3列目に重み情報を追加します．</p>
 <pre class="look"><code>
 200.0 100.0 1.0
 250.0 180.0 1.0
@@ -308,7 +316,7 @@ for x, y in zip(px, py):
 360.0 150.0 1.0
 
 </code></pre>
-ノットベクトル nv3.txt
+<p>ノットベクトル nv3.txt</p>
 <pre class="look"><code>
 0.0
 0.0
@@ -320,18 +328,70 @@ for x, y in zip(px, py):
 1.0
 
 </code></pre>
-これでグラフ化すると，以下のようになりました．なにかちょっと違うようです．おそらく式の定義がまちがってますね．
+<p>これでグラフ化すると，以下のようになりました．なにかちょっと違うようです．おそらく式の定義がまちがってますね．</p>
 <figure class="c">
 <img src="scripts/spline3.png">
+</figure>
+<br><br>
+
+<h3>連続スプライン</h3>
+<p>制御点情報 q4.txt</p>
+<pre class="look"><code>
+1150.0 525.0 1.0
+1166.666666666666 550.0 1.0
+1100.0 650.0 1.0
+1000.0 500.0 1.0
+1133.333333333333 500.0 1.0
+1150.0 525.0 1.0
+
+</code></pre>
+<p>ノットベクトル nv4.txt</p>
+<pre class="look"><code>
+0.0
+0.0
+0.0
+0.0
+1.0
+2.0
+3.0
+3.0
+3.0
+3.0
+
+</code></pre>
+<p>とくにアルゴリズムを変更することなく，うまくいっているようです．</p>
+<figure class="c">
+<img src="scripts/spline4.png">
 </figure><br>
 
-<li>連続スプライン</li>
-準備中
+<p>連続ではない閉じたスプラインの場合，制御点情報 q5.txt</p>
+<pre class="look"><code>
+1000.0 500.0 1.0
+1200.0 500.0 1.0
+1100.0 650.0 1.0
+1000.0 500.0 1.0
 
-<li>開始接線，終了接線のあるスプライン</li>
-準備中
+</code></pre>
+<p>ノットベクトル nv5.txt</p>
+<pre class="look"><code>
+0.0
+0.0
+0.0
+0.0
+1.0
+1.0
+1.0
+1.0
 
-</ol>
+</code></pre>
+<p>これもとくに問題なさそうですが，少しルートが荒いのがきになります．</p>
+<figure class="c">
+<img src="scripts/spline5.png">
+</figure><br>
+
+<h3>開始接線，終了接線のあるスプライン</h3>
+<p>準備中</p>
+
 </section>
 
 <p></p>
