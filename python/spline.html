@@ -84,27 +84,29 @@
 <h3>理論</h3>
 <p><a href="https://www.ohmsha.co.jp/book/9784274069451/" target="_blank">落合重紀著：DXFハンドブック第2版，オーム社(H25)</a>より，数式を定義します．</p>
 <p>\[P(t)=\sum^{n-1}_{i=0} Q_i N_{i,m}(t)\]</p>
-<table border="0">
+<table border="0" align="center">
 <tr>
-	<td>　　　</td><td>$Q_i$</td><td>　制御点</td><td></td>
+	<td>$Q_i$</td><td>　制御点</td><td></td>
 </tr>
 <tr>
-	<td>　　　</td><td>$N_{i,m}(t)$</td><td>　基底関数</td><td></td>
+	<td>$N_{i,m}(t)$</td><td>　基底関数</td><td></td>
 </tr>
 <tr>
-	<td>　　　</td><td>$n$</td><td>　制御点の数</td><td>　文献では $n+1$ となっていますが $n$ のほうがわかりやすい</td>
+	<td>$n$</td><td>　制御点の数</td><td>　文献では $n+1$ となっていますが $n$ のほうがわかりやすい</td>
 </tr>
 <tr>
-	<td>　　　</td><td>$m$</td><td>　階数</td><td>　次数+1　通常DXFのBスプラインは3次らしいので階数は4になります</td>
+	<td>$m$</td><td>　階数</td><td>　次数+1　通常DXFのBスプラインは3次らしいので階数は4になります</td>
 </tr>
 </table>
 <br>
 <p>
 基底関数は
-\[N_{i,1}(t)=\left\{ \begin{matrix}1&t_i\leq t < t_{i+1} \,^{*1} \\ 0&\mathrm{other} \end{matrix} \right.\]
-\[N_{i,m}(t)=\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_{i+1}}N_{i+1,m-1}(t)\]
+\begin{eqnarray}
+N_{i,1}(t)&=&\left\{ \begin{matrix}1&t_i\leq t < t_{i+1} \,^{*1} \\ 0&\mathrm{other} \end{matrix} \right. \\
+N_{i,m}(t)&=&\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_{i+1}}N_{i+1,m-1}(t)
+\end{eqnarray}
 </p>
-<p><sup>(*1)</sup>文献では $t_i\leq t \leq t_{i+1}$ ですが，$t=t_{i+1}$ のときに計算結果がおかしくなったので上記のようにしています．</p>
+<p class="c"><sup>(*1)</sup>文献では $t_i\leq t \leq t_{i+1}$ ですが，$t=t_{i+1}$ のときに計算結果がおかしくなったので上記のようにしています．</p>
 <p>$t_i$ はノット（重ね合わせ，多重度）で，ノットベクトルは</p>
 <p>\[T=\{t_0=t_1=\cdots = t_{m-1} < t_m \leq t_{m+1} \leq \cdots \leq t_n < t_{n+1} = \cdots = t_{n+m}\}\]</p>
 <br>
@@ -242,9 +244,9 @@ plt.show()
 <h3>有理スプライン</h3>
 <p>文献には式が書かれていませんでした．調査したところ制御点に重みを付けるらしいので，最初の式が</p>
 <p>\[P(t)=\sum^{n-1}_{i=0} Q_i w_i N_{i,m}(t)\]</p>
-<table border="0">
+<table border="0" align="center">
 <tr>
-	<td>　　　</td><td>$w_i$</td><td>　重み</td><td></td>
+	<td>$w_i$</td><td>　重み</td><td></td>
 </tr>
 </table>
 <p>になります．重みを読み込むように spline.py を変更します．</p>
