@@ -113,6 +113,8 @@ N_{i,m}(t)&=&\frac{t-t_i}{t_{i+m-1}-t_i}N_{i,m-1}(t)+\frac{t_{i+m}-t}{t_{i+m}-t_
 
 <h3>最初のプログラム</h3>
 <p>以上のことを考慮して作成したPythonプログラム spline.py が以下の通り．参考URLは<a href="http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm" target="_blank">http://maicommon.ciao.jp/ss/Jalgo/Bspline/index.htm</a></p>
+<br>
+$t$はノットベクトルの最小値と最大値の間を100分割しました．曲線の滑らかさに関わります．
 <pre class="look"><code>
 import numpy as np
 
@@ -137,11 +139,12 @@ def baseN(i, m, t, nv):
 
 lqx, lqy = np.loadtxt("q.txt", unpack=True)
 nv = np.loadtxt("nv.txt")
+tmin = min(nv)
 tmax = max(nv)
 
 px = []
 py = []
-for t in np.arange(0, tmax+0.1, 0.1):
+for t in np.linspace(tmin, tmax, 100):
     i = 0
     x = 0
     y = 0
@@ -274,11 +277,12 @@ def baseN(i, m, t, nv):
 
 lqx, lqy<strong class="color1">, lw</strong> = np.loadtxt("q3.txt", unpack=True)
 nv = np.loadtxt("nv3.txt")
+tmin = min(nv)
 tmax = max(nv)
 
 px = []
 py = []
-for t in np.arange(0, tmax+0.1, 0.1):
+for t in np.linspace(tmin, tmax, 100):
     i = 0
     x = 0
     y = 0
@@ -375,7 +379,7 @@ for x, y in zip(px, py):
 1.0
 
 </code></pre>
-<p>これもとくに問題なさそうですが，少しルートが荒いのが気になります．</p>
+<p>これもとくに問題なさそうです．</p>
 <figure class="c">
 <img src="scripts/spline5.png">
 </figure><br>
