@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Zumo32U4でマリオカートライブもどき</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+</div>
+
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
+
+<div id="contents">
+<section>
+
+<h2>マリオカートライブもどき試作１号機</h2>
+<h3>はじめに</h3>
+<p>
+　『<a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>』でも自動追尾など一定の教育効果はあると思いますが，
+受動的な動作なので低学年ではすぐに飽きてしまいます．
+そのため先頭車両用に3種類のラジコン（<a href="./xbee.html">XBee</a>, <a href="./vsc1.html">VS-C1</a>, <a href="./ble.html">BLEserial3</a>）も作り能動的な操作もできるように工夫しているわけですが，
+もう少し発展的に楽しめないかということで
+<a href="https://www.nintendo.co.jp/switch/rmaaa/index.html" target="_blank">マリオカートライブホームサーキット</a>
+を参考に試作してみました．
+</p>
+
+<h3>試作回路</h3>
+<p>
+　本番では20台以上の大量生産が必要なのでコストも大切です．
+また，教材として使うわけですから技適の取れた製品を選択します．
+それらを考慮し
+<a href="https://akizukidenshi.com/catalog/g/gM-11819/" target="_blank">ESP32-DevKitC ESP32-WROOM-32開発ボード</a>と
+<a href="https://akizukidenshi.com/catalog/g/gM-11819/" target="_blank">OV2640使用200万画素カメラ B0011</a>を購入．
+回路は<a href="https://www.mgo-tec.com/blog-entry-esp32-ov2640-ssd1331-test1.html/2" target="_blank">mgo-tec電子工作さんのページ</a>を参考にさせてもらいました．
+下の画像は<a href="https://www.mgo-tec.com/blog-entry-esp32-ov2640-ssd1331-test1.html/2" target="_blank">本家</a>からのパクリです．あざますあざます．
+<figure class="c">
+    <img src="images/ov2640_esp32_04.jpg" width="50%">
+</figure>
+</p>
+<p>
+　OLED（有機EL）は使いませんのでOV2640のところだけ配線します．
+ただしZumoへの通信が必要なので，Reset信号はESP32のENピンに接続しました．ESP32のGPIO#17はSerial2のTXで使用します．
+それを <a href="./xbee.html">XBee</a> や <a href="./ble.html">BLEserial3</a> と同じように，ZumoのRXピンに接続します．
+ESP32の電源は Zumo の 5V から取りました．Zumo からは 3.3V も出ていますが，ESP32の駆動にはESP32自体のレギュレータを使う方がいいでしょう．
+<br>
+　実際の配線ですが，カメラを垂直に固定するためのL型ピンヘッダが手持ちに6ピンしかなかったので，それは垂直保持だけに使い，カメラとESP32はフラットケーブルで接続しました．
+<br>
+　あとから気づきましたが，この配線図よりもサンプルスケッチのピン配置を参考にした方がいいかもしれない．
+とにかくスケッチ内でピンを指定するので，使えるピンならどこでもOKですね．
+<figure class="c">
+    <img src="images/mario01.jpg" width="50%">
+</figure>
+</p>
+
+<h3>Arduino IDE</h3>
+<p>
+　ESP32用ボードライブラリのインストールは他のサイトを参照してください．
+ただし（2021年11月現在で）バージョン2.01では動作しませんでした．カメラの初期化関数 esp_camera_init() でエラーが返ります．
+1.06なら動いたので，インストールの際はバージョン指定にご注意ください．
+PSRAM（画像用のメモリ）非搭載のモジュールは最新版では切られたのかもしれません．
+</p>
+
+<h3>WiFiカメラのテスト</h3>
+<p>
+　まずはWiFiカメラの挙動をテストします．この時点でのテストは本当はブレッドボードに組んでテストする方が良いですが，Zumoとの通信も重要課題なのでこの状態でテストします．
+スケッチ例から ESP32→Camera→CameraWebServerを開き，一旦別名で保存します．
+<br>
+　このサンプルスケッチはアクセスポイントを別に用意する必要があるので，ESP32自体がアクセスポイントになるよう変更します．
+22行目と23行目を消して以下のコードを追加します．
+</p>
+<p class="look mb30">
+// ESP32 SoftAP Configration<br>
+const char ssid[] = &quot;ESP32-NET&quot;;<br>
+const char pass[] = &quot;mncts-12345&quot;;<br>
+const IPAddress ip(192,168,199,1);<br>
+const IPAddress subnet(255,255,255,0);
+</p>
+<p>
+　つぎに 102行目 startCameraServer() の前後を以下のように変更します．
+</p>
+<p class="look mb30">
+  //SoftAP<br>
+  WiFi.softAP(ssid, pass);<br>
+  delay(100);<br>
+  WiFi.softAPConfig(ip, ip, subnet);<br>
+  IPAddress myIP = WiFi.softAPIP();<br>
+<br>
+  Serial.println(&quot;ESP32 SoftAP Mode start.&quot;);<br>
+  Serial.print(&quot;SSID:&quot;);<br>
+  Serial.println(ssid);<br>
+  Serial.print(&quot;Password:&quot;);<br>
+  Serial.println(pass);<br>
+<br>
+  startCameraServer();<br>
+<br>
+  Serial.print(&quot;Camera Ready! Use &apos;http://&quot;);<br>
+  Serial.print(myIP);<br>
+  Serial.println(&quot;&apos; to connect&quot;);
+</p>
+<p>
+　上で述べたピン配置は，このサンプルスケッチの camera_pins.h を参考にしてもOKです．
+ただし CameraWebServer 本体の #if defined に変に引っかからない定義をオススメします．
+</p>
+
+<h3>WiFiカメラのテスト結果</h3>
+<p>
+　よろしくなかったです．WiFiはつながるのですが映像が出ません．
+config.xclk_freq_hz = 10000000;
+にしてようやくVGAで出る感じですが，それでも通信が安定しませんでした．
+原因はこの配線かも．
+<figure class="c">
+    <img src="images/mario02.jpg" width="50%">
+</figure>
+</p>
+
+<h3>Bluetoothの確認</h3>
+<p>
+　工事中．
+</p>
+
+</section>
+<p></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
