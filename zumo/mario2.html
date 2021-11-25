@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Zumo32U4でマリオカートライブもどき2</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -70,62 +70,66 @@
 </header>
 </div>
 
-<h1>Zumo Zumo32U4</h1>
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>マリオカートライブもどき試作２号機</h2>
+<h3>はじめに</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．
-</p>
+　１号機ではこれ以上の進展が見込めないので，新たな試作品としてカメラを別に用意しました．
+<ul class="disc">
+  <li><a href="https://www.switch-science.com/catalog/7231/" target="_blank">OV2640搭載 Unit Cam Wi-Fi Camera</a></li>
+  <li><a href="https://www.switch-science.com/catalog/7471/" target="_blank">CP2104/CH9102搭載 ESP32 ダウンローダキット</a></li>
+  <li><a href="https://www.switch-science.com/catalog/1048/" target="_blank">GROVE - 4ピン-ジャンパメスケーブル (5本セット)</a></li>
+  <li><a href="https://www.yodobashi.com/product/100000001003428609/" target="_blank">USB3.1 Gen1 TypeCケーブル</a></li>
+  <li><a href="https://www.yodobashi.com/product/100000001003719817/" target="_blank">USB Aオス を TypeCメス に変換するアダプタ</a></li>
+</ul>
+　１号機の配線では高周波に耐えられない感じがしたのでカメラ付きの ESP32キットを購入．
+Webページには技適対応と明記されていませんが，スイッチサイエンスさんが取り扱う製品はすべて技適対応なようです．
+製品画像を拡大すると技適マークが刻印されていました．
+ただしこの製品にはUSBインタフェースがありませんので，別途書き込みツールが必要です．
+<a href="https://docs.m5stack.com/en/unit/unit_cam" target="_blank">販売元で推奨されている書き込みツール</a>もスイッチサイエンスさんで取り扱っていたので，併せて購入しました．
+さらにさらに... この書き込みツールは micro USB ではなく Type-C インタフェース．いやがらせとしか思えないｗｗ
+サブノートは Type-C ですが，デスクトップPCでも書き込めるように変換アダプタまで用意しました．
+GROVE I/F のケーブルは，このカメラモジュール（Unit Cam）で Zumo と通信するなら必要です．この GROVE I/F から GPIO#17 と GPIO#16（Serial2のTXとRX）が取り出せます．
+<br><br>
+　Unit Cam への書き込みは以下の画像のような感じにしました．
+なんとなくオスメス交互にしましたが，Unit Cam 単体でテストするときに，ブレッドボードに差しやすいよう Unit Cam のほうをオスにした方がよかったかもしれない．
 <figure class="c">
-    <img src="images/top.jpg" width="50%" alt="Zumoの外観">
+  <img src="images/mario21.jpg" width="50%">
 </figure>
-<p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4（写真左）と，マイコンは積んでいない ZumoShield（写真右）の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
+　注意事項ですが，<strong class="color1">Unit Cam のダウンロードポート（縦3pin）に 5V を入れるとカメラが壊れました．</strong>
+Unit Cam にはたしかに 5V と刻印されていますが，そこにつながるダウンローダキットには 3.3V と刻印されています．
+まんまと騙されました．Zumo から電源供給する場合は要注意です．
 </p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
+<h3>試作回路</h3>
+<p>
+　試作１号機をそのまま流用します．Unit Cam用に電源（3.3V）だけ配線しました．
+本当はこの Unit Cam だけで WiFi も Bluetooth もと思っていましたが，応答速度の必要なシーンでは，やはり1チップではしんどいですね．
+せっかく <a href="https://akizukidenshi.com/catalog/g/gM-11819/" target="_blank">ESP32-DevKitC ESP32-WROOM-32開発ボード</a> も搭載してますから，
+こちらはBLE通信用として使います．
+<figure class="c">
+    <img src="images/mario22.jpg" width="50%">
+</figure>
+</p>
 
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a></li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>（動画あり）</li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編（動画あり）
-	<ul>
-		<li><a href="./ir.html">赤外線</a></li>
-		<li><a href="./xbee.html">XBee</a></li>
-		<li><a href="./vsc1.html">VS-C1</a></li>
-		<li><a href="./ble.html">BLEserial3</a></li>
-	</ul></li>
-	<li>マリオカートライブもどき
-	<ul>
-		<li><a href="./mario1.html">試作1号機</a></li>
-		<li><a href="./mario2.html">試作2号機（工事中）</a></li>
-	</ul></li>
-</ul>
+<h3>サンプルスケッチ</h3>
+<p>
+　試作１号機のWiFiテストと同じです．ボードも &quot;ESP32 Dev Module&quot; でOKです．
+Unit Cam のピン配置は CAMERA_MODEL_M5STACK_PSRAM と同じだったので<br>
+<span class="look">#define CAMERA_MODEL_M5STACK_PSRAM // Has PSRAM</span><br>
+の行を有効にします．PSRAMは搭載していませんが...<br>
+</p>
 
-<h3>番外編</h3>
-<ul class="disc">
-	<li><a href="./trouble.html">想定外のトラブル</a></li>
-</ul>
+<h3>動作結果</h3>
+<p>
+動画撮影～
+</p>
+
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
