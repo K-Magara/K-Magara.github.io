@@ -80,7 +80,7 @@
 <p>
 　『<a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>』でも自動追尾など一定の教育効果はあると思いますが，
 受動的な動作なので低学年ではすぐに飽きてしまいます．
-そのため先頭車両用に3種類のラジコン（<a href="./xbee.html">XBee</a>, <a href="./vsc1.html">VS-C1</a>, <a href="./ble.html">BLEserial3</a>）も作り能動的な操作もできるように工夫しているわけですが，
+そのため先頭車両用に3種類のラジコン（<a href="./xbee.html">XBee</a>, <a href="./vsc1.html">VS-C1</a>, <a href="./ble.html">BLEserial3</a>）を作り能動的な操作もできるように工夫しているわけですが，
 もう少し発展的に楽しめないかということで
 <a href="https://www.nintendo.co.jp/switch/rmaaa/index.html" target="_blank">マリオカートライブホームサーキット</a>
 を参考に試作してみました．
@@ -107,8 +107,8 @@ ESP32の電源は Zumo の 5V から取りました．Zumo からは 3.3V も出
 <br>
 　実際の配線ですが，カメラを垂直に固定するためのL型ピンヘッダが手持ちに6ピンしかなかったので，それは垂直保持だけに使い，カメラとESP32はフラットケーブルで接続しました．
 <br>
-　あとから気づきましたが，この配線図よりもサンプルスケッチのピン配置を参考にした方がいいかもしれない．
-とにかくスケッチ内でピンを指定するので，使えるピンならどこでもOKですね．
+　あとから気づきましたが，この配線図よりもサンプルスケッチのピン配置を参考にした方がいいかもしれないですね．
+とにかくスケッチ内でピンを指定するので，使えるピンならどこでもOKです．
 <figure class="c">
     <img src="images/mario01.jpg" width="50%">
 </figure>
@@ -116,23 +116,27 @@ ESP32の電源は Zumo の 5V から取りました．Zumo からは 3.3V も出
 
 <h3>Arduino IDE</h3>
 <p>
-　ESP32用ボードライブラリのインストールは他のサイトを参照してください．
+　ESP32用のボードライブラリのインストールは他のサイトを参照してください．
 ただし（2021年11月現在で）バージョン2.01では動作しませんでした．カメラの初期化関数 esp_camera_init() でエラーが返ります．
 1.06なら動いたので，インストールの際はバージョン指定にご注意ください．
 PSRAM（画像用のメモリ）非搭載のモジュールは最新版では切られたのかもしれません．
+<br>
+　余談ですが，スケッチのビルドに結構なCPUパワーを使います．
+いつもマイコンの開発にはサブノートを使っていましたが，あまりに遅いのでメインのデスクトップPCにArduino IDEをインストールしました．
 </p>
 
 <h3>WiFiカメラのテスト</h3>
 <p>
 　まずはWiFiカメラの挙動をテストします．この時点でのテストは本当はブレッドボードに組んでテストする方が良いですが，Zumoとの通信も重要課題なのでこの状態でテストします．
-スケッチ例から ESP32→Camera→CameraWebServerを開き，一旦別名で保存します．
+スケッチ例から ESP32→Camera→CameraWebServer を開き，一旦別名で保存します．
 <br>
-　このサンプルスケッチはアクセスポイントを別に用意する必要があるので，ESP32自体がアクセスポイントになるよう変更します．
-22行目と23行目を消して以下のコードを追加します．
+　このサンプルスケッチはアクセスポイントを別に用意する必要があります．
+20台ほどが一斉に通信する本番を想定し，ESP32自体がアクセスポイントになるよう変更します．
+22行目と23行目を消して以下のコードを追加します．SSIDやパスワード，IPアドレスなどは，それぞれの環境で適当に設定してください．
 </p>
 <p class="look mb30">
 // ESP32 SoftAP Configration<br>
-const char ssid[] = &quot;ESP32-NET&quot;;<br>
+const char ssid[] = &quot;ESP32-NET99&quot;;<br>
 const char pass[] = &quot;mncts-12345&quot;;<br>
 const IPAddress ip(192,168,199,1);<br>
 const IPAddress subnet(255,255,255,0);
@@ -166,9 +170,10 @@ const IPAddress subnet(255,255,255,0);
 
 <h3>WiFiカメラのテスト結果</h3>
 <p>
-　よろしくなかったです．WiFiはつながるのですが映像が出ません．
+　結論から言うとよろしくなかったです．WiFiはつながるのですが映像が出ません．
 config.xclk_freq_hz = 10000000;
-にしてようやくVGAで出る感じですが，それでも通信が安定しませんでした．
+にしてようやくVGAで出る感じですが，クロックを下げるということはfpsも当然下がります．
+なによりクロックを下げても通信そのものが安定しませんでした．
 原因はこの配線かも．
 <figure class="c">
     <img src="images/mario02.jpg" width="50%">
@@ -177,9 +182,58 @@ config.xclk_freq_hz = 10000000;
 
 <h3>Bluetoothの確認</h3>
 <p>
-　工事中．
+　一旦カメラテストは保留にし，<a href="./ble.html">BLEserial3</a> と同じような無線コントロールを確認します．
+浅草ギ研さんの <a href="http://www.robotsfx.com/robot/BLESerial3.html" target="_blank">BLEserial3</a> はBluetoothの機能だけで4000円，
+<a href="https://akizukidenshi.com/catalog/g/gM-11819/" target="_blank">ESP32-DevKitC ESP32-WROOM-32開発ボード</a> は色々ついて1500円ほど．
+中華恐るべしｗｗ
+<br>
+　ArduinoライブラリはNimBLE-Arduinoを使います．
+インストール後，スケッチ例から NimBLE-Arduino→Refactored_original_examples→BLE_uart を開き，別名で保存してください．
+<figure class="c">
+  <img src="images/NimBLE.png" width="50%">
+</figure>
 </p>
-
+<p>
+　まずsetup()関数にZumoとの通信設定を追加します．BLEデバイス名もわかりやすいように変更しておきます．
+<p class="look mb30">
+void setup() {<br>
+　Serial.begin(115200);<br>
+　<strong class="color1">Serial2.begin(9600);  // GPIO#17</strong><br>
+<br>
+　// Create the BLE Device<br>
+　BLEDevice::init(<strong class="color1">&quot;ESP32-NimBLE&quot;</strong>);  // 識別できる名前に変更<br>
+</p>
+　そのすぐ上にコールバック関数が定義されているので，受信したデータをZumoにも送ります．
+<p class="look mb30">
+class MyCallbacks: public BLECharacteristicCallbacks {<br>
+　void onWrite(BLECharacteristic *pCharacteristic) {<br>
+　　　std::string rxValue = pCharacteristic-&gt;getValue();<br>
+<br>
+　　　if (rxValue.length() &gt; 0) {<br>
+　　　　Serial.println(&quot;*********&quot;);<br>
+　　　　Serial.print(&quot;Received Value: &quot;);<br>
+　　　　for (int i = 0; i &lt; rxValue.length(); i++) {<br>
+　　　　　Serial.print(rxValue[i]);<br>
+　　　　　<strong class="color1">Serial2.write(rxValue[i]);　// Zumoへの送信</strong><br>
+　　　　}<br>
+<br>
+　　　　Serial.println();<br>
+　　　　Serial.println(&quot;*********&quot;);<br>
+　　　}<br>
+　　}<br>
+};<br>
+</p>
+　あとは <a href="./ble.html">BLEserial3</a> のときに作ったPython コード <a href="lists/BLEjoy.py">BLEjoy.py</a> の
+address と UUID を ESP32 に合わせれば，<a href="./ble.html">BLEserial3</a> と同じように無線コントロールができました．
+address(MAC)の調べ方はいろいろありますが，
+<a href="http://zattouka.net/GarageHouse/soft/BLEtool/BLEtool.htm" target="_blank">BLE通信試験ツール</a>
+が便利ですよ．
+UUID は ESP32 から見た受信ID<br><br>
+<p class="look mb30"><br>
+#define CHARACTERISTIC_UUID_RX &quot;6E400002-B5A3-F393-E0A9-E50E24DCCA9E&quot;
+</p>
+を指定します．BLE通信は順調でした．
+</p>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
