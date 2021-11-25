@@ -133,37 +133,37 @@ PSRAM（画像用のメモリ）非搭載のモジュールは最新版では切
 　このサンプルスケッチはアクセスポイントを別に用意する必要があります．
 20台ほどが一斉に通信する本番を想定し，ESP32自体がアクセスポイントになるよう変更します．
 22行目と23行目を消して以下のコードを追加します．SSIDやパスワード，IPアドレスなどは，それぞれの環境で適当に設定してください．
-</p>
-<p class="look mb30">
-// ESP32 SoftAP Configration<br>
-const char ssid[] = &quot;ESP32-NET99&quot;;<br>
-const char pass[] = &quot;mncts-12345&quot;;<br>
-const IPAddress ip(192,168,199,1);<br>
+<pre class="look"><code>
+// ESP32 SoftAP Configration
+const char ssid[] = "ESP32-NET99";
+const char pass[] = "mncts-12345";
+const IPAddress ip(192,168,199,1);
 const IPAddress subnet(255,255,255,0);
+
+</code></pre>
 </p>
 <p>
 　つぎに 102行目 startCameraServer() の前後を以下のように変更します．
-</p>
-<p class="look mb30">
-  //SoftAP<br>
-  WiFi.softAP(ssid, pass);<br>
-  delay(100);<br>
-  WiFi.softAPConfig(ip, ip, subnet);<br>
-  IPAddress myIP = WiFi.softAPIP();<br>
-<br>
-  Serial.println(&quot;ESP32 SoftAP Mode start.&quot;);<br>
-  Serial.print(&quot;SSID:&quot;);<br>
-  Serial.println(ssid);<br>
-  Serial.print(&quot;Password:&quot;);<br>
-  Serial.println(pass);<br>
-<br>
-  startCameraServer();<br>
-<br>
-  Serial.print(&quot;Camera Ready! Use &apos;http://&quot;);<br>
-  Serial.print(myIP);<br>
-  Serial.println(&quot;&apos; to connect&quot;);
-</p>
-<p>
+<pre class="look"><code>
+  //SoftAP
+  WiFi.softAP(ssid, pass);
+  delay(100);
+  WiFi.softAPConfig(ip, ip, subnet);
+  IPAddress myIP = WiFi.softAPIP();
+
+  Serial.println("ESP32 SoftAP Mode start.");
+  Serial.print("SSID:");
+  Serial.println(ssid);
+  Serial.print("Password:");
+  Serial.println(pass);
+
+  startCameraServer();
+
+  Serial.print("Camera Ready! Use 'http://");
+  Serial.print(myIP);
+  Serial.println("' to connect");
+
+</code></pre>
 　上で述べたピン配置は，このサンプルスケッチの camera_pins.h を参考にしてもOKです．
 ただし CameraWebServer 本体の #if defined に変に引っかからない定義をオススメします．
 </p>
@@ -195,34 +195,36 @@ config.xclk_freq_hz = 10000000;
 </p>
 <p>
 　まずsetup()関数にZumoとの通信設定を追加します．BLEデバイス名もわかりやすいように変更しておきます．
-<p class="look mb30">
-void setup() {<br>
-　Serial.begin(115200);<br>
-　<strong class="color1">Serial2.begin(9600);  // GPIO#17</strong><br>
-<br>
-　// Create the BLE Device<br>
-　BLEDevice::init(<strong class="color1">&quot;ESP32-NimBLE&quot;</strong>);  // 識別できる名前に変更<br>
-</p>
+<pre class="look"><code>
+void setup() {
+　Serial.begin(115200);
+　<strong class="color1">Serial2.begin(9600);  // GPIO#17</strong>
+
+　// Create the BLE Device
+　BLEDevice::init(<strong class="color1">"ESP32-NimBLE"</strong>);  // 識別できる名前に変更
+
+</code></pre>
 　そのすぐ上にコールバック関数が定義されているので，受信したデータをZumoにも送ります．
-<p class="look mb30">
-class MyCallbacks: public BLECharacteristicCallbacks {<br>
-　void onWrite(BLECharacteristic *pCharacteristic) {<br>
-　　　std::string rxValue = pCharacteristic-&gt;getValue();<br>
-<br>
-　　　if (rxValue.length() &gt; 0) {<br>
-　　　　Serial.println(&quot;*********&quot;);<br>
-　　　　Serial.print(&quot;Received Value: &quot;);<br>
-　　　　for (int i = 0; i &lt; rxValue.length(); i++) {<br>
-　　　　　Serial.print(rxValue[i]);<br>
-　　　　　<strong class="color1">Serial2.write(rxValue[i]);　// Zumoへの送信</strong><br>
-　　　　}<br>
-<br>
-　　　　Serial.println();<br>
-　　　　Serial.println(&quot;*********&quot;);<br>
-　　　}<br>
-　　}<br>
-};<br>
-</p>
+<pre class="look"><code>
+class MyCallbacks: public BLECharacteristicCallbacks {
+　void onWrite(BLECharacteristic *pCharacteristic) {
+　　　std::string rxValue = pCharacteristic->getValue();
+
+　　　if (rxValue.length() > 0) {
+　　　　Serial.println("*********");
+　　　　Serial.print("Received Value: ");
+　　　　for (int i = 0; i < rxValue.length(); i++) {
+　　　　　Serial.print(rxValue[i]);
+　　　　　<strong class="color1">Serial2.write(rxValue[i]);　// Zumoへの送信</strong>
+　　　　}
+
+　　　　Serial.println();
+　　　　Serial.println("*********");
+　　　}
+　}
+};
+
+</code></pre>
 　あとは <a href="./ble.html">BLEserial3</a> のときに作ったPython コード <a href="lists/BLEjoy.py">BLEjoy.py</a> の
 address と UUID を ESP32 に合わせれば，<a href="./ble.html">BLEserial3</a> と同じように無線コントロールができました．
 address(MAC)の調べ方はいろいろありますが，
