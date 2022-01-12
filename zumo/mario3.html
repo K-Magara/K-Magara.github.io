@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Zumo32U4でマリオカートライブもどき3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -70,63 +70,110 @@
 </header>
 </div>
 
-<h1>Zumo Zumo32U4</h1>
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>マリオカートライブもどき試作３号機</h2>
+<h3>はじめに</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．
+　<a href="./mario2.html">試作2号機</a>でもまずまずの結果が得られましたが，2つのESP32を使うのはコスト的によくないということで，
+新たに <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> を用意して制御系の1チップ化を図ります．
+M5camera は PSRAM 搭載のため，これまでのカメラよりも高性能化が見込めるはずです．
+親切に Type-C のケーブルまで付属．
+<a href="./mario2.html">試作2号機</a>製作時に購入した Typc-C の変換アダプタが無駄に...
+付属品は短いので購入したケーブルを使いますけどね．
+<br>
+　Zumo32U4 との 通信用に，GROVE端子から信号を取り出す必要があるので，
+ <a href="https://www.switch-science.com/catalog/1048/" target="_blank">GROVE - 4ピン-ジャンパメスケーブル (5本セット)</a> も併せて購入しました．
 </p>
+
+<h3>試作完成品</h3>
+<p>
+　先に完成した画像を以下に示します．
+M5camera に標準で付属していた LEGO の固定パーツを活用するため，ちょこっと細工しました．
 <figure class="c">
-    <img src="images/top.jpg" width="50%" alt="Zumoの外観">
+    <img src="images/mario31.jpg" width="50%">
 </figure>
+</p>
 <p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4（写真左）と，マイコンは積んでいない ZumoShield（写真右）の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
+以下にハマった点を列挙します．
 </p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
+<h3>NimBLEがビルドできない</h3>
+<p>
+　PSRAM搭載カメラなので，ESP32用のボードライブラリを2.01にアップグレードしました．詳細は<a href="./mario1.html">試作1号機のページ</a>を参照．
+ところが今度はNimBLE（1.33）を使ったスケッチがビルドできなくなる症状が発生．CPUが高負荷のままArduinoIDEが落ちてしまいます．
+やむなくNimBLEの使用はあきらめ，ESP32標準のBLEライブラリに変更しました．ひな型は ESP32 BLE Arduino → BLE_uart をベースにしています．<br>
+　後日談ですが，編集中にESP32用のボードライブラリが2.02へ，NimBLEも1.34にアップデートされていたので，いまならビルドできるかもしれません．
+</p>
 
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a></li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>（動画あり）</li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編（動画あり）
-	<ul>
-		<li><a href="./ir.html">赤外線</a></li>
-		<li><a href="./xbee.html">XBee</a></li>
-		<li><a href="./vsc1.html">VS-C1</a></li>
-		<li><a href="./ble.html">BLEserial3</a></li>
-	</ul></li>
-	<li>マリオカートライブもどき
-	<ul>
-		<li><a href="./mario1.html">試作1号機</a></li>
-		<li><a href="./mario2.html">試作2号機</a></li>
-		<li><a href="./mario3.html">試作3号機</a></li>
-	</ul></li>
-</ul>
+<h3>BLEで通信できない</h3>
+<p>
+　これはプチハマリでした．PythonからM5cameraのBLEが見えないと怒られますが，よくみるとMacアドレスが違いました．
+スケッチ書き込み時のMacアドレスは，24:62:ab:d9:dd:b0 なのに
+<figure class="c">
+    <img src="images/M5camera1.png">
+</figure>
+</p>
+<p>
+BLE用のMacアドレスが 24:62:ab:d9:dd:b2 というオチでした．
+<figure class="c">
+    <img src="images/M5camera2.png">
+</figure>
+</p>
 
-<h3>番外編</h3>
-<ul class="disc">
-	<li><a href="./trouble.html">想定外のトラブル</a></li>
-</ul>
+<h3>ソフトウェアシリアルが使えない</h3>
+<p>
+　BLEの単体テストでは，GORVE端子のGPIO4と13をソフトウェアシリアルとして設定し，Zumo32U4 への指示を出していましたが，
+WiFiカメラとの組み合わせでソフトウェアシリアルが使えないことが判明しました．
+<pre class="look"><code>
+	SoftwareSerial	mySerial(4, 13);	// WiFiカメラと併用するとESP32がリブートを繰り返す
+
+</code></pre>
+どうしようもないのでソフトウェアシリアルをあきらめ，本来の用途である I2C での通信に変更しました．
+</p>
+
+<h3>I2Cで通信できない</h3>
+<p>
+　これがドハマりでした．というよりI2C通信の仕組みを理解していなかったのが原因．
+シリアル通信と同じように，垂れ流したデータを適当に受信すれば通信できるようなイメージでしたが，全く受信できない．
+あげくに Wire.endTransmission() の戻り値が，ヘルプには 0～4 の定義しかないのに 5 を返します．エラーコードの調査のしようがなく途方に暮れておりました．<br>
+　かなり悩みましたが，結局 &quot;受信の割り込み&quot; を定義することで正しく受信できるようになりました．
+やみくもに available() してもマスターとのタイミングが合わないと読めないことがわかりました．
+以下は Zumo32U4 （スレーブ）側の抜粋です．
+<pre class="look"><code>
+#define I2C_ADDRESS   0x10
+volatile byte var = 0;
+
+void dataRecv(int)
+{
+  if ( Wire.available() ) {
+    var = Wire.read();
+    ledRed(1);
+  }
+}
+
+void setup()
+{
+  Wire.begin(I2C_ADDRESS);  // slave
+  Wire.onReceive(dataRecv); // ISR
+  Serial.begin(9600);
+  while(!Serial);
+}
+
+void loop()
+{
+  Serial.println(var, HEX);
+  ledRed(0);
+  delay(1000);
+}
+
+</code></pre>
+</p>
+
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
