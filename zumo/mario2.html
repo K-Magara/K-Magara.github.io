@@ -78,7 +78,7 @@
 <h2>マリオカートライブもどき試作２号機</h2>
 <h3>はじめに</h3>
 <p>
-　１号機ではこれ以上の進展が見込めないので，新たな試作品としてカメラを別に用意しました．
+	　<a href="./mario1.html">試作1号機</a>ではこれ以上の進展が見込めないので，新たな試作品としてカメラを別に用意しました．
 <ul class="disc">
   <li><a href="https://www.switch-science.com/catalog/7231/" target="_blank">OV2640搭載 Unit Cam Wi-Fi Camera</a></li>
   <li><a href="https://www.switch-science.com/catalog/7471/" target="_blank">CP2104/CH9102搭載 ESP32 ダウンローダキット</a></li>
@@ -86,7 +86,7 @@
   <li><a href="https://www.yodobashi.com/product/100000001003428609/" target="_blank">USB3.1 Gen1 TypeCケーブル</a></li>
   <li><a href="https://www.yodobashi.com/product/100000001003719817/" target="_blank">USB Aオス を TypeCメス に変換するアダプタ</a></li>
 </ul>
-　１号機の配線では高周波に耐えられない感じがしたのでカメラ付きの ESP32キットを購入．
+　<a href="./mario1.html">試作1号機</a>の配線では高周波に耐えられない感じがしたのでカメラ付きの ESP32キットを購入．
 Webページには技適対応と明記されていませんが，スイッチサイエンスさんが取り扱う製品はすべて技適対応なようです．
 製品画像を拡大すると技適マークが刻印されていました．
 ただしこの製品にはUSBインタフェースがありませんので，別途書き込みツールが必要です．
@@ -107,7 +107,7 @@ Unit Cam にはたしかに 5V と刻印されていますが，そこにつな�
 
 <h3>試作回路</h3>
 <p>
-　試作１号機をそのまま流用します．Unit Cam用に電源（3.3V）だけ配線しました．
+　<a href="./mario1.html">試作1号機</a>をそのまま流用します．Unit Cam用に電源（3.3V）だけ配線しました．
 本当はこの Unit Cam だけで WiFi も Bluetooth もと思っていましたが，応答速度の必要なシーンでは，やはり1チップではしんどいですね．
 せっかく <a href="https://akizukidenshi.com/catalog/g/gM-11819/" target="_blank">ESP32-DevKitC ESP32-WROOM-32開発ボード</a> も搭載してますから，
 こちらはBLE通信用として使います．
@@ -118,7 +118,7 @@ Unit Cam にはたしかに 5V と刻印されていますが，そこにつな�
 
 <h3>サンプルスケッチ</h3>
 <p>
-　試作１号機のWiFiテストと同じです．ボードも &quot;ESP32 Dev Module&quot; でOKです．
+　<a href="./mario1.html">試作1号機</a>のWiFiテストと同じです．ボードも &quot;ESP32 Dev Module&quot; でOKです．
 Unit Cam のピン配置は CAMERA_MODEL_M5STACK_PSRAM と同じだったので<br>
 <span class="look">#define CAMERA_MODEL_M5STACK_PSRAM // Has PSRAM</span><br>
 の行を有効にします．PSRAMは搭載していませんが...<br>

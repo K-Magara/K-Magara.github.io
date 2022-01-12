@@ -80,19 +80,23 @@
 <p>
 　<a href="./mario2.html">試作2号機</a>でもまずまずの結果が得られましたが，2つのESP32を使うのはコスト的によくないということで，
 新たに <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> を用意して制御系の1チップ化を図ります．
-M5camera は PSRAM 搭載のため，これまでのカメラよりも高性能化が見込めるはずです．
+<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> は PSRAM 搭載のため，これまでのカメラよりも高性能化が見込めるはずです．
 親切に Type-C のケーブルまで付属．
 <a href="./mario2.html">試作2号機</a>製作時に購入した Typc-C の変換アダプタが無駄に...
 付属品は短いので購入したケーブルを使いますけどね．
 <br>
-　Zumo32U4 との 通信用に，GROVE端子から信号を取り出す必要があるので，
- <a href="https://www.switch-science.com/catalog/1048/" target="_blank">GROVE - 4ピン-ジャンパメスケーブル (5本セット)</a> も併せて購入しました．
+　<a href="./mario2.html">試作2号機</a>では結局使わなかった<a href="https://www.switch-science.com/catalog/1048/" target="_blank">GROVEケーブル</a>ですが，
+今回は Zumo32U4 との 通信用に使います．
+<a href="https://www.switch-science.com/catalog/7231/" target="_blank">Unit Cam</a>は
+GPIO#17 と GPIO#16（Serial2のTXとRX）が出ていましたが，
+<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a>は
+GPIO#4 と GPIO#13（I2CのSDAとSCL）が出ています．
 </p>
 
 <h3>試作完成品</h3>
 <p>
 　先に完成した画像を以下に示します．
-M5camera に標準で付属していた LEGO の固定パーツを活用するため，ちょこっと細工しました．
+<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> に標準で付属している LEGO の固定パーツを活用するため，ちょこっと穴加工しました．
 <figure class="c">
     <img src="images/mario31.jpg" width="50%">
 </figure>
@@ -111,14 +115,15 @@ M5camera に標準で付属していた LEGO の固定パーツを活用する�
 
 <h3>BLEで通信できない</h3>
 <p>
-　これはプチハマリでした．PythonからM5cameraのBLEが見えないと怒られますが，よくみるとMacアドレスが違いました．
+　これはプチハマリでした．Pythonから<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a>のBLEが見えないと怒られます．
+よくみるとMacアドレスが違いました．
 スケッチ書き込み時のMacアドレスは，24:62:ab:d9:dd:b0 なのに
 <figure class="c">
     <img src="images/M5camera1.png">
 </figure>
 </p>
 <p>
-BLE用のMacアドレスが 24:62:ab:d9:dd:b2 というオチでした．
+BLE用のMacアドレスが 24:62:ab:d9:dd:b2 というオチ．いやがらせかよｗｗ
 <figure class="c">
     <img src="images/M5camera2.png">
 </figure>
@@ -126,22 +131,25 @@ BLE用のMacアドレスが 24:62:ab:d9:dd:b2 というオチでした．
 
 <h3>ソフトウェアシリアルが使えない</h3>
 <p>
-　BLEの単体テストでは，GORVE端子のGPIO4と13をソフトウェアシリアルとして設定し，Zumo32U4 への指示を出していましたが，
+　BLEの単体テストでは，GORVE端子のGPIO#4とGPIO#13をソフトウェアシリアルとして設定し，Zumo32U4 への指示を出していましたが，
 WiFiカメラとの組み合わせでソフトウェアシリアルが使えないことが判明しました．
 <pre class="look"><code>
 	SoftwareSerial	mySerial(4, 13);	// WiFiカメラと併用するとESP32がリブートを繰り返す
 
 </code></pre>
+</p>
+<p>
 どうしようもないのでソフトウェアシリアルをあきらめ，本来の用途である I2C での通信に変更しました．
 </p>
 
 <h3>I2Cで通信できない</h3>
 <p>
-　これがドハマりでした．というよりI2C通信の仕組みを理解していなかったのが原因．
-シリアル通信と同じように，垂れ流したデータを適当に受信すれば通信できるようなイメージでしたが，全く受信できない．
-あげくに Wire.endTransmission() の戻り値が，ヘルプには 0～4 の定義しかないのに 5 を返します．エラーコードの調査のしようがなく途方に暮れておりました．<br>
+　これがドハマりでした．というよりI2C通信の仕組みを正しく理解していなかったのが原因．
+シリアル通信と同じように，垂れ流したデータを適当に受信すればいいだけのイメージでしたが，全く受信できない．
+あげくに Wire.endTransmission() の戻り値（<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a>がマスター）が，
+ヘルプには 0～4 の定義しかないのに 5 を返します．エラーコードの調査のしようがなく途方に暮れておりました．<br>
 　かなり悩みましたが，結局 &quot;受信の割り込み&quot; を定義することで正しく受信できるようになりました．
-やみくもに available() してもマスターとのタイミングが合わないと読めないことがわかりました．
+<strong class="color1">やみくもに Wire.available() で問い合わせてもマスターとのタイミングが合わないと読めない</strong>ことがわかりました．
 以下は Zumo32U4 （スレーブ）側の抜粋です．
 <pre class="look"><code>
 #define I2C_ADDRESS   0x10
@@ -171,6 +179,35 @@ void loop()
 }
 
 </code></pre>
+</p>
+
+
+<h3>サンプルスケッチ</h3>
+<p>
+　これらをふまえて書いたスケッチを公開します．
+</p>
+<p class="c"><a href="lists/Mario.zip">Mario.zip</a></p>
+<p>
+　M5mario は <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> に書き込むスケッチです．ボードは ESP32 Wrover Module を選択．ZumoMario は Zumo32U4 に書き込むスケッチです．
+<a href="./mario2.html">試作2号機</a>まではSoftAPを設定してESP32自体をアクセスポイントにしていましたが，
+それでは遅いという情報を得たので，ノートPCをアクセスポイントに設定するよう変更しました．
+［設定］から［ネットワークとインターネット］を選択し［モバイルホットスポット］を有効にします．
+［ネットワーク名］と［パスワード］の情報を M5mario のスケッチに記述してください．
+</p>
+<p>
+<figure class="c">
+  <img src="images/netsetting.png" width="50%">
+</figure>
+<pre class="look"><code>
+  const char* ssid = "DESKTOP-O5GQ6F4 0443";
+  const char* password = "47Z}151g";
+
+</code></pre>
+</p>
+<p>
+　アクセスポイントをPC側にしても残念ながら明らかな速度アップは体感できませんでしたが，
+1チップでそこそこの安定動作が実現できました．
+もう少しFPSを上げられないか検討課題です．
 </p>
 
 </section>
