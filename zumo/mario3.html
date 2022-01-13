@@ -181,7 +181,6 @@ void loop()
 </code></pre>
 </p>
 
-
 <h3>サンプルスケッチ</h3>
 <p>
 　これらをふまえて書いたスケッチを公開します．
@@ -210,6 +209,31 @@ void loop()
 もう少しFPSを上げられないか検討課題です．
 </p>
 
+<h3>Pythonコード</h3>
+<p>
+  　<a href="./ble.html">BLEserial3</a> のときに作ったPython のコード <a href="lists/BLEjoy.py">BLEjoy.py</a> を少し改良しました．
+pyGameのウィンドウがアクティブでないとゲームパッドの入力を受け付けてくれないので，せめてウィンドウを最前列に表示するように変更しました．
+Windows 限定になってしまいますが，pyWin32 ライブラリを追加でインストールし，pygame.display.set_mode() のあとに2行追加します．
+win32con と win32gui を import するのも忘れずに．
+<br>
+　Python 3.8系から 3.10系にアップデートし，Bleak も 0.10.0 から 0.14.1 にアップデートすると，イベント関連でワーニングがでるようになりました．
+将来的に書き方を変更する必要がありそうです．
+</p>
+<pre class="look"><code>
+  screen = pygame.display.set_mode((320, 320))
+  <strong class="color1">hwnd = pygame.display.get_wm_info()['window']</strong>
+  <strong class="color1">win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE|win32con.SWP_NOSIZE)</strong>
+  
+</code></pre>
+<p class="c"><a href="lists/M5mario.py">M5mario.py</a></p>
+<p>
+　そもそもESP32と直接通信できるゲームパッドがあれば，こんなことをしなくてもいいんですけどね．
+テストで使用しているのは家で使っていた Nintendo Switch 用のゲームコントローラーです．
+Aボタンが壊れて学校に寄付ｗｗｗ
+</p>
+<figure class="c">
+  <img src="images/BLEcontroller.jpg" width="50%">
+</figure>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
