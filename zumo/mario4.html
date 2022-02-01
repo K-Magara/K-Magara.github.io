@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Zumo32U4でマリオカートライブもどき4</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+</div>
+
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
+
+<div id="contents">
+<section>
+
+<h2>マリオカートライブもどき試作４号機</h2>
+<h3>はじめに</h3>
+<p>
+　<a href="./mario3.html">試作3号機</a>でかなり仕上がりましたが 
+<a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> が在庫限りということで，
+後継機と思われる 
+<a href="https://www.switch-science.com/catalog/6742/" target="_blank">Timer Camera X</a> に変更しました（これも在庫が怪しいですが^^;）．
+カメラのピン配置が <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> とは違いますが，記載の通りに合わせれば問題なく動きます（下記の表を参照）．
+ボード設定は <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> のときは
+［ESP32 Wrover Module］でしたが，
+<a href="https://www.switch-science.com/catalog/6742/" target="_blank">Timer Camera X</a> は
+［M5Stack-Timer-CAM］でないと書き込みできません．Upload Speed の設定かな？
+<figure class="c">
+  <img src="images/TimerCamBoard.png" width="50%">
+</figure>
+<br>
+<table border="1" align="center">
+  <tr>
+    <th>モデル</th><th>有効にするdefine</th><th>ボード</th>
+  </tr>
+  <tr>
+    <td><a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a></td>
+    <td>CAMERA_MODEL_M5STACK_V2_PSRAM</td>
+    <td>ESP32 Wrover Module</td>
+  </tr>
+  <tr>
+    <td><a href="https://www.switch-science.com/catalog/6742/" target="_blank">Timer Camera X</a></td>
+    <td>CAMERA_MODEL_M5STACK_PSRAM</td>
+    <td>M5Stack-Timer-CAM</td>
+  </tr>
+</table>
+</p>
+
+<h3>試作完成品</h3>
+<p>
+　付属のブラケットを使えば <a href="https://www.switch-science.com/catalog/5207/" target="_blank">M5camera</a> と同じ位置に固定できます．
+<a href="./mario3.html">試作3号機</a>の土台をそのまま流用しました．
+<figure class="c">
+    <img src="images/mario41.jpg" width="50%">
+</figure>
+</p>
+
+<h3>コントローラアプリ</h3>
+<p>
+　ようやく見つけました．
+<a href="https://thestempedia.com/product/dabble/" target="_blank">Dabble</a> というアプリです．
+これに GamePad 機能が付いています．
+入口のリンクがよくわからないので <a href="https://thestempedia.com/docs/dabble/getting-started-with-dabble/" target="_blank">こちら</a>
+からどうぞ．Explore Other Modules（左ペイン）の <a href="https://thestempedia.com/docs/dabble/game-pad-module/" target="_blank">Gamepad Module</a> 
+に詳しく書かれています．<a href="https://thestempedia.com/download/24469/" target="_blank">ESP32 用のライブラリ</a>（zip直リンクです）をダウンロードし，
+Arduino IDE で［zip形式のライブラリをインストール］すれば，すぐに使えます．
+スケッチ例の［DabbleESP32］→［03.GamePad］を書き込めば動作確認が可能です．
+私物の iPhone8 と学校の古い iPad（MD513J/A iOS 10.3.2）で動作確認できました．<br>
+　このアプリのおかげで，PCを経由したPython環境が不要になるだけではなく，そもそも物理的なゲームパッドが不要になるので，授業で使う学生人数分のゲームパッドを買う必要がなくなります．
+iPhone だけではなく，Android 系でもリリースされているのも良いですね．
+ただ，突然ダウンロードできなくなったりする可能性があるので，学校の iPad のある程度の台数にインストールしておこうと思います．
+欲を言えばアナログスティックが左右2つほしかったです．まぁやむを得ないですね．
+<figure class="c">
+  <img src="images/GamePadApp.png" width="50%">
+</figure>
+</p>
+
+<h3>サンプルスケッチ</h3>
+<p>
+　サンプルスケッチを公開します．今回はボタンでも動くようにしています．
+</p>
+<p class="c"><a href="lists/Mario_iPad.zip">Mario_iPad.zip</a></p>
+<p>
+　M5mario_OV3660_iPad は <a href="https://www.switch-science.com/catalog/6742/" target="_blank">Timer Camera X</a> に書き込むスケッチです．
+ZumoMario_iPad は Zumo32U4 に書き込むスケッチです．
+<a href="./mario3.html">試作3号機</a>ではノートPCをアクセスポイントにするよう変更しましたが，
+操作性等々を考慮して<a href="./mario2.html">試作2号機</a>以前のように ESP32 自体がアクセスポイントになるよう，元に戻しました．
+iPad に［インターネット共有］がないバージョンだったためという理由もあります．
+M5mario_OV3660_iPad のスケッチで
+<pre class="look"><code>
+#define SOFT_AP
+
+</code></pre>
+</p>
+<p>
+が有効か無効かで簡単に切り替えできるように書いています．
+ほかに DabbleESP32.h が先頭にないと Arduino IDE がハングアップする現象がありましたが，
+それ以外は特段問題もなくスムーズに操作することができました．
+</p>
+
+<h3>スプリットビュー</h3>
+<p>
+　最近の iPad ってスプリットビューというのが使えるんですね．おじさん知りませんでした．
+これが使えればPCと同じように 1台の iPad でカメラ画像を表示させながらゲームパッドアプリでコントロール！ なんてことが可能になります．
+まさに理想的な動作環境です．
+残念ながら古い iPad（MD513J/A）ではスプリットビューができないようなので，
+新しい iPad を持っている方に協力をお願いし <a href="https://thestempedia.com/product/dabble/" target="_blank">Dabble</a> アプリをインストールしてもらいました．
+ですが，ボタン系の入力が全く受け付けないようです．普通に起動（シングル表示に）してもダメっぽい．
+たまたま古い iPad で動作しましたが，新しい iPad でうまく動かないのかな？
+<s>持ち主の問題？wwww</s> おそらくアプリ側の問題かと思われます．
+AppleStoreの最終更新履歴は 2020.04.30 なので，更新されることを願います．<br>
+　スプリットビューができなくても，たとえば自分のスマホと貸し出すiPadを併用するとか，
+学生2人1組にして 2台の iPad でカメラ表示とゲームパッドを分散させる，
+など運用でカバーするのも手ですね．
+</p>
+
+<h3>最後に</h3>
+<p>
+　20台程度の一斉動作でスムーズに動作するかがまだ検証できていません．
+予算確保と兵隊を確保して検証しないと！
+</p>
+
+</section>
+<p></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
