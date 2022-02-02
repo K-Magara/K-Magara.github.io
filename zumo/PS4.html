@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>PS4コントローラ（番外編）</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -70,65 +70,44 @@
 </header>
 </div>
 
-<h1>Zumo Zumo32U4</h1>
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>PS4コントローラ（番外編）</h2>
+<h3>はじめに</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．
-</p>
+　PS4用の互換コントローラを紹介します．
+結構お高いのでこれを学生人数分買うわけにはいきませんが，大人なのでスペシャルなコントローラを使いますｗｗ　
+ESP32 と PS4 や XBox などのゲーム機のコントローラを接続する方法はたくさん紹介されています．Bluetooth万歳．
+今回は <a href="https://qiita.com/Geek493/items/8402ad875b88822e75ab" target="_blank">Qiitaのページ</a> を参考にさせてもらいました．
 <figure class="c">
-    <img src="images/top.jpg" width="50%" alt="Zumoの外観">
+  <img src="images/PS4controller.jpg" width="50%">
 </figure>
-<p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4（写真左）と，マイコンは積んでいない ZumoShield（写真右）の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
 </p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
+<h3>問題発生！！</h3>
+<p>
+　<a href="https://qiita.com/Geek493/items/8402ad875b88822e75ab" target="_blank">Qiitaのページ</a> の記載通り準備します．
 <ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
+  <li><a href="https://sixaxispairtool.software.informer.com/download/" target="_blank">sixaxispairtool</a> でコントローラにESP32のMacアドレスを書き込む</li>
+  <li>ArduinoIDEのライブラリ <a href="https://github.com/aed3/PS4-esp32" target="_blank">PS4-esp32</a> を用意</li>
 </ul>
+　スケッチ例の［PS4ReceiveData］を <a href="https://www.switch-science.com/catalog/6742/" target="_blank">Timer Camera X</a> に書き込むと
+簡単にコントローラの情報が取得できました．やったぜ！
+</p><br>
+<p>
+　駄菓子菓子...<strong class="color1">一度接続を切ると二度とアクセスできなくなる鬼仕様が発覚！！</strong>（esp32 ver2.0.2）<br>
+1回目はスムーズに接続できましたが，2回目以降は何をやってもペアリングできなくなりました．どうやら同じ症状が報告されているようで
+ <a href="https://github.com/aed3/PS4-esp32/issues/38" target="_blank">PS4-esp32 の Issue</a> にあるように
+ this part was solved by ereasing flash of the ESP32（フラッシュをイレースすると解決する）らしいです．
+ただし，消したところで書き込んだ初回しかペアリングできないので，何の解決にもなりません．
+これが投稿されたのが 2021/12/15 なので，もう少し待てば解決されるかも？？
+　探せば他にもライブラリありそうですけどね～
+</p>
 
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a></li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>（動画あり）</li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編
-	<ul>
-		<li><a href="./ir.html">赤外線</a>（動画あり）</li>
-		<li><a href="./xbee.html">XBee</a>（動画あり）</li>
-		<li><a href="./vsc1.html">VS-C1</a>（動画あり）</li>
-		<li><a href="./ble.html">BLEserial3</a>（動画あり）</li>
-	</ul></li>
-	<li>マリオカートライブもどき
-	<ul>
-		<li><a href="./mario1.html">試作1号機</a></li>
-		<li><a href="./mario2.html">試作2号機</a>（動画あり）</li>
-		<li><a href="./mario3.html">試作3号機</a></li>
-		<li><a href="./mario4.html">試作4号機</a>（ほぼ最終型）</li>
-		<li><a href="./PS4.html">PS4コントローラ（番外編）</a></li>
-	</ul></li>
-</ul>
-
-<h3>番外編</h3>
-<ul class="disc">
-	<li><a href="./trouble.html">想定外のトラブル</a>（動画あり）</li>
-</ul>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
