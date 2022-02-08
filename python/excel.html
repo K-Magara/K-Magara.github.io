@@ -10,12 +10,14 @@
 
   gtag('config', 'G-QZV05PBY1K');
 </script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['\$','\$'],['\\(','\\)']],processEscapes:true},CommonHTML: {matchFontHeight:false}});</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --複数のエクセルファイルを１つにまとめる--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
-<meta name="keywords" content="Python, NCVC, Script">
+<meta name="keywords" content="Python, Excel, エクセル">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -70,68 +72,91 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>複数のエクセルファイルを１つにまとめる</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>複数のエクセルファイルを１つにまとめる</h2>
 <p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
+　自分の忘備録用です．他の事務処理にも応用が利くと思いますので，ここに公開します．
+ネタ切れのせいか当初の目的からどんどんずれていくｗｗｗ
+</p>
+
+<h3>背景</h3>
+<p>
+　遠隔授業という環境で，学生さんのプレゼン発表を聞かなければならない状況になりました．
+対面なら他の学生さんも聴講する様子が一目瞭然ですが，リモートでは自分の発表時間以外に何をしているのか把握できません．
+その対策として，学生さん同士でプレゼンの評価をしてもらうことにしました．
+「他の人の発表をちゃんと聞きなさい」というメッセージ付きです．<br>
+　配布するのは下図のようなエクセルファイルです．個人情報保護の観点から配布データに名前は入れません．
+これに各自の評価を入力してもらい，全員発表が終わればMoodleの課題提出機能を使ってアップロードしてもらいます．
+これを1クラス（約40名）分集計し，合計得点の高い人にプレゼン大賞を授けるにはどうすればいいでしょうか？
+まさか手動で集計しませんよね．
+</p>
 <figure class="c">
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
+<img src="images/excel_1.png">
 </figure>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>NC関連</h2>
-<p>
-　以下のプログラムは <a href="https://github.com/NCVC-CAM/PythonScripts" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-各スクリプトの [RAW] ボタンを押せば生スクリプトが取り出せますよ．
-</p>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-	<li><a href="./spline.html">スプライン曲線</a></li>
-</ul>
 
-<h2>グラフ</h2>
+<h3>Pythonプログラム</h3>
 <p>
-　本のサンプルだけではネタ切れなので，交流波形観測実験の指導書を書き直したときのサンプルプログラムを掲載します．
-以下のプログラムは <a href="https://github.com/K-Magara/pythongraph" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-</p>
-<ul class="disc">
-	<li><a href="./graph_base.html">ベース</a></li>
-	<li><a href="./graph_volt.html">電圧の測定</a></li>
-	<li><a href="./graph_freq.html">周波数の測定</a></li>
-	<li><a href="./graph_freq5T.html">時間基準周波数測定法の説明グラフ</a></li>
-	<li><a href="./graph_RL.html">RL直列回路（誘導回路）</a></li>
-	<li><a href="./graph_RC.html">RC直列回路（容量回路）</a></li>
-</ul>
-<p>
-　普通のグラフサンプルも
-</p>
-<ul class="disc">
-	<li><a href="./graph_normal.html">理論値と測定値がある一般的な実験のグラフサンプル</a></li>
-</ul>
+　Pandasのおかげで簡単に記述できます．
+ポイントはクラス番号と氏名が入力されたCSVを別に用意し，このCSVをベースにDataFrameの基礎情報を作ります．
+そこに各学生が入力した［10点］の列を足していく，という処理になります．
+ファイル名で列を追加するのでエラー処理のリカバリにもなります．<br>
+　glob, pandas, numpy の各ライブラリは
+<pre class="look"><code>
+> pip install glob
 
-<h2>その他</h2>
-<p>
+</code></pre>
+等でインストールしておいてください．
 </p>
-<ul class="disc">
-	<li><a href="./excel.html">複数のエクセルファイルを1つにまとめる</a></li>
-</ul>
+<pre class="look"><code>
+import glob
+import pandas as pd
+import numpy as np
+
+# 名簿と列構成の取り込み（空のDataFrame）
+# エクセルデータと区別するためにCSV形式で提供
+df  = pd.read_csv('名簿.csv', header=0, index_col=0)
+
+# カレントのエクセルファイルを全て読み込み
+# ファイル名で列を追加
+# 隠しファイルも対象になるのでエクセルは閉じておくように
+list = glob.glob('*.xlsx')
+type = [int, np.int64, float, np.float64]
+
+for f in list:
+    print('file='+f+' start', end='')
+    ex = pd.read_excel(f, header=1, index_col=0) # 2行目がヘッダー, 1列目がインデックス
+    if ex['10点'].dtype in type:    # 型のチェック
+        print('')
+    else:
+        print(' --- not numeric ', end='')
+        print(ex['10点'].dtype)
+        ex['10点'] = pd.to_numeric(ex['10点'], errors='coerce')
+    df[f] = ex['10点'].fillna(0)  # NaNはゼロで置換
+
+df['合計'] = df.sum(axis='columns', numeric_only=True)
+
+# 合計点数で降順に並べる
+# 同点の場合は番号昇順
+df = df.sort_values(['合計', '番号'], ascending=[False, True])
+df.to_excel('../合計.xlsx')
+
+print('')
+print(df)
+</code></pre>
+<br>
+<p>
+　まれに全角数字や変な入力をする学生がいるので，
+エクセルの方で［データの入力規則］を設定しておくと尚良しですね．
+上のエラー処理はこの設定をする前のものです．後学のため入れたままにしています．
+</p>
+<figure class="c">
+<img src="images/excel_2.png">
+</figure>
 
 </section>
 
