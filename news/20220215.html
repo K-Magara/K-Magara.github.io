@@ -12,35 +12,35 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>NCVCの作者のページ --採用情報--</title>
+<title>NCVCの作者のページ --ニュース（2022/02/xx）--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
 <meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/openclose.js"></script>
-<script src="js/fixmenu_pagetop.js"></script>
-<script src="js/ddmenu_min.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
 </head>
 
 <body>
 
 <div id="container">
 <header>
-<h1 id="logo"><a href="index.html"><img src="images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
 <!--PC用（901px以上端末）メニュー-->
 <nav id="menubar">
 <ul>
 <li class="ddmenu-title">Contents
 	<ul class="ddmenu">
-	<li><a href="./index.html#download">ダウンロード</a></li>
+	<li><a href="../index.html#download">ダウンロード</a></li>
 	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
-	<li><a href="python/index.html">Python初心者のための実践講座</a></li>
-	<li><a href="zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
 	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
 	</ul>
 </li>
-<li><a href="./recruit.html">Recruit</a></li>
-<li><a href="./contact.html">Contact</a></li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
 </ul>
 </nav>
 <!--小さい端末用（900px以下端末）メニュー-->
@@ -48,23 +48,23 @@
 <ul>
 <li id="menubar_hdr2" class="close">Contents
 	<ul id="menubar-s2">
-	<li><a href="./index.html#download">ダウンロード</a></li>
+	<li><a href="../index.html#download">ダウンロード</a></li>
 	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
-	<li><a href="python/index.html">Python初心者のための実践講座</a></li>
-	<li><a href="zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
 	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
 	</ul>
 </li>
-<li><a href="./recruit.html">Recruit</a></li>
-<li><a href="./contact.html">Contact</a></li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
 </ul>
 </nav>
 <!--
 <ul class="icon">
-<li><a href="#"><img src="images/icon_facebook.png" alt="Facebook"></a></li>
-<li><a href="#"><img src="images/icon_twitter.png" alt="Twitter"></a></li>
-<li><a href="#"><img src="images/icon_instagram.png" alt="Instagram"></a></li>
-<li><a href="#"><img src="images/icon_youtube.png" alt="TouTube"></a></li>
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
 </ul>
 -->
 </header>
@@ -73,18 +73,43 @@
 <div id="contents">
 <section>
 
-<h2>採用情報</h2>
+<h2>NCVCオープンソース化決定！<span>2022/02/15</span></h2>
 <p>
-　<a href="news/20220215.html">こちらのページ</a>でもお知らせしたとおり，
-<strong class="color1">2022年2月15日をもってNCVC本体のソースコードが全てオープンになりました．</strong>
-しかしオープンソースのプロジェクト管理は素人同然です．
-コードを書く以外に，Organization の設定，各リポジトリの管理，
-コードレビュー（テスト）等々で貢献してもいいよ！
-という方は，ぜひ自己アピールとともに管理者までコンタクトを取ってください．
-よろしくお願いいたします．
+　昔，「ソースコードください！」とメールが来たことがありました．
+『そんなこと簡単に言うなよ！血と汗と涙の結晶を簡単に渡せるわけないやん！』
+と内心ブチ切れてましたが(^^;) 時代が変われば考えも変わるもの．
+このたび
+<strong class="color1">NCVC本体のソースコードを全てオープンにしたのでお知らせいたします．</strong>
+僕の書いたハナクソみたいなコードでも，
+それで貢献できるなら参照するだけでもOKです．
+もし気が向いたら開発にも参加してみてください．
+<br>
+　ただし，オープンソースにはしましたが，権利まで放棄したわけではありません．
+BSD好きという理由だけですが
+ <a href="https://github.com/NCVC-CAM/NCVC/blob/main/LICENSE" target="_blank">BSD 3-Clause License</a> 
+を適用しています．
+このへんは今後もう少し煮詰める必要があると思いますが，
+なんでもアリというわけではないのでご注意ください．
+</p>
+<p>
+　正直どうなるかわかりません．遅きに失したかもしれませんが，今後ともよろしくお願いいたします．
+ちなみに，ちょうど1年前の 2021/02/15 は
+<a href="https://ameblo.jp/ken-ncvc/entry-12663293387.html" target="_blanke">入院記念日</a> となります．
+この日しかないというタイミングで公開しました．（何の話？ｗｗｗ）
+</p>
+
+<h2>NCVC-CAM Organization の運用について</h2>
+<p>
+　学内のドキュメント管理でそれなりに経験を積んできたとはいえ，オープンソースのプロジェクト管理は素人同然です．
+全ての Issue や PullRequest に答えられないかもしれません．
+どうぞお手柔らかにお願いします．
+スタッフの募集等々は<a href="../recruit.html">こちら</a>からどうぞ．
+</p>
+<p class="c">
+<a href="https://github.com/NCVC-CAM" target="_blank">NCVC-CAM Organization (GitHub)</a>
 </p>
 </section>
-<p></p>
+
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
 </div>
