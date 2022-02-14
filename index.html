@@ -92,6 +92,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2022/02/15</dt>
+<dd>NCVC Ver3.91 リリース<!-- <span class="newicon">NEW</span> --></dd>
 <dt>2022/02/03</dt>
 <dd>WindowsXP 以前での動作は NCVC Ver3.90 を最後にサポート終了の予定です．詳しくは<a href="https://ameblo.jp/ken-ncvc/entry-12724792290.html" target="_blank">ブログ</a>参照．</dd>
 <dt>2022/01/31</dt>
@@ -109,31 +111,37 @@
 <h3>NCVC本体ダウンロードサイト</h3>
 <ul class="disc">
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>　更新にはタイムラグがあります．</li>
-	<li>firestorage</li>
+	<li>firestorage（最新版）</li>
+	<ul>
+		<li><a href="https://firestorage.jp/download/e5a60dd675a2c24a7fc7a606143f6b0c4d0fd1c0" target="_blank">Ver3.91 64ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/6751318c836b2f00579cf4075b11198741398479" target="_blank">Ver3.91 32ビット版インストーラ</a></li>
+		<li><a href="https://firestorage.jp/download/b113ed0b505d2734bd86ef7a382effbb1bfcbf54" target="_blank">Ver3.91 32ビット版zip</a></li>
+	</ul>
+	<li>firestorage（WindowsXPでも動作する最後のバージョン）</li>
 	<ul>
 		<li><a href="https://firestorage.jp/download/3f4f019840276e436fb72dcd24daa71918d75857" target="_blank">Ver3.90 64ビット版インストーラ</a></li>
 		<li><a href="https://firestorage.jp/download/788ac6443e4c6ab4c44f9757734df6d92e87ce61" target="_blank">Ver3.90 32ビット版インストーラ</a></li>
 		<li><a href="https://firestorage.jp/download/bf591b5339ffb0f444fcdc92cf828b4abb1e21a4" target="_blank">Ver3.90 32ビット版zip</a></li>
 	</ul>
-	<li>firestorage（１世代古いバージョン）</li>
-	<ul>
-		<li><a href="https://firestorage.jp/download/cbca22e342975273cdfd08e513cb79004c4132fe" target="_blank">Ver3.88b 64ビット版インストーラ</a></li>
-		<li><a href="https://firestorage.jp/download/66ead213d5adc83441b3656a9a036a8b1a1b187f" target="_blank">Ver3.88b 32ビット版インストーラ</a></li>
-		<li><a href="https://firestorage.jp/download/cdd1af5ec347cc8067e7902fd6626a145a33e634" target="_blank">Ver3.88b 32ビット版zip</a></li>
+</ul>
+
+<h3>更新履歴　Ver3.91 (2022/02/15)</h3>
+<ul class="disc">
+<li>全般</li>
+	<ul class="disc">
+	<li>開発環境をVisualStudio2022に変更<br>→MFCランタイムの変更，XPでの動作不可</li>
+	</ul>
+<li>ＤＸＦ</li>
+	<ul class="disc">
+	<li>［無視するワード］を追加</li>
+	</ul>
+<li>バグレポート</li>
+	<ul class="disc">
+	<li>NCデータのOpenGL表示で［カーソル位置まで実行］しても全部表示されてしまっていたバグを修正</li>
+	<li>指定行への移動ダイアログで，数値入力部で左右の矢印キーが効かなかった（ビューが移動してしまう）バグを修正</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver3.90 (2021/09/24)　79,260行</h3>
-<ul class="disc">
-	<li>ＤＸＦ</li>
-	<ul class="disc">
-		<li>［SPLINE］キーワードに対応<br>→内部でPOLYLINE変換します</li>
-	</ul>
-	<li>バグレポート</li>
-	<ul class="disc">
-		<li>旋盤ビューモードで最初に断面図をオフにし，Ctrl+ダブルクリックで断面図を出すと断面が閉じていなかったバグを修正</li>
-	</ul>
-</ul>
 <p>古い更新履歴は<a href="history/history.html">こちら</a></p>
 
 <h3>その他</h3>
