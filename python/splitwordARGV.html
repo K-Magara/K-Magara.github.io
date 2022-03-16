@@ -12,7 +12,7 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Python初心者向け実践講座</title>
+<title>Python初心者向け実践講座 --ワードで分割--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Python初心者のための実践講座">
 <meta name="keywords" content="Python, NCVC, Script">
@@ -70,72 +70,39 @@
 </header>
 </div>
 
-<h1>Pyton による NCプログラム（Gコード）の処理</h1>
+<h1>Python でワード分割してみる（Scriptorium経由で実行する場合）</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
-<p>
-　本ページでは，NCVCの作者として
-著書『<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank">いまからはじめるNC工作第2版</a>』
-で紹介している Perl スクリプトを Python で実現してみようという主旨で書いています．
-習うより慣れろ！
-何を処理するか目的がはっきりしていればのみこみも早いでしょうし，
-それがなによりPython初心者向けの実践講座として有益だと思います．
-<figure class="c">
-<a href="https://shop.ohmsha.co.jp/shopdetail/000000005207/" target="_blank"><img src="../images/9784274221644.jpg" width="20%"></a>
-</figure>
-</p>
-<p>
-徐々に増やしていきます．
-</p>
 
-<h2>NC関連</h2>
+<h2>Python でワード分割してみる（Scriptorium経由で実行する場合）</h2>
 <p>
-　以下のプログラムは <a href="https://github.com/NCVC-CAM/PythonScripts" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-各スクリプトの [RAW] ボタンを押せば生スクリプトが取り出せますよ．
+　Perlで組んだ時に標準入出力（リダイレクト）が渡せなかった記憶があったので，引数で入力ファイルと出力ファイルを渡したのかな？
+Pythonスクリプトも以下のように書き換える必要があります．ご参考に．
+ファイルをcloseしない行儀の悪い書き方です．
 </p>
-<ul class="disc">
-	<li><a href="./addseq.html">シーケンス番号を振る</a></li>
-	<li><a href="./splitword.html">ワードで分割してみる</a></li>
-	<ul class=""disc"><li><a href="./splitwordARGV.html">→Scriptorium経由で実行する場合</a></li></ul>
-	<li><a href="./yzx.html">一括置換</a></li>
-	<li><a href="./YtoC.html">Y軸の値をC軸の回転角度に変換</a></li>
-	<li><a href="./rotary.html">エピトロコイド曲線の座標を出力</a></li>
-	<li><a href="./spline.html">スプライン曲線</a></li>
-</ul>
+<pre class="look"><code>
+import sys
+import re
 
-<h2>グラフ</h2>
-<p>
-　本のサンプルだけではネタ切れなので，交流波形観測実験の指導書を書き直したときのサンプルプログラムを掲載します．
-以下のプログラムは <a href="https://github.com/K-Magara/pythongraph" target="_blank">GitHub</a> に置いてあります．
-ご自由にどうぞ．
-</p>
-<ul class="disc">
-	<li><a href="./graph_base.html">ベース</a></li>
-	<li><a href="./graph_volt.html">電圧の測定</a></li>
-	<li><a href="./graph_freq.html">周波数の測定</a></li>
-	<li><a href="./graph_freq5T.html">時間基準周波数測定法の説明グラフ</a></li>
-	<li><a href="./graph_RL.html">RL直列回路（誘導回路）</a></li>
-	<li><a href="./graph_RC.html">RC直列回路（容量回路）</a></li>
-</ul>
-<p>
-　普通のグラフサンプルも
-</p>
-<ul class="disc">
-	<li><a href="./graph_normal.html">理論値と測定値がある一般的な実験のグラフサンプル</a></li>
-</ul>
+<strong class="color1">inFile=open(sys.argv[1])</strong>
+<strong class="color1">outFile=open(sys.argv[2], "w")</strong>
 
-<h2>その他</h2>
-<p>
-</p>
-<ul class="disc">
-	<li><a href="./excel.html">複数のエクセルファイルを1つにまとめる</a></li>
-</ul>
+reg_ignore = re.compile(r'\W')
+reg_word   = re.compile(r'[A-Z]-*\d+\.*\d*')
 
+for line in <strong class="color1">inFile.readlines():</strong>
+    if re.match(reg_ignore, line):
+        print(line, end=''<strong class="color1">, file=outFile</strong>)
+        continue
+    wordlist = re.findall(reg_word, line)
+    for w in wordlist:
+        print(w, end=' '<strong class="color1">, file=outFile</strong>)
+    print(''<strong class="color1">, file=outFile</strong>)
+	
+</pre></code>
+<p class="c"><a href="https://github.com/NCVC-CAM/PythonScripts/blob/main/splitword_ARGV.py">splitword_ARGV.py</a></p>
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
