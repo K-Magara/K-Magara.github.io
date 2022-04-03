@@ -89,7 +89,7 @@ import re
 <strong class="color1">outFile=open(sys.argv[2], "w")</strong>
 
 reg_ignore = re.compile(r'\W')
-reg_word   = re.compile(r'[A-Z]-*\d+\.*\d*')
+reg_word   = re.compile(r'[A-Z]-?\d+\.?\d*')
 
 for line in <strong class="color1">inFile.readlines():</strong>
     if re.match(reg_ignore, line):
