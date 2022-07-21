@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['\$','\$'],['\\(','\\)']],processEscapes:true},CommonHTML: {matchFontHeight:false}});</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Python初心者向け実践講座 --GyroBoyでライントレース--</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Python初心者のための実践講座">
+<meta name="keywords" content="MicroPython, EV3, GyroBoy">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--
+<ul class="icon">
+<li><a href="#"><img src="../images/icon_facebook.png" alt="Facebook"></a></li>
+<li><a href="#"><img src="../images/icon_twitter.png" alt="Twitter"></a></li>
+<li><a href="#"><img src="../images/icon_instagram.png" alt="Instagram"></a></li>
+<li><a href="#"><img src="../images/icon_youtube.png" alt="TouTube"></a></li>
+</ul>
+-->
+</header>
+</div>
+
+<h1>GyroBoyでライントレース</h1>
+
+<div id="contents">
+<section>
+
+<h2>GyroBoyでライントレース</h2>
+<p>
+　ここに載せるべきかどうか疑問が残りますがｗｗ
+一応 Python のデモということで，LEGO MINDSTORM EV3 の MicroPython を使って動作させています．
+オリジナルは<a href="https://pybricks.com/ev3-micropython/" target="_blank">本家Webページ</a>から．
+処理速度が遅いと言われる Python ですが，がんばってバランスとっています．
+</p>
+<p class="c">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EcpPstF3gL8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
+<h3>プログラム</h3>
+<p>
+　ほぼ<a href="https://pybricks.com/ev3-micropython/examples/gyro_boy.html" target="_blank">本家</a>と同じですが，
+超音波センサは使っていませんし，光センサの役目も変わっているので，不要な部分は除いています．
+光センサの状態によって表情を変えたかったのですが，それをすると処理が追い付かずに倒れてしまったので，コメントアウトしました．
+</p>
+<pre class="look"><code>
+#!/usr/bin/env pybricks-micropython
+
+from ucollections import namedtuple
+from pybricks.hubs import EV3Brick
+from pybricks.ev3devices import Motor, TouchSensor, ColorSensor, GyroSensor
+from pybricks.parameters import Port, Color, ImageFile, SoundFile
+from pybricks.tools import wait, StopWatch
+
+# Initialize the EV3 brick.
+ev3 = EV3Brick()
+
+# Initialize the motors connected to the drive wheels.
+left_motor = Motor(Port.D)
+right_motor = Motor(Port.A)
+
+# Initialize the motor connected to the arms.
+arm_motor = Motor(Port.C)
+
+# Initialize the Color Sensor. It is used to detect the colors that command
+# which way the robot should move.
+Rcolor_sensor = ColorSensor(Port.S1)
+Lcolor_sensor = ColorSensor(Port.S3)
+
+# Initialize the gyro sensor. It is used to provide feedback for balancing the
+# robot.
+gyro_sensor = GyroSensor(Port.S2)
+
+# Initialize the touch sensor.
+touch_sensor = TouchSensor(Port.S4)
+
+# Initialize the timers.
+fall_timer = StopWatch()
+single_loop_timer = StopWatch()
+control_loop_timer = StopWatch()
+action_timer = StopWatch()
+
+# The following (UPPERCASE names) are constants that control how the program
+# behaves.
+GYRO_CALIBRATION_LOOP_COUNT = 200
+GYRO_OFFSET_FACTOR = 0.0005
+TARGET_LOOP_PERIOD = 15  # ms
+ARM_MOTOR_SPEED = 600  # deg/s
+
+SPEED = 300
+STEER = 150
+
+# If we fall over in the middle of an action, the arm motors could be moving or
+# the speaker could be beeping, so we need to stop both of those.
+def stop_action():
+    ev3.speaker.beep(0, -1)
+    arm_motor.run_target(ARM_MOTOR_SPEED, 0)
+
+while True:
+    # Sleeping eyes and light off let us know that the robot is waiting for
+    # any movement to stop before the program can continue.
+    ev3.screen.load_image(ImageFile.SLEEPING)
+    ev3.light.off()
+
+    # Reset the sensors and variables.
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+    fall_timer.reset()
+
+    motor_position_sum = 0
+    wheel_angle = 0
+    motor_position_change = [0, 0, 0, 0]
+    drive_speed, steering = SPEED, 0  # FORWARD_FAST
+    control_loop_count = 0
+    robot_body_angle = -0.25
+
+    # Calibrate the gyro offset. This makes sure that the robot is perfectly
+    # still by making sure that the measured rate does not fluctuate more than
+    # 2 deg/s. Gyro drift can cause the rate to be non-zero even when the robot
+    # is not moving, so we save that value for use later.
+    while True:
+        gyro_minimum_rate, gyro_maximum_rate = 440, -440
+        gyro_sum = 0
+        for _ in range(GYRO_CALIBRATION_LOOP_COUNT):
+            gyro_sensor_value = gyro_sensor.speed()
+            gyro_sum += gyro_sensor_value
+            if gyro_sensor_value > gyro_maximum_rate:
+                gyro_maximum_rate = gyro_sensor_value
+            if gyro_sensor_value < gyro_minimum_rate:
+                gyro_minimum_rate = gyro_sensor_value
+            wait(5)
+        if gyro_maximum_rate - gyro_minimum_rate < 2:
+            break
+    gyro_offset = gyro_sum / GYRO_CALIBRATION_LOOP_COUNT
+#    gyro_offset = 0
+
+    # Awake eyes and green light let us know that the robot is ready to go!
+    ev3.screen.load_image(ImageFile.ANGRY)
+    ev3.light.on(Color.GREEN)
+    ev3.speaker.play_file(SoundFile.SPEED_UP)
+
+#    gyro_sensor.reset_angle(0)
+
+    # Main control loop for balancing the robot.
+    while True:
+
+        # Color Sensor
+        cr = Rcolor_sensor.reflection()
+        cl = Lcolor_sensor.reflection()
+        if cr > 25:
+            if cl > 25:
+                steering = 0
+                ds = 0
+#                ev3.screen.load_image(ImageFile.STOP_1)
+#                break
+            else:
+#                ev3.screen.load_image(ImageFile.LEFT)
+                steering = -STEER   # TRUN_LEFT
+#                ds = SPEED
+        elif cl > 25:
+#            ev3.screen.load_image(ImageFile.RIGHT)
+            steering = STEER      # TRUN_RIGHT
+#            ds = SPEED
+#        elif steering != 0:
+#            ev3.screen.load_image(ImageFile.ANGRY)
+        else:
+            steering = 0
+            ds = SPEED
+
+        if drive_speed != ds:
+            drive_speed = ds
+            if drive_speed > 0:
+                ev3.screen.load_image(ImageFile.ANGRY)
+            else:
+                ev3.screen.load_image(ImageFile.STOP_1)
+
+        # This timer measures how long a single loop takes. This will be used
+        # to help keep the loop time consistent, even when different actions
+        # are happening.
+        single_loop_timer.reset()
+
+        # This calculates the average control loop period. This is used in the
+        # control feedback calculation instead of the single loop time to
+        # filter out random fluctuations.
+        if control_loop_count == 0:
+            # The first time through the loop, we need to assign a value to
+            # avoid dividing by zero later.
+            average_control_loop_period = TARGET_LOOP_PERIOD / 1000
+            control_loop_timer.reset()
+        else:
+            average_control_loop_period = (control_loop_timer.time() / 1000 /
+                                           control_loop_count)
+        control_loop_count += 1
+
+        # calculate robot body angle and speed
+        gyro_sensor_value = gyro_sensor.speed()
+        gyro_offset *= (1 - GYRO_OFFSET_FACTOR)
+        gyro_offset += GYRO_OFFSET_FACTOR * gyro_sensor_value
+        robot_body_rate = gyro_sensor_value - gyro_offset
+        robot_body_angle += robot_body_rate * average_control_loop_period
+
+        # calculate wheel angle and speed
+        left_motor_angle = left_motor.angle()
+        right_motor_angle = right_motor.angle()
+        previous_motor_sum = motor_position_sum
+        motor_position_sum = left_motor_angle + right_motor_angle
+        change = motor_position_sum - previous_motor_sum
+        motor_position_change.insert(0, change)
+        del motor_position_change[-1]
+        wheel_angle += change - drive_speed * average_control_loop_period
+        wheel_rate = sum(motor_position_change) / 4 / average_control_loop_period
+
+        # This is the main control feedback calculation.
+        output_power = (-0.01 * drive_speed) + (0.8 * robot_body_rate +
+                                                15 * robot_body_angle +
+                                                0.08 * wheel_rate +
+                                                0.12 * wheel_angle)
+        if output_power > 100:
+            output_power = 100
+        if output_power < -100:
+            output_power = -100
+
+        # Drive the motors.
+        left_motor.dc(output_power - 0.1 * steering)
+        right_motor.dc(output_power + 0.1 * steering)
+
+        # Check if robot fell down. If the output speed is +/-100% for more
+        # than one second, we know that we are no longer balancing properly.
+        if abs(output_power) < 100:
+            fall_timer.reset()
+        elif fall_timer.time() > 1000:
+            break
+
+        # Make sure loop time is at least TARGET_LOOP_PERIOD. The output power
+        # calculation above depends on having a certain amount of time in each
+        # loop.
+        wait(TARGET_LOOP_PERIOD - single_loop_timer.time())
+
+    # Handle falling over. If we get to this point in the program, it means
+    # that the robot fell over.
+
+    # Stop all of the motors.
+    stop_action()
+    left_motor.stop()
+    right_motor.stop()
+
+    # Knocked out eyes and red light let us know that the robot lost its
+    # balance.
+    ev3.light.on(Color.RED)
+#    ev3.screen.load_image(ImageFile.KNOCKED_OUT)
+    ev3.screen.load_image(ImageFile.DIZZY)
+    ev3.speaker.play_file(SoundFile.SPEED_DOWN)
+
+    # Wait for a few seconds before trying to balance again.
+    wait(3000)
+</code></pre>
+
+</section>
+
+<p></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
