@@ -108,6 +108,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2022/08/25</dt>
+<dd>NCVC Ver4.10 リリース</dd>
 <dt>2022/04/03</dt>
 <dd>Python版プロセスシート　<a href="python/index.html">Python初心者のための実践講座</a>からどうぞ</dd>
 <dt>2022/04/01</dt>
@@ -137,17 +139,29 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.00" target="_blank">Ver4.00</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.10" target="_blank">Ver4.10</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.00 (2022/04/01)　82,362行</h3>
+<h3>更新履歴　Ver4.10 (2022/08/25)</h3>
 <ul class="disc">
-<li>ＮＣ生成</li>
-	<ul class="disc">
-	<li>NURBS曲面の切削コードが吐けるようになった．<br>→詳細は<a href="https://github.com/NCVC-CAM/NCVC.doc7/releases/tag/v1.00" target="_blank">別紙ドキュメント</a>参照</li>
-	</ul>
+<li>NC生成</li>
+  <ul class="disc">
+  <li>複数レイヤから［標準生成］するときの仕様を変更しました．<br>
+    →標準生成は"全てのデータからとにかく近いデータを検索" していましたが，レイヤ名でソートし同一レイヤ内での検索を優先するようにしました．</li>
+  </ul>
+<li>NC表示</li>
+  <ul class="disc">
+  <li>OpenGLタブの左ダブルクリック操作をメニュー操作に変更．左ダブルクリック（線画の表示/非表示切り替え）は廃止しました．</li>
+  <li>OpenGLタブで描画された線をクリックすると，選択色になると同時に対応したブロック（行）が選択されるようにした．<br>
+    →ワイヤ放電加工機モードのときは［ソリッド表示］をオフにしないと選択色が表示されません．</li>
+  <li>上記状態でTABキーを押すと，リストビューにフォーカスするようにした．</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>コーナーRで向きが反対になるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/12" target="_blank">#12</a>）<br>→ただしもう少し検証が必要</li>
+  </ul>
 </ul>
 
 <p>古い更新履歴は<a href="history/history.html">こちら</a></p>
