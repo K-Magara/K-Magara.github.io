@@ -108,6 +108,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2022/09/06</dt>
+<dd>NCVC Ver4.11 リリース</dd>
 <dt>2022/08/25</dt>
 <dd>NCVC Ver4.10 リリース</dd>
 <dt>2022/04/03</dt>
@@ -139,28 +141,29 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.10" target="_blank">Ver4.10</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.11" target="_blank">Ver4.11</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.10 (2022/08/25)</h3>
+<h3>更新履歴　Ver4.11 (2022/09/06)</h3>
 <ul class="disc">
-<li>NC生成</li>
-  <ul class="disc">
-  <li>複数レイヤから［標準生成］するときの仕様を変更しました．<br>
-    →標準生成は"全てのデータからとにかく近いデータを検索" していましたが，レイヤ名でソートし同一レイヤ内での検索を優先するようにしました．</li>
-  </ul>
 <li>NC表示</li>
   <ul class="disc">
-  <li>OpenGLタブの左ダブルクリック操作をメニュー操作に変更．左ダブルクリック（線画の表示/非表示切り替え）は廃止しました．</li>
-  <li>OpenGLタブで描画された線をクリックすると，選択色になると同時に対応したブロック（行）が選択されるようにした．<br>
-    →ワイヤ放電加工機モードのときは［ソリッド表示］をオフにしないと選択色が表示されません．</li>
-  <li>上記状態でTABキーを押すと，リストビューにフォーカスするようにした．</li>
+  <li>リストを選択したら，該当する描画オブジェクトを選択色表示するようにした．<br>
+    →トレース実行時にだけ有効になっていた機能ですが，それを常時機能するように変更．<br>
+	　関連してトレース実行で行っていたトリッキーな描画方法をバッサリ削除（中身の話）</li>
+  <li>OpenGLタブでも線画によるトレース実行ができるようになった．<br>
+	→ソリッド表示をオフにしてトレース実行すると何も表示されなくなる不具合対応．</li>
+  </ul>
+<li>他</li>
+  <ul class="disc">
+  <li>表示属性オプションの［トレース設定］にある［現在位置のマーカー表示］は削除．<br>
+	→リスト選択からみで，このオプションは不要と判断しました．常に有効扱いとなります．</li>
   </ul>
 <li>バグレポート</li>
   <ul class="disc">
-  <li>コーナーRで向きが反対になるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/12" target="_blank">#12</a>）<br>→ただしもう少し検証が必要</li>
+  <li>ワイヤ放電加工機モードで，ソリッド表示をオフ（パス表示のみ）にしてトレース実行するとNCVCが落ちるバグを修正．</li>
   </ul>
 </ul>
 
