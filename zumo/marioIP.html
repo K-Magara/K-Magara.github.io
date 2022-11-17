@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>ESP32通信環境の改善</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="keywords" content="Zumo, Zumo32U4, 無線, Bluetooth, BLEserial3, BLE, Python, WiFi, Camera">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -37,8 +37,6 @@
 	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
 	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
 	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
-	<li><a href="https://twitter.com/kenNCVC" target="_blank">NCVC作者のつぶやき</a></li>
-	<li><a href="https://www.youtube.com/channel/UCI7H5vfuhUCerE5M_wmO7Fg" target="_blank">マガちゃんねる</a></li>
 	</ul>
 </li>
 <li><a href="../recruit.html">Recruit</a></li>
@@ -55,8 +53,6 @@
 	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
 	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
 	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
-	<li><a href="https://twitter.com/kenNCVC" target="_blank">NCVC作者のつぶやき</a></li>
-	<li><a href="https://www.youtube.com/channel/UCI7H5vfuhUCerE5M_wmO7Fg" target="_blank">マガちゃんねる</a></li>
 	</ul>
 </li>
 <li><a href="../recruit.html">Recruit</a></li>
@@ -73,67 +69,70 @@
 </header>
 </div>
 
-<h1>Zumo Zumo32U4</h1>
+<h1>Zumo Zumo32U4 BLEserial3 Bluetooth BLE Python Wifi Camera</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>ESP32通信環境の改善</h2>
+<h3>アクセスポイントの設置</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．
-</p>
+　1台そこそこで実験する分には何の問題もありませんでしたが，
+20台一斉動作させると画像を最小の96x96，またはQQVGA(160x120)程度まで落とさないとレスポンスが悪すぎることが判明．
+ESP32をアクセスポイントにするソフトAPの限界を感じました．
+それならばと某研究室から使わなくなったルータを拝借し，これをAPに仕立て上げるしかありません．
+機種バラバラですが3台提供していただきました．
 <figure class="c">
-    <img src="images/top.jpg" width="50%" alt="Zumoの外観">
+  <img src="images/AP00.jpg" width="50%">
 </figure>
-<p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4（写真左）と，マイコンは積んでいない ZumoShield（写真右）の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
 </p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
+<h3>ルータの設定</h3>
+<p>
+　この方式を敬遠していたのは，ESP32をDHCPクライアントにしてしまうと，
+カメラサーバ(M5camera)への接続時にIPが特定できない問題があります（シリアルモニタ等で確認する必要がある）．
+ですが，ルータに割り当てるIPを固定する機能があればそれが解決できることに気が付きました．
+ESP32のMACアドレスを調べ1台ずつ登録します．3台のAPに8台ずつ分散させました．
+<figure class="c">
+    <img src="images/Mechatro-01.png" width="50%"><br><br>
+    <img src="images/Mechatro-02.png" width="50%"><br><br>
+    <img src="images/Mechatro-03.png" width="50%"><br>
+</figure>
+</p>
 
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a>（動画あり）</li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>（動画あり）</li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編
-	<ul>
-		<li><a href="./ir.html">赤外線</a>（動画あり）</li>
-		<li><a href="./xbee.html">XBee</a>（動画あり）</li>
-		<li><a href="./vsc1.html">VS-C1</a>（動画あり）</li>
-		<li><a href="./ble.html">BLEserial3</a>（動画あり）</li>
-	</ul></li>
-	<li>マリオカートライブもどき
-	<ul>
-		<li><a href="./mario1.html">試作1号機</a></li>
-		<li><a href="./mario2.html">試作2号機</a>（動画あり）</li>
-		<li><a href="./mario3.html">試作3号機</a></li>
-		<li><a href="./mario4.html">試作4号機</a>（ほぼ最終型）</li>
-		<li><a href="./PS4.html">PS4コントローラ（番外編）</a></li>
-		<li><a href="./webstick.html">Web上のコントローラ（番外編）</a></li>
-		<li><a href="./marioIP.html">通信環境の改善</a></li>
-	</ul></li>
-</ul>
+<h3>タブレット側の設定</h3>
+<p>
+　画像を見るタブレット側はペアとなるESP32と同じAPにWiFi接続します．
+ESP32は2.4GHz帯のみですが，タブレット側が5GHz帯で接続できるならそれの方がいいかも．
+SSIDが末尾aアリかナシかで2.4GHzと5GHzを区別できるようにしておきました．
+ただ，今回の実験では5GHzがブチブチ切れたのでAPが怪しいかも？<br>
+　もし自動ログインがONになっていると，右図のようにバッファローの案内がでてしまうので，
+自動ログインはOFFにしておいた方が良いでしょう．
+（この画像はiPhoneのものです．iPadでも同じ．）
+<figure class="c">
+  <img src="images/AP01.png" width="30%">
+  <img src="images/AP02.png" width="30%">
+</figure>
+</p>
 
-<h3>番外編</h3>
-<ul class="disc">
-	<li><a href="./trouble.html">想定外のトラブル</a>（動画あり）</li>
-</ul>
+<h3>実験結果</h3>
+<p>
+　iPad2台並べてチェックしましたが，とくに問題ありませんでした．あたりまえですねｗｗ
+問題は20台の一斉動作に耐えられるかどうかですが，これはもうぶっつけ本番しかないですね．
+<figure class="c">
+  <img src="images/AP03.jpg" width="50%">
+</figure>
+</p>
+
+<h3>あとがき</h3>
+<p>
+　テプラ貼り直しです．チマチマやりますｗｗ
+<figure class="c">
+  <img src="images/AP99.jpg" width="50%">
+</figure>
+</p>
+
 </section>
-
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
 
