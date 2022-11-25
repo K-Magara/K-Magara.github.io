@@ -267,6 +267,16 @@ BLE Connected: True
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vWnp24Og5MI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
+<h3>Raspberry Pi 追記</h3>
+<p>
+　オープンキャンパス等のイベントでは，上記のPythonスクリプトを自動起動にしておき，本体とゲームパッドだけで運用します．
+キーボードもディスプレイも不要なので楽チンですが，これだとシャットダウンのタイミングに困ることになります．現にブチ切りしてSDカードがお亡くなりになりました．
+わざわざSSHでリモート接続してshutdownコマンドを，というのも面倒なので，
+たとえばゲームパッドのＸと〇の同時押しでshutdownコマンドが発行される的なPythonコードを追加し，この問題を解決しています．
+ラズパイ本体にシャットダウンボタンを追加するというアイデアもありますが，
+ボタンでいえば，もうすでにありますからねｗｗ
+</p>
+
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
