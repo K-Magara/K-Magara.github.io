@@ -210,6 +210,27 @@ Raspberry Pi だとどちらもBLE通信できているので，Windows側に問
 こまったこまったこまどり姉妹
 </p>
 
+<h3>追記(2022/12/15)</h3>
+<p>
+　どうやらpygameに問題があることが判明しました．
+BLEのコネクトサンプルでは正常に動いていたので，徐々に肉付けしていこうとコードを書いていたら
+以下のコードがあると BLE の is_connected() で応答を返さないことが判明しました．
+BLEとpygameが併用できない？？対策されるまで待つしかないかな～
+<pre class="look"><code>
+pygame.init()
+
+</code></pre>
+</p>
+
+<p>
+　ちなみに，Python3.10系から3.11系にアップグレードするとpygameがインストールエラーになります．
+以下のように開発バージョンなら入るようです．これは新しいバージョンあるあるですね．
+<pre class="look"><code>
+pip install pygame --pre
+
+</code></pre>
+</p>
+
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a>，<a href="./index.html">Zumoインデックスへ</a></p>
