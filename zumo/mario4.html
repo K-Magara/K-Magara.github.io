@@ -214,10 +214,15 @@ Raspberry Pi だとどちらもBLE通信できているので，Windows側に問
 <p>
 　どうやらpygameに問題があることが判明しました．
 BLEのコネクトサンプルでは正常に動いていたので，徐々に肉付けしていこうとコードを書いていたら
-以下のコードがあると BLE の is_connected() で応答を返さないことが判明しました．
+pygame.init() があると <s>BLE の is_connected() で応答を返さない</s> BLE接続はできているものの，BleakClient が応答を返さないことが判明しました．
 BLEとpygameが併用できない？？対策されるまで待つしかないかな～
 <pre class="look"><code>
-pygame.init()
+async def run(address, loop):
+	async with BleakClient(address, loop=loop) as client:
+		print("BleakClient ok"); # これが表示されない
+		x = await client.is_connected()
+		print("Connected: {0}".format(x))
+
 
 </code></pre>
 </p>
