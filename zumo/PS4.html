@@ -112,8 +112,16 @@ ESP32 と PS4 や XBox などのゲーム機のコントローラを接続する
 <h3>現状</h3>
 <p>
 　ESP32と直接通信することは諦めて，Raspberry Pi 経由で<a href="./ble.html">BLEserial3</a>や<a href="./mario3.html">試作機3号機</a>とのPythonを使ったコントローラとして使用しています．
+さらに，ラズパイ本体とゲームパッドだけで運用できるように以下のようなコードを考えました．参考にしたサイトは<a href="https://blog.bitmeister.jp/?p=4956" target="_blank">こちら</a>
 </p>
-
+<p class="c">
+    <a href="lists/pswatch.py">pswatch.py</a>
+</p>
+<p>
+　USB接続かBluetooth接続に関わらず，ゲームパッドがつながると /dev/input/js* のファイルが作られることを利用して，それを監視する Python スクリプトを書きました．
+これをラズパイ起動時に実行するようにしておけば，ゲームパッド接続のタイミングで <a href="lists/BLEjoy.py">BLEjoy.py</a> が動くので，キーボードやディスプレイがなくても本体だけで運用することができます．
+ラズパイ起動時に実行する書き方は他のサイトを参照してください．僕の場合は ~/.config/lxsession/LXDE-pi/autostart に追記しました．
+</p>
 </section>
 <p></p>
 <p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a>，<a href="./index.html">Zumoインデックスへ</a></p>
