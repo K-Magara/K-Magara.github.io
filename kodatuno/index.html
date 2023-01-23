@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QZV05PBY1K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QZV05PBY1K');
+</script>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Kodatuno応援プロジェクト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="NCVCはフリーのCAMソフトです．NCVC is a Free CAM software.">
+<meta name="keywords" content="NCVC, NC Viewer and Converter, Free, CAM, Kodatuno, Kernel">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/openclose.js"></script>
+<script src="../js/fixmenu_pagetop.js"></script>
+<script src="../js/ddmenu_min.js"></script>
+</head>
+
+<body>
+
+<div id="container">
+<header>
+<h1 id="logo"><a href="../index.html"><img src="../images/logo.png" alt="NCVCの作者のページ"></a></h1>
+<!--PC用（901px以上端末）メニュー-->
+<nav id="menubar">
+<ul>
+<li class="ddmenu-title">Contents
+	<ul class="ddmenu">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	<li><a href="https://www.youtube.com/channel/UCI7H5vfuhUCerE5M_wmO7Fg" target="_blank">マガちゃんねる</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+<!--小さい端末用（900px以下端末）メニュー-->
+<nav id="menubar-s">
+<ul>
+<li id="menubar_hdr2" class="close">Contents
+	<ul id="menubar-s2">
+	<li><a href="../index.html#download">ダウンロード</a></li>
+	<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">NCVCサポート掲示板（仮）</a></li>
+	<li><a href="../python/index.html">Python初心者のための実践講座</a></li>
+	<li><a href="../zumo/index.html">Zumo32U4コンテンツ</a></li>
+	<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank">NCVC作者のブログ</a></li>
+	<li><a href="https://www.youtube.com/channel/UCI7H5vfuhUCerE5M_wmO7Fg" target="_blank">マガちゃんねる</a></li>
+	</ul>
+</li>
+<li><a href="../recruit.html">Recruit</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</nav>
+
+<ul class="icon">
+<li><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank"><img src="../images/icon_zawa.png" alt="NCVCサポート掲示板（仮）"></a></li>
+<li><a href="https://ameblo.jp/ken-ncvc/entrylist.html" target="_blank"><img src="../images/icon_blog.png" alt="NCVC作者のブログ"></a></li>
+<li><a href="https://www.youtube.com/channel/UCI7H5vfuhUCerE5M_wmO7Fg" target="_blank"><img src="../images/icon_youtube.png" alt="YouTube"></a></li>
+</ul>
+
+</header>
+</div>
+
+<h1>Kodatuno CAM Kernel IGES</h1>
+
+<div id="contents">
+<section>
+
+<h2>Kodatuno応援プロジェクト（仮名）</h2>
+<h3>プロジェクトの説明</h3>
+<p>
+　本プロジェクトは <a href="http://www-mm.hm.t.kanazawa-u.ac.jp/index.html" target="_blank">金沢大学マンマシン研究室</a>で開発されている
+オープンソースなCAMカーネル <a href="http://www-mm.hm.t.kanazawa-u.ac.jp/research/kodatuno/" target="_blank">Kodatuno</a> をもっと世の中に広めるため，
+機能の向上や使いやすさの向上（導入のしやすさ）を応援するものです．
+Gitを活用することで
+
+本プロジェクトに参加することで，以下のメリットがあると考えます．
+<ul class="disc">
+	<li>自身の開発するソフトにライブラリとして取り込むことで複雑な幾何計算等の演算が可能となる</li>
+	<li>IGESファイルの対応</li>
+	<li>Kodatunoへの貢献＝国産CAMカーネルへの貢献</li>
+</ul>
+　機械屋さんと情報屋さんがタッグを組んで，よりよいものを作れればと思います．
+</p>
+
+<h3>作業目標</h3>
+<p>
+　当面の目標として以下のことを考えています．
+<ul class="disc">
+	<li>マルチプラットフォームを堅持しつつライブラリとして提供<br>
+		UIサンプルプログラムの切り離し，ヘッダーファイルの整理等々，CAMカーネルとして使いやすくするためのチューニング
+	</li>
+	<li>カーネル内部はSTLコンテナで<br>
+		KODlistDataをSTLコンテナに置き換えるなど，先進的なC++コードの提供（サンプルのUI部分は従来通り）
+	</li>
+	<li>IGESデータの対応拡充<br>
+		読めないIGESファイルへの対応
+	</li>
+</ul>
+　VisualStudio用として作成したブランチも統合できればと思っています．
+</p>
+
+<h3>GitHub Organization</h3>
+<p class="c"><a href="https://github.com/KodatunoOrg" target="_blank">https://github.com/KodatunoOrg</a></p>
+<p>
+　以前は <a href="https://github.com/NCVC-CAM" target="_blank">NCVC-CAM Organization</a> 配下に<a href="https://github.com/KodatunoOrg/Kodatuno" target="_blank">Kodatunoリポジトリ</a>を配置していましたが，
+将来的にはこのOrganizationごと<a href="http://www-mm.hm.t.kanazawa-u.ac.jp/index.html" target="_blank">マンマシン研究室</a>に譲渡できるよう新たに作りました．
+以前の <a href="https://github.com/KodatunoOrg/Kodatuno" target="_blank">Kodatunoリポジトリ</a>をcloneまたはforkした方は，リモートのURLを書き換えてください．
+</p>
+<p>
+<span class="look">&gt; git remote set-url origin https://github.com/KodatunoOrg/Kodatuno</span><br>
+</p>
+
+<h3>Contributor募集</h3>
+<p>
+　Gitに精通していることが望ましいですが無くても大丈夫です．
+Issue報告やPullRequests歓迎です．
+</p>
+
+<h3>作業進捗状況</h3>
+<p>
+　準備中
+</p>
+<br>
+</section>
+
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+<!--/#contents-->
+
+<footer>
+<!--
+<div id="footermenu">
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+<ul>
+<li class="title">タイトル</li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+<li><a href="#">メニューサンプルメニューサンプル</a></li>
+</ul>
+</div>
+-->
+<!--/#footermenu-->
+
+<div id="copyright">
+<small>Copyright&copy; K.Magara, <a href="https://www.maizuru-ct.ac.jp/" target="_blank">NIT(KOSEN) Maizuru College.</a> All Rights Reserved.</small>
+<span class="pr"><a href="https://template-party.com/" target="_blank">《Web Design:Template-Party》</a></span>
+</div>
+<!--/#copyright-->
+
+</footer>
+
+<!--ページの上部に戻る「↑」ボタン-->
+<p class="nav-fix-pos-pagetop"><a href="#">↑</a></p>
+
+<!--メニュー開閉ボタン-->
+<div id="menubar_hdr" class="close"></div>
+
+<!--メニューの開閉処理条件設定　900px以下-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr", "menubar-s");
+}
+</script>
+
+<!--子メニュー-->
+<script>
+if (OCwindowWidth() <= 900) {
+	open_close("menubar_hdr2", "menubar-s2");
+}
+</script>
+
+</body>
+</html>
