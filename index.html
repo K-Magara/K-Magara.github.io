@@ -95,10 +95,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
-<dt>2022/11/18</dt>
-<dd><a href="https://zawazawa.jp/b5almsd0ra1jvhw3/" target="_blank">サポート掲示板</a>の<a href="terms.html">利用規約</a>に加筆修正を行いました</dd>
-<dt>2022/09/06</dt>
-<dd>NCVC Ver4.11 リリース</dd>
+<dt>2023/04/21</dt>
+<dd>NCVC Ver4.12 リリース</dd>
 <p class="r"><a href="old.update/index.html">過去ログ</a></p>
 </dl>
 </section>
@@ -110,29 +108,26 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.11" target="_blank">Ver4.11</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.12" target="_blank">Ver4.12</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.11 (2022/09/06)</h3>
+<h3>更新履歴　Ver4.12 (2023/04/21)</h3>
 <ul class="disc">
+<li>NC生成</li>
+  <ul class="disc">
+  <li>生成したNURBS曲面のパスを消せるようになった</li>
+  </ul>
 <li>NC表示</li>
   <ul class="disc">
-  <li>リストを選択したら，該当する描画オブジェクトを選択色表示するようにした．<br>
-    →トレース実行時にだけ有効になっていた機能ですが，それを常時機能するように変更．<br>
-	　関連してトレース実行で行っていたトリッキーな描画方法をバッサリ削除（中身の話）</li>
-  <li>OpenGLタブでも線画によるトレース実行ができるようになった．<br>
-	→ソリッド表示をオフにしてトレース実行すると何も表示されなくなる不具合対応．</li>
-  </ul>
-<li>他</li>
-  <ul class="disc">
-  <li>表示属性オプションの［トレース設定］にある［現在位置のマーカー表示］は削除．<br>
-	→リスト選択からみで，このオプションは不要と判断しました．常に有効扱いとなります．</li>
+  <li>OpenGLレガシー関数であるglBegin()での描画を廃止（中身の話）<br>
+    →描画効率が上がっています．（次のステージへの布石？）</li>
   </ul>
 <li>バグレポート</li>
   <ul class="disc">
-  <li>ワイヤ放電加工機モードで，ソリッド表示をオフ（パス表示のみ）にしてトレース実行するとNCVCが落ちるバグを修正．</li>
+  <li>G91で作成したサブプログラムをM98呼び出しでトレース実行すると，正しく描画されなかった（同じところを描画してしまう）バグを修正</li>
+  <li>特定の操作を行うとOpenGLのソリッド表示が出なくなるバグを修正</li>
   </ul>
 </ul>
 
