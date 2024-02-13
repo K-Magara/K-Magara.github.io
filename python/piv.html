@@ -88,7 +88,7 @@
 </figure><br>
 <p>
 　オリジナルは <a href="https://watlab-blog.com/" target="_blank">WATLABブログ</a> さんの <a href="https://watlab-blog.com/2021/01/31/piv-vector/" target="_blank">Python/OpenCVでPIV計測！粒子移動をベクトル化する</a> を参考にさせてもらいました．先人の知恵に感謝！
-また，ここで紹介するコードは <a href="https://github.com/MNCT-S/4Spiv" target="_blank">GitHub</a> にて公開しています．
+また，ここで紹介するコードは <a href="https://github.com/MNCT-S/PythonPIV" target="_blank">GitHub</a> にて公開しています．
 opencv-python, numpy, matplotlib の各ライブラリを使用するのでインストールしておいてください．
 </p>
 
@@ -137,7 +137,7 @@ if not os.path.exists(args.outFolder):
 m_slice(args.inFile, args.outFolder, args.split)
 </code></pre>
 <p class="c">
-	<a href="https://github.com/MNCT-S/4Spiv/blob/main/avislice.py" target="_blank">avislice.py</a>
+	<a href="https://github.com/MNCT-S/PythonPIV/blob/main/avislice.py" target="_blank">avislice.py</a>
 </p>
 <p>
 　たとえば <span class="look">py avislice.py sample\s0.avi</span> のように実行すると，s0 というフォルダに連続静止画（png）を出力します．
@@ -285,7 +285,7 @@ if not args.outFile:
 piv(args.inFolder, args.outFile, args.threshold)
 </code></pre>
 <p class="c">
-	<a href="https://github.com/MNCT-S/4Spiv/blob/main/piv.py" target="_blank">piv.py</a>
+	<a href="https://github.com/MNCT-S/PythonPIV/blob/main/piv.py" target="_blank">piv.py</a>
 </p>
 <p>
 　たとえば <span class="look">py piv.py s0</span> のように実行すると，s0フォルダにある連続静止画から s0.png というPIV解析結果の画像ファイルを出力します．
