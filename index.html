@@ -88,6 +88,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2024/05/21</dt>
+<dd>NCVC Ver4.14a リリース</dd>
 <dt>2024/03/11</dt>
 <dd>NCVC Ver4.14 リリース</dd>
 <dt>2024/02/22</dt>
@@ -103,16 +105,19 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.14" target="_blank">Ver4.14</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.14a" target="_blank">Ver4.14a</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.14 (2024/03/11)</h3>
+<h3>更新履歴　Ver4.14a (2024/05/21)</h3>
 <ul class="disc">
-<li>NC表示</li>
+<li>バグレポート</li>
   <ul class="disc">
-  <li>［トータル加工時間］を［トータル加工予想時間］とし，秒単位表記とした（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/19" target="_blank">#19</a>）</li>
+  <li>M98P_D_ などと書くと，サブプロ先でD_が無視されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/21" target="_blank">#21</a>）</li>
+  <li>O_ブロックで番号のうしろにスペースなどの数字以外（コメントを除く）があるとM98で探せなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/22" target="_blank">#22</a>）</li>
+  <li>G54～G59ワーク座標系とG92座標系を併用すると，座標系の加算が反映されなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/23" target="_blank">#23</a>）<br>→旧：(G54～G59|G92)+G52 新：(G54～G59)+G92+G52</li>
+  <li>G02/G03で真円を切削するとき，現在位置への座標指示があると真円をシミュレートしなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）</li>
   </ul>
 </ul>
 
