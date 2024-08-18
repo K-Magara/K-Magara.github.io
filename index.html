@@ -88,6 +88,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2024/08/19</dt>
+<dd>NCVC Ver4.14c リリース</dd>
 <dt>2024/05/22</dt>
 <dd>NCVC Ver4.14b リリース</dd>
 <dt>2024/05/21</dt>
@@ -107,19 +109,27 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.14b" target="_blank">Ver4.14b</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.14c" target="_blank">Ver4.14c</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.14b (2024/05/22)</h3>
+<h3>更新履歴　Ver4.14c (2024/08/19)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>径補正D番号のモーダルが効いていなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/26" target="_blank">#26</a>）</li>
+  <li>同一ブロック内で複数のオブジェクトを生成するとき，G91モードで座標値が重複して加算されるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/27" target="_blank">#27</a>）</li>
+	</ul>
+</ul>
+
+<h3>Ver4.14b (2024/05/22)</h3>
 <ul class="disc">
 <li>バグレポート</li>
   <ul class="disc">
   <li>G02/G03で真円を切削するとき，シミュレーション描画が始点0°終点360°に固定されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）<br>→平面での見た目は変わりませんが，ヘリカル座標を加えるとよくわかります．</li>
   </ul>
 </ul>
-
 
 <h3>Ver4.14a (2024/05/21)</h3>
 <ul class="disc">
