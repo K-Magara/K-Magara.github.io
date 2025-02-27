@@ -88,18 +88,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
-<dt>2024/10/17</dt>
-<dd>NCVC Ver4.15 リリース</dd>
-<dt>2024/08/19</dt>
-<dd>NCVC Ver4.14c リリース</dd>
-<dt>2024/05/22</dt>
-<dd>NCVC Ver4.14b リリース</dd>
-<dt>2024/05/21</dt>
-<dd>NCVC Ver4.14a リリース</dd>
-<dt>2024/03/11</dt>
-<dd>NCVC Ver4.14 リリース</dd>
-<dt>2024/02/22</dt>
-<dd>NCVC Ver4.13a リリース</dd>
+<dt>2025/02/27</dt>
+<dd>NCVC Ver4.15a リリース</dd>
 <p class="r"><a href="old.update/index.html">過去ログ</a></p>
 </dl>
 </section>
@@ -111,44 +101,29 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15" target="_blank">Ver4.15</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15a" target="_blank">Ver4.15a</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.15 (2024/10/17)</h3>
+<h3>更新履歴　Ver4.15a (2025/02/27)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>固定サイクルモードのK_が認識できなくなっていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/29" target="_blank">#29</a>）<br>→固定サイクル中のK_は内部的にL_（繰り返し指令）扱いとなります．</li>
+  <li>G91G98で L_|K_ 指示されたとき，1点目のR点から移動の描画が伸びていたバグを修正</li>
+  </ul>
+<li>固定サイクルモードのP_の仕様変更</li>
+  <ul class="disc">
+  <li>便宜上これまでP_の小数点を許可していましたが，これを廃止しました．<br>つまりP値は整数のみを対象とし，単位はmsec扱いとなります．</li>
+  </ul>
+</ul>
+
+<h3>Ver4.15 (2024/10/17)</h3>
 <ul class="disc">
 <li>NC表示</li>
   <ul class="disc">
   <li>NC旋盤モードでのUW座標指定（インクリメンタル指令）をサポート（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/28" target="_blank">#28</a>）</li>
-  </ul>
-</ul>
-
-<h3>Ver4.14c (2024/08/19)</h3>
-<ul class="disc">
-<li>バグレポート</li>
-  <ul class="disc">
-  <li>径補正D番号のモーダルが効いていなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/26" target="_blank">#26</a>）</li>
-  <li>同一ブロック内で複数のオブジェクトを生成するとき，G91モードで座標値が重複して加算されるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/27" target="_blank">#27</a>）</li>
-  </ul>
-</ul>
-
-<h3>Ver4.14b (2024/05/22)</h3>
-<ul class="disc">
-<li>バグレポート</li>
-  <ul class="disc">
-  <li>G02/G03で真円を切削するとき，シミュレーション描画が始点0°終点360°に固定されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）<br>→平面での見た目は変わりませんが，ヘリカル座標を加えるとよくわかります．</li>
-  </ul>
-</ul>
-
-<h3>Ver4.14a (2024/05/21)</h3>
-<ul class="disc">
-<li>バグレポート</li>
-  <ul class="disc">
-  <li>M98P_D_ などと書くと，サブプロ先でD_が無視されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/21" target="_blank">#21</a>）</li>
-  <li>O_ブロックで番号のうしろにスペースなどの数字以外（コメントを除く）があるとM98で探せなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/22" target="_blank">#22</a>）</li>
-  <li>G54～G59ワーク座標系とG92座標系を併用すると，座標系の加算が反映されなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/23" target="_blank">#23</a>）<br>→旧：(G54～G59|G92)+G52 新：(G54～G59)+G92+G52</li>
-  <li>G02/G03で真円を切削するとき，現在位置への座標指示があると真円をシミュレートしなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）</li>
   </ul>
 </ul>
 

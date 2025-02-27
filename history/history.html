@@ -76,6 +76,34 @@
 
 <h2>NCVC 更新履歴</h2>
 
+<h3>Ver4.14c (2024/08/19)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>径補正D番号のモーダルが効いていなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/26" target="_blank">#26</a>）</li>
+  <li>同一ブロック内で複数のオブジェクトを生成するとき，G91モードで座標値が重複して加算されるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/27" target="_blank">#27</a>）</li>
+  </ul>
+</ul>
+
+<h3>Ver4.14b (2024/05/22)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>G02/G03で真円を切削するとき，シミュレーション描画が始点0°終点360°に固定されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）<br>→平面での見た目は変わりませんが，ヘリカル座標を加えるとよくわかります．</li>
+  </ul>
+</ul>
+
+<h3>Ver4.14a (2024/05/21)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>M98P_D_ などと書くと，サブプロ先でD_が無視されていたバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/21" target="_blank">#21</a>）</li>
+  <li>O_ブロックで番号のうしろにスペースなどの数字以外（コメントを除く）があるとM98で探せなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/22" target="_blank">#22</a>）</li>
+  <li>G54～G59ワーク座標系とG92座標系を併用すると，座標系の加算が反映されなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/23" target="_blank">#23</a>）<br>→旧：(G54～G59|G92)+G52 新：(G54～G59)+G92+G52</li>
+  <li>G02/G03で真円を切削するとき，現在位置への座標指示があると真円をシミュレートしなかったバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/24" target="_blank">#24</a>）</li>
+  </ul>
+</ul>
+
 <h3>Ver4.14 (2024/03/11)</h3>
 <ul class="disc">
 <li>NC表示</li>
