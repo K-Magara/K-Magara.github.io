@@ -88,6 +88,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2025/08/18</dt>
+<dd>NCVC Ver4.15b リリース</dd>
 <dt>2025/02/27</dt>
 <dd>NCVC Ver4.15a リリース</dd>
 <p class="r"><a href="old.update/index.html">過去ログ</a></p>
@@ -101,12 +103,21 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15a" target="_blank">Ver4.15a</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15b" target="_blank">Ver4.15b</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.15a (2025/02/27)</h3>
+<h3>更新履歴　Ver4.15b (2025/08/18)</h3>
+<ul class="disc">
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>OpenGL設定[FrameBufferObjectを使用する]のチェックを外してトレースすると表示が乱れるバグ（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/25" target="_blank">#25</a>）について，このオプションは内部で常時有効とし，設定ダイアログから消去しました．<br>（FBOは現代のビデオカードならほぼ全てでサポートされているはずです）</li>
+  <li>特定のDXFを読み込むとNCVCが落ちるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/30" target="_blank">#30</a>）<br>→ブロック処理のミス対応です</li>
+  </ul>
+</ul>
+
+<h3>Ver4.15a (2025/02/27)</h3>
 <ul class="disc">
 <li>バグレポート</li>
   <ul class="disc">
