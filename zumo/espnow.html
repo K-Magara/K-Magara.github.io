@@ -12,10 +12,10 @@
 </script>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Zumo32U4 index</title>
+<title>Zumo32U4 --ESP-Now--</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Zumo32U4 に関するトラブルシューティングとナレッジベースです．">
-<meta name="keywords" content="Zumo, Zumo32U4, USB, LineFollower, LineTrace, ライントレース, トレースカー, Servo, サーボ, PixyPet, カメラ, 無線, IR, 赤外線, XBee, VS-C1, Bluetooth, BLEserial3, BLE">
+<meta name="keywords" content="Zumo, Zumo32U4, ESP-Now">
 <link rel="stylesheet" href="../css/style.css">
 <script src="../js/openclose.js"></script>
 <script src="../js/fixmenu_pagetop.js"></script>
@@ -71,70 +71,67 @@
 </header>
 </div>
 
-<h1>Zumo Zumo32U4</h1>
+<h1>Zumo Zumo32U4 ESP-Now</h1>
 
 <div id="contents">
 <section>
-<h2>はじめに</h2>
+
+<h2>Zumo32U4 を ESP-Now でリモートコントロール</h2>
+<h3>はじめに</h3>
 <p>
-　本ページでは，舞鶴工業高等専門学校 電子制御工学科 1年後期で行う メカトロニクス演習という授業の中で使用している Zumo32U4 というロボットについて，
-これまで運用してきた実績をもとに情報公開するものです．
-これから導入したいと思われている方々や，既に導入済みでも何か拡張したいという方々に，ご参考になれば幸いです．
-逆に「こういうものもあるよ」という情報があれば，ご連絡頂ければ幸いです．
+　現在 <a href="./32u4_de_pixypet.html">PixyPet</a> の先導車用に，
+ラジコンZumoを <a href="./xbee.html">XBee</a>, <a href="./vsc1.html">VS-C1</a>, <a href="./ble.html">BLEserial3</a> の3台（赤外線はXBeeにアップデート）で運用していますが，
+赤青のボール2台ずつ先導させるにはもう1台ほしいところ．
+TimerCAM を使ったマリオカートライブもどきの <a href="./mario4.html">試作4号機</a> を出せば4台運用可能ですが，
+こいつは <a href="./32u4_de_pixypet.html">PixyPet</a> の翌週に登場させる機体なので，ネタバレになっちゃう～
+　ということで，4台目として ESP-Now を使った無線コントロールを考えてみました．
+</p>
+
+<h3>試作（＝そのまま本番）</h3>
+<p>
+　使用する ESP32 は，マリオカートライブもどきの
+<a href="./mario1.html">試作1号機</a> で使用した ESP32開発キットと，
+<a href="./mario2.html">試作2号機</a> でカメラだけ壊れた UNIT-CAM を使いました．使わなくなった資材の有効活用ですね！　
+UNIT-CAM は GROVE 端子を持っているので，Zumoとの接続は試作後の量産基板（参考画像は <a href="./marioIP.html">こちら</a> のあとがき参照）が流用できます．
+必然的に後者が受信側となり，前者をコントローラ側にしました．
 </p>
 <figure class="c">
-    <img src="images/top.jpg" width="50%" alt="Zumoの外観">
+    <img src="images/ESPNOW.jpg" width="50%">
 </figure>
+
+<h3>送信プログラム</h3>
 <p>
-　Zumoロボットには，マイコンを積んだスタンドアロンタイプの 32U4（写真左）と，マイコンは積んでいない ZumoShield（写真右）の2種類あります．
-本校ではスタンドアロンタイプの 32U4 を学生に貸し出して演習を進めていますので，このページもすべて 32U4 をベースにしています．
+　<a href="./mario4.html">試作4号機</a> （本番）で使っている <a href="https://thestempedia.com/product/dabble/" target="_blank">Dabble</a> アプリをうまくエミュレートできれば
+Zumo 側のプログラムをそのまま流用できるはず！というコンセプトで書きました．
+注意点として，プログラム内で MAC アドレスを決め打ちして接続しに行く都合上，受信側ESP32の MAC アドレスを事前に調べておいてください．
+<br>
+　同じ <a href="https://github.com/MNCT-S/1SZumo" target="_blank">Gitリポジトリ内</a> の <a href="https://github.com/MNCT-S/1SZumo/blob/main/M5mario_OV3660_iPad/M5mario_OV3660_iPad.ino" target="_blank">M5mario_OV3660_iPad.ino</a> となるべく同じデータを送るようにしています．
+こんな小さなマイコンで三角関数が使えるんですね．すごい時代だｗｗ
+</p>
+<p class="c"><a href="https://github.com/MNCT-S/1SZumo/blob/main/ESP32NOWsend/ESP32NOWsend.ino" target="_blank">ESPNOWsend.ino</a></p>
+<p>
 </p>
 
-<h2>もくじ</h2>
-<h3>トラブルシューティング</h3>
-<ul class="disc">
-	<li><a href="./usb.html">USBデバイスを認識しなくなった</a></li>
-	<li><a href="./usb2.html">USBデバイスを認識しなくなった2</a></li>
-	<li><a href="./pixy_usb.html">PixyPetでUSBデバイスを認識しなくなった</a></li>
-</ul>
+<h3>受信プログラム</h3>
+<p>
+　こちらは ESP-Now で受信したバイトデータをそのまま I<sup>2</sup>C に垂れ流すだけのプログラムです．
+送信側同様に <a href="https://github.com/MNCT-S/1SZumo/blob/main/M5mario_OV3660_iPad/M5mario_OV3660_iPad.ino" target="_blank">M5mario_OV3660_iPad.ino</a> と同じです．
+</p>
+<p class="c"><a href="https://github.com/MNCT-S/1SZumo/blob/main/ESP32NOWrecv/ESP32NOWrecv.ino" target="_blank">ESPNOWrecv.ino</a></p>
 
-<h3>ナレッジベース</h3>
-<ul class="disc">
-	<li><a href="./whiteline.html">黒地に白ラインでのライントレース</a>（動画あり）</li>
-	<li><a href="./servo.html">Zumo32U4 でサーボの制御</a></li>
-	<li>PixyPet
-	<ul>
-		<li><a href="./32u4_de_pixypet.html">Zumo32U4 で PixyPet を動かす</a>（動画あり）</li>
-		<li><a href="./pixypet2.html">PixyPet2 について</a></li>
-	</ul></li>
-	<li>無線コントロール編
-	<ul>
-		<li><a href="./ir.html">赤外線</a>（動画あり）</li>
-		<li><a href="./xbee.html">XBee</a>（動画あり）</li>
-		<li><a href="./vsc1.html">VS-C1</a>（動画あり）</li>
-		<li><a href="./ble.html">BLEserial3</a>（動画あり）</li>
-		<li><a href="./espnow.html">ESP-Now</a></li>
-	</ul></li>
-	<li>マリオカートライブもどき
-	<ul>
-		<li><a href="./mario1.html">試作1号機</a></li>
-		<li><a href="./mario2.html">試作2号機</a>（動画あり）</li>
-		<li><a href="./mario3.html">試作3号機</a></li>
-		<li><a href="./mario4.html">試作4号機</a>（ほぼ最終型）</li>
-		<li><a href="./PS4.html">PS4コントローラ（番外編）</a></li>
-		<li><a href="./webstick.html">Web上のコントローラ（番外編）</a></li>
-		<li><a href="./marioIP.html">通信環境の改善</a></li>
-	</ul></li>
-</ul>
-
-<h3>番外編</h3>
-<ul class="disc">
-	<li><a href="./trouble.html">想定外のトラブル</a>（動画あり）</li>
-</ul>
+<h3>試してみた感想</h3>
+<p>
+　ESP-Now ではじめて通信させましたが良好でした．簡単ですね～　動作動画は省略します．
+<br>
+唯一の難点として，このコードは esp32 ライブラリのバージョン 3.3.3 で書いたので，
+<a href="./mario4.html">試作4号機</a> の <a href="https://github.com/MNCT-S/1SZumo/blob/main/M5mario_OV3660_iPad/M5mario_OV3660_iPad.ino" target="_blank">M5mario_OV3660_iPad.ino</a> とは違う環境でコンパイルする必要があります．
+2.x 系に合わせて書こうかと悩みましたがいまさら古いコードで書くのもどうかと思い，執筆時点での 3.x 系をベースにコードを書きました．
+ワタシのところでは，デスクトップPCを 2.0.3 に，サブノートを 3.3.3 にして，それぞれで書き込んでいます．
+デモ機用に保管しておけばそうそう書き直すこともないので．
+</p>
 </section>
-
 <p></p>
-<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a>，<a href="./index.html">Zumoインデックスへ</a></p>
 
 </div>
 <!--/#contents-->
