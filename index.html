@@ -88,6 +88,8 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
+<dt>2025/12/11</dt>
+<dd>NCVC Ver4.15c リリース</dd>
 <dt>2025/08/18</dt>
 <dd>NCVC Ver4.15b リリース</dd>
 <dt>2025/02/27</dt>
@@ -103,12 +105,25 @@
 	<li><a href="https://www.vector.co.jp/soft/dl/winnt/business/se132046.html" target="_blank">Vector</a>（更新にはタイムラグがあります）</li>
 	<li><a href="https://github.com/NCVC-CAM/NCVC/releases" target="_blank">GitHub Release</a></li>
 	<ul class="disc">
-		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15b" target="_blank">Ver4.15b</a><!-- <span class="newicon">NEW</span> --></li>
+		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v4.15c" target="_blank">Ver4.15c</a><!-- <span class="newicon">NEW</span> --></li>
 		<li><a href="https://github.com/NCVC-CAM/NCVC/releases/tag/v3.90" target="_blank">Ver3.90</a>（WindowsXPでも動作する最後のバージョン）</li>
 	</ul>
 </ul>
 
-<h3>更新履歴　Ver4.15b (2025/08/18)</h3>
+<h3>更新履歴　Ver4.15c (2025/12/11)</h3>
+<ul class="disc">
+<li>全般</li>
+  <ul class="disc">
+  <li>開発環境をVisualStudio2026に変更しました．<br>→MFCランタイムが変更されているので，インストーラを推奨します．</li>
+  </ul>
+<li>バグレポート</li>
+  <ul class="disc">
+  <li>サムネイルでNCデータを開くと重複して表示されるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/31" target="_blank">#31</a>）<br>→拡張子の登録で"＊"を登録していると起きる現象．サムネ表示は登録拡張子のみを表示するように変更しました．</li>
+  <li>ソリッド表示をOFFにしたら［引数が正しくありません］と表示されて，初回の表示が乱れるバグを修正（Issue <a href="https://github.com/NCVC-CAM/NCVC/issues/32" target="_blank">#32</a>）<br>→OpenGLタブ表示中にソリッド表示をOFFにしたら背景が乱れる場合がありますが，これは仕様です(^^;)</li>
+  </ul>
+</ul>
+
+<h3>Ver4.15b (2025/08/18)</h3>
 <ul class="disc">
 <li>バグレポート</li>
   <ul class="disc">
